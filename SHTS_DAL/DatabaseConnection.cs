@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
 namespace SHTS_DAL
@@ -22,20 +18,19 @@ namespace SHTS_DAL
             return connection;
         }
 
-        private bool CloseConnection()
+        private void CloseConnection()
         {
-            try
-            {
-                connection.Close();
-                return true;
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
+            connection.Close();
         }
 
-        public List<string> GetStringQuery(string query, object[] parameters)
+        /// <summary>
+        /// Method that takes a query with an object array of variable length (which the params keyword is for) in order to create a MySQL command
+        /// and bind the values in the object array to every word in the query prefixed with a '@'. It then executes the query and puts the values of the result inside a list of strings. 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="parameters"></param>
+        /// <returns>A list of strings.</returns>
+        public List<string> GetStringQuery(string query, params object[] parameters)
         {
             result = new List<string>();
             command = connection.CreateCommand();
@@ -64,7 +59,7 @@ namespace SHTS_DAL
             return result;
         }
 
-        public void ExecuteNonSearchQuery(string query, object[] parameters)
+        public void ExecuteNonSearchQuery(string query, params object[] parameters)
         {
             OpenConnection();
             command = connection.CreateCommand();

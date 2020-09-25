@@ -9,7 +9,7 @@ namespace SHTS_DAL
 {
     public interface IDatabaseConnection
     {
-        List<string> GetStringQuery(string query, object[] parameters);
-        void ExecuteNonSearchQuery(string query, object[] parameters);
+        List<string> GetStringQuery(string query, params object[] parameters);
+        void ExecuteNonSearchQuery(string query, params object[] parameters);
     }
 }
