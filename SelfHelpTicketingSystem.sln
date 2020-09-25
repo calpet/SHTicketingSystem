@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfHelpTicketingSystem", "SelfHelpTicketingSystem.csproj", "{BC3359C0-1DC6-413C-B7DF-A3F60CD9E13B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfHelpTicketingSystem", "SelfHelpTicketingSystem.csproj", "{BC3359C0-1DC6-413C-B7DF-A3F60CD9E13B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHTS_DAL", "SHTS_DAL\SHTS_DAL.csproj", "{07BC4995-F9C6-4322-ADE6-9615997ED061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BC3359C0-1DC6-413C-B7DF-A3F60CD9E13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC3359C0-1DC6-413C-B7DF-A3F60CD9E13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC3359C0-1DC6-413C-B7DF-A3F60CD9E13B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07BC4995-F9C6-4322-ADE6-9615997ED061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07BC4995-F9C6-4322-ADE6-9615997ED061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07BC4995-F9C6-4322-ADE6-9615997ED061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07BC4995-F9C6-4322-ADE6-9615997ED061}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
