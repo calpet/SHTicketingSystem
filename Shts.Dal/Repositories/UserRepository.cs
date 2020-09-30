@@ -16,13 +16,7 @@ namespace Shts.Dal
 
         public void AddUser(UserDto user)
         {
-            _params = new object[]
-            {
-                user.Email,
-                user.Password
-            };
-
-            _dbCon.ExecuteNonSearchQuery($"INSERT INTO `person`(`email`, `password`) VALUES (@email, @pwd)", _params);
+            _dbCon.ExecuteNonSearchQuery($"INSERT INTO `person`(`email`, `password`) VALUES (@email, @pwd)", _params = new object[] { user.Email, user.Password });
         }
 
 
@@ -35,8 +29,7 @@ namespace Shts.Dal
 
         public void DeleteUser(int userId)
         {
-            _params = new object[] {userId};
-            _dbCon.ExecuteNonSearchQuery($"DELETE FROM `person` WHERE `person`.`personID` = @uid", _params);
+            _dbCon.ExecuteNonSearchQuery($"DELETE FROM `person` WHERE `person`.`personID` = @uid", _params = new object[] { userId });
         }
 
 
