@@ -1,8 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
 
-namespace SHTS_DAL
+namespace Shts.Dal
 {
     public class DatabaseConnection : IDatabaseConnection
     {
