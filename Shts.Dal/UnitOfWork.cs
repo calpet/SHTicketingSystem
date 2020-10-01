@@ -9,13 +9,20 @@ namespace Shts.Dal
     {
         private UserRepository _userRepo;
         private TicketRepository _ticketRepo;
+        private IDatabaseConnection _connection;
+
+        public UnitOfWork(IDatabaseConnection connection)
+        {
+            _connection = connection;
+        }
+
         public UserRepository UserRepository
         {
             get
             {
                 if (_userRepo == null)
                 {
-                    _userRepo = new UserRepository(new DatabaseConnection());
+                    _userRepo = new UserRepository(_connection);
                 }
 
                 return _userRepo;
@@ -28,7 +35,7 @@ namespace Shts.Dal
             {
                 if (_ticketRepo == null)
                 {
-                    _ticketRepo = new TicketRepository(new DatabaseConnection());
+                    _ticketRepo = new TicketRepository(_connection);
                 }
 
                 return _ticketRepo;
