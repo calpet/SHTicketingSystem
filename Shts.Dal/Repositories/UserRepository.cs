@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Shts.Dal.DTOs;
 
 namespace Shts.Dal
@@ -16,12 +17,12 @@ namespace Shts.Dal
 
         public void AddUser(UserDto user)
         {
-            _dbCon.ExecuteNonSearchQuery($"INSERT INTO `person`(`email`, `password`) VALUES (@email, @pwd)", _params = new object[] { user.Email, user.Password });
+            _dbCon.ExecuteNonSearchQuery($"INSERT INTO `person`(`firstName`, `lastName`, `email`, `password`) VALUES (@fname, @lname, @email, AES_ENCRYPT(@pwd, 'TICKET'))", _params = new object[] { user.Email, user.Password });
         }
 
         public void EditUser(UserDto user)
         {
-            _dbCon.ExecuteNonSearchQuery($"UPDATE `person` SET `firstName` = @fname, `lastName` = @lname, `email` = @email, `password` = @pwd WHERE `person`.`personID` = @id", _params = new object[] { user.FirstName, user.LastName, user.Email, user.Password, user.Id });
+            _dbCon.ExecuteNonSearchQuery($"UPDATE `person` SET `firstName` = @fname, `lastName` = @lname, `email` = @email, `password` = AES_ENCRYPT(@pwd, 'TICKET') WHERE `person`.`personID` = @id", _params = new object[] { user.FirstName, user.LastName, user.Email, user.Password, user.Id });
         }
 
         public void DeleteUser(int userId)
@@ -33,9 +34,9 @@ namespace Shts.Dal
         //@Todo: Fix this method pls:
         public UserDto GetUserById(int userId)
         {
-            _params = new object[] {userId};
-            //_result = _dbCon.GetStringQuery($"SELECT `email`, `password` FROM `person` WHERE `person`.`personID` = @uid", _params);
-            UserDto user = new UserDto() {Email = _result[0], Password = _result[1]};
+            
+            _result = _dbCon.GetStringQuery($"SELECT `firstName`, `lastName`, `gender`, `email`, `password`, `createdAt` FROM `person` WHERE `person`.`personID` = @uid", _params = new object[] { userId });
+            UserDto user = new UserDto() {Id = Convert.ToInt32(_result[0]), Email = _result[5], Password = _result[6]};
             return user;
         }
 
