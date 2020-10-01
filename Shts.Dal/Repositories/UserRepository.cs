@@ -19,12 +19,9 @@ namespace Shts.Dal
             _dbCon.ExecuteNonSearchQuery($"INSERT INTO `person`(`email`, `password`) VALUES (@email, @pwd)", _params = new object[] { user.Email, user.Password });
         }
 
-
-        //@TODO: Implement these methods.
         public void EditUser(UserDto user)
         {
-            _params = new object[] {user.FirstName, user.LastName, user.Email, user.Password, user.Email};
-            //_dbCon.ExecuteNonSearchQuery($"UPDATE `person` SET (`person`.`firstName` = @fname, `person`.`lastName` = @lname, `person`.`email` = @email, `person`.`password` = @pwd WHERE `person`.`email` = @email)", _params);
+            _dbCon.ExecuteNonSearchQuery($"UPDATE `person` SET `firstName` = @fname, `lastName` = @lname, `email` = @email, `password` = @pwd WHERE `person`.`personID` = @id", _params = new object[] { user.FirstName, user.LastName, user.Email, user.Password, user.Id });
         }
 
         public void DeleteUser(int userId)
