@@ -36,18 +36,28 @@ namespace Shts.Dal
         /// <returns>A list of strings.</returns>
         public List<string> GetStringQuery(string query, params object[] parameters)
         {
+            OpenConnection();
             result = new List<string>();
             command = connection.CreateCommand();
             command.CommandText = query;
 
             //Bind objects in the parameters array to every '@' in the query. 
             var matches = Regex.Matches(query, @"[@#]\w+");
-            for (int i = 0; i <= matches.Count; i++)
+
+            //If there's more than 1 parameter. (bugfix)
+            if (parameters.Length > 1)
             {
-                command.Parameters.AddWithValue(matches[i].Value, parameters[i]);
+                for (int i = 0; i <= matches.Count; i++)
+                {
+                    command.Parameters.AddWithValue(matches[i].Value, parameters[i]);
+                }
             }
 
-            OpenConnection();
+            else
+            {
+                command.Parameters.AddWithValue(matches[0].Value, parameters[0]);
+            }
+
             reader = command.ExecuteReader();
             result.Clear();
             while (reader.Read())
