@@ -53,7 +53,7 @@ namespace Shts.Dal
                 }
             }
 
-            else
+            else if(parameters.Length == 1)
             {
                 command.Parameters.AddWithValue(matches[0].Value, parameters[0]);
             }

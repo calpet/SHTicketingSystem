@@ -1,4 +1,6 @@
-﻿namespace Shts.Dal.DTOs
+﻿using System;
+
+namespace Shts.Dal.DTOs
 {
     public class UserDto
     {
@@ -7,5 +9,6 @@
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
