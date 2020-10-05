@@ -6,7 +6,7 @@ using Shts_Interfaces.DAL;
 
 namespace Shts.Dal
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IRepository<UserDto>, IUserRepository
     {
         private IDatabaseConnection _dbCon;
         private object[] _params;

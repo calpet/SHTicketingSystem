@@ -5,7 +5,7 @@ using Shts.Dal.DTOs;
 
 namespace Shts_Interfaces.DAL
 {
-    public interface IUserRepository : IRepository<UserDto>
+    public interface IUserRepository
     {
         UserDto GetUserByEmail(string email);
     }

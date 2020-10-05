@@ -5,7 +5,7 @@ using Shts.Dal;
 
 namespace Shts_Interfaces.DAL
 {
-    public interface ITicketRepository : IRepository<TicketDto>
+    public interface ITicketRepository
     {
         TicketDto GetTicketById(int id);
     }
