@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shts_Entities", "Shts_Entit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shts_Interfaces", "Shts_Interfaces\Shts_Interfaces.csproj", "{DC50F972-AF75-4C42-88DB-AF358077810A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shts_Factories", "Shts_Factories\Shts_Factories.csproj", "{2CE3DA11-C0A7-485E-8ECD-30A907ECE921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{DC50F972-AF75-4C42-88DB-AF358077810A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC50F972-AF75-4C42-88DB-AF358077810A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC50F972-AF75-4C42-88DB-AF358077810A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE3DA11-C0A7-485E-8ECD-30A907ECE921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE3DA11-C0A7-485E-8ECD-30A907ECE921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE3DA11-C0A7-485E-8ECD-30A907ECE921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE3DA11-C0A7-485E-8ECD-30A907ECE921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
