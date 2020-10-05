@@ -27,9 +27,9 @@ namespace Shts.Dal
             _dbCon.ExecuteNonSearchQuery($"UPDATE `person` SET `firstName` = @fname, `lastName` = @lname, `email` = @email, `password` = @pwd WHERE `person`.`personID` = @id", _params = new object[] { user.FirstName, user.LastName, user.Email, user.Password, user.Id });
         }
 
-        public void Delete(int userId)
+        public void Delete(int id)
         {
-            _dbCon.ExecuteNonSearchQuery($"DELETE FROM `person` WHERE `person`.`personID` = @uid", _params = new object[] { userId });
+            _dbCon.ExecuteNonSearchQuery($"DELETE FROM `person` WHERE `person`.`personID` = @uid", _params = new object[] { id });
         }
 
         public UserDto GetUserByEmail(string email)
