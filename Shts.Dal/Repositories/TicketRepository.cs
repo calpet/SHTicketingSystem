@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Shts_Interfaces;
+using Shts_Interfaces.DAL;
 
 namespace Shts.Dal.Repositories
 {
-    public class TicketRepository
+    public class TicketRepository : ITicketRepository
     {
         private IDatabaseConnection _dbCon;
 
@@ -13,17 +15,17 @@ namespace Shts.Dal.Repositories
             _dbCon = dbCon;
         }
 
-        public void AddTicket(TicketDto ticket)
+        public void Add(TicketDto ticket)
         {
 
         }
 
-        public void EditTicket(TicketDto ticket)
+        public void Edit(TicketDto ticket)
         {
 
         }
 
-        public void DeleteTicket(int id)
+        public void Delete(int id)
         {
 
         }
@@ -33,7 +35,7 @@ namespace Shts.Dal.Repositories
             return new TicketDto();
         }
 
-        public List<TicketDto> GetAllTickets()
+        public List<TicketDto> GetAll()
         {
             return new List<TicketDto>();
         }

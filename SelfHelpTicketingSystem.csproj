@@ -7,12 +7,20 @@
   <ItemGroup>
     <Compile Remove="Shts.Dal\**" />
     <Compile Remove="SHTS_DAL\**" />
+    <Compile Remove="Shts_Entities\**" />
+    <Compile Remove="Shts_Interfaces\**" />
     <Content Remove="Shts.Dal\**" />
     <Content Remove="SHTS_DAL\**" />
+    <Content Remove="Shts_Entities\**" />
+    <Content Remove="Shts_Interfaces\**" />
     <EmbeddedResource Remove="Shts.Dal\**" />
     <EmbeddedResource Remove="SHTS_DAL\**" />
+    <EmbeddedResource Remove="Shts_Entities\**" />
+    <EmbeddedResource Remove="Shts_Interfaces\**" />
     <None Remove="Shts.Dal\**" />
     <None Remove="SHTS_DAL\**" />
+    <None Remove="Shts_Entities\**" />
+    <None Remove="Shts_Interfaces\**" />
   </ItemGroup>
 
   <ItemGroup>
