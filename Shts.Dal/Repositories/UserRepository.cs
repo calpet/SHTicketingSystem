@@ -17,7 +17,7 @@ namespace Shts.Dal
             _dbCon = dbCon;
         }
 
-        public void Add(UserDto user)
+        public void Create(UserDto user)
         {
             _dbCon.ExecuteNonSearchQuery($"INSERT INTO `person`(`firstName`, `lastName`, `email`, `password`) VALUES (@fname, @lname, @email, @pwd)", _params = new object[] { user.FirstName, user.LastName, user.Email, user.Password });
         }

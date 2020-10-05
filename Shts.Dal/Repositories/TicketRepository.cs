@@ -15,7 +15,7 @@ namespace Shts.Dal.Repositories
             _dbCon = dbCon;
         }
 
-        public void Add(TicketDto ticket)
+        public void Create(TicketDto ticket)
         {
 
         }
