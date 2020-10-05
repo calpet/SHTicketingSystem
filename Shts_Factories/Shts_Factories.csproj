@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shts.Dal\Shts.Dal.csproj" />
+    <ProjectReference Include="..\Shts_Interfaces\Shts_Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>
