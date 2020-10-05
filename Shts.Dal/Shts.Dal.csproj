@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shts_Entities\Shts_Entities.csproj" />
+    <ProjectReference Include="..\Shts_Interfaces\Shts_Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
