@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Shts_Entities.Enums;
 
 namespace Shts_BusinessLogic
 {
@@ -11,6 +12,8 @@ namespace Shts_BusinessLogic
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public Gender Gender { get; set; }
+        public UserRole Role { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }
