@@ -1,16 +1,17 @@
-﻿using System;
-using Shts.Dal;
+﻿using Shts.Dal;
+using Shts.Dal.DTOs;
 using Shts.Dal.Repositories;
+using Shts_Interfaces;
 using Shts_Interfaces.DAL;
-using Shts_Interfaces.Factory;
 
 namespace Shts_Factories
 {
-    public class DalFactory : IFactory
+    public class DalFactory
     {
-        private IUserRepository _userRepo;
-        private ITicketRepository _ticketRepo;
-        public IUserRepository User
+        private static IUserRepository _userRepo;
+        private static ITicketRepository _ticketRepo;
+
+        public static IUserRepository UserRepo
         {
             get
             {
@@ -23,7 +24,7 @@ namespace Shts_Factories
             }
         }
 
-        public ITicketRepository Ticket
+        public ITicketRepository TicketRepo
         {
             get
             {
