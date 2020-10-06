@@ -1,7 +1,5 @@
 ﻿using Shts.Dal;
-using Shts.Dal.DTOs;
 using Shts.Dal.Repositories;
-using Shts_Interfaces;
 using Shts_Interfaces.DAL;
 
 namespace Shts_Factories
