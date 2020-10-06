@@ -55,7 +55,14 @@ namespace Shts_BusinessLogic
 
         public User SearchBy(FilterSettings setting)
         {
-            throw new NotImplementedException();
+            if (setting == FilterSettings.Username)
+            {
+                _dto = DalFactory.UserRepo.GetUserByEmail(_requestingUser.Email);
+                _user = new User() { Id = _dto.Id, FirstName = _dto.FirstName, LastName = _dto.LastName, Email = _dto.Email };
+
+
+            }
+            return _user;
         }
     }
 }
