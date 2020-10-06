@@ -6,7 +6,7 @@ using Shts_Interfaces.DAL;
 
 namespace Shts.Dal.Repositories
 {
-    public class TicketRepository : IRepository<TicketDto>, ITicketRepository
+    public class TicketRepository : ITicketRepository
     {
         private IDatabaseConnection _dbCon;
 
