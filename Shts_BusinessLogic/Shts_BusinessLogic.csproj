@@ -4,4 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shts_Interfaces\Shts_Interfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shts_Factories\Shts_Factories.csproj" />
+  </ItemGroup>
+
 </Project>
