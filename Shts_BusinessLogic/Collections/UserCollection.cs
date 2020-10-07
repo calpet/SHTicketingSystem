@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Shts.Dal.DTOs;
 using Shts_Entities.Enums;
 using Shts_Factories;
-using Shts_Interfaces.BLL;
+using Shts_Interfaces;
 
 namespace Shts_BusinessLogic
 {
-    public class UserCollection : IModelCollection<User>
+    public class UserCollection : IUserCollection
     {
         private UserDto _dto;
         private User _user;
@@ -24,23 +24,20 @@ namespace Shts_BusinessLogic
         {
             if (user != null)
             {
-                _dto = new UserDto() { FirstName = user.FirstName, LastName = user.LastName, Email = user.Email, Password = user.Password};
+                _dto = DtoConverter.ConvertToUserDto(user);
                 DalFactory.UserRepo.Create(_dto);
             }
         }
 
         public List<User> GetAll()
         {
-            if (_requestingUser.Role >= UserRole.Agent)
+            if (_requestingUser.Role == UserRole.Admin)
             {
                 Users = new List<User>();
                 var dtoList = DalFactory.UserRepo.GetAll();
                 foreach (var dto in dtoList)
                 {
-                    Users.Add( _user = new User()
-                        {
-                            Id = dto.Id, FirstName = dto.FirstName, LastName = dto.LastName, Email = dto.Email
-                        });
+                    Users.Add(DtoConverter.ConvertToUserObject(dto));
                 }
                 return Users;
             }
@@ -53,16 +50,15 @@ namespace Shts_BusinessLogic
             
         }
 
-        public User SearchBy(FilterSettings setting)
+        public User SearchUserByFilter(UserFilter filter)
         {
-            if (setting == FilterSettings.Username)
+            if (filter == UserFilter.Username)
             {
                 _dto = DalFactory.UserRepo.GetUserByEmail(_requestingUser.Email);
-                _user = new User() { Id = _dto.Id, FirstName = _dto.FirstName, LastName = _dto.LastName, Email = _dto.Email };
-
-
+                _user = DtoConverter.ConvertToUserObject(_dto);
             }
             return _user;
         }
+
     }
 }
