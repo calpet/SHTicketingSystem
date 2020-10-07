@@ -4,7 +4,7 @@ using Shts_Interfaces.DAL;
 
 namespace Shts_Factories
 {
-    public class DalFactory
+    public static class DalFactory
     {
         private static IUserRepository _userRepo;
         private static ITicketRepository _ticketRepo;
@@ -22,7 +22,7 @@ namespace Shts_Factories
             }
         }
 
-        public ITicketRepository TicketRepo
+        public static ITicketRepository TicketRepo
         {
             get
             {

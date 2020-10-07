@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Shts.Dal.DTOs;
+using Shts_BusinessLogic.Models;
 
 namespace Shts_BusinessLogic
 {
@@ -12,7 +13,7 @@ namespace Shts_BusinessLogic
 
         public static User ConvertToUserObject(UserDto dto)
         {
-            _user = new User() { Id = dto.Id, FirstName = dto.FirstName, LastName = dto.LastName, Email = dto.Email };
+            _user = new User() { Id = dto.Id, FirstName = dto.FirstName, LastName = dto.LastName, Email = dto.Email, Password = dto.Password };
             return _user;
         }
 

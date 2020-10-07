@@ -12,13 +12,13 @@ namespace Shts_BusinessLogic
         private UserDto _dto;
         private User _user;
         private User _requestingUser;
+        private List<User> _users;
 
         public UserCollection(User user)
         {
             _requestingUser = user;
         }
 
-        public List<User> Users { get; private set; }
 
         public void Add(User user)
         {
@@ -33,13 +33,15 @@ namespace Shts_BusinessLogic
         {
             if (_requestingUser.Role == UserRole.Admin)
             {
-                Users = new List<User>();
+                _users = new List<User>();
                 var dtoList = DalFactory.UserRepo.GetAll();
+                
                 foreach (var dto in dtoList)
                 {
-                    Users.Add(DtoConverter.ConvertToUserObject(dto));
+                    _users.Add(DtoConverter.ConvertToUserObject(dto));
                 }
-                return Users;
+
+                return _users;
             }
 
             else

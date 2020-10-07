@@ -83,7 +83,9 @@ namespace Shts.Dal
             OpenConnection();
             command = connection.CreateCommand();
             command.CommandText = query;
+
             var matches = Regex.Matches(query, @"[@#]\w+");
+
             for (int i = 0; i < matches.Count; i++)
             {
                 command.Parameters.AddWithValue(matches[i].Value, parameters[i]);
