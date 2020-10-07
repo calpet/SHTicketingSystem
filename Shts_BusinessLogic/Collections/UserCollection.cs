@@ -56,8 +56,6 @@ namespace Shts_BusinessLogic
             {
                 _dto = DalFactory.UserRepo.GetUserByEmail(_requestingUser.Email);
                 _user = DtoConverter.ConvertToUserObject(_dto);
-
-
             }
             return _user;
         }
