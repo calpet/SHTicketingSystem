@@ -24,7 +24,7 @@ namespace Shts_BusinessLogic
         {
             if (user != null)
             {
-                _dto = new UserDto() { FirstName = user.FirstName, LastName = user.LastName, Email = user.Email, Password = user.Password};
+                _dto = DtoConverter.ConvertToUserDto(user);
                 DalFactory.UserRepo.Create(_dto);
             }
         }
@@ -37,10 +37,7 @@ namespace Shts_BusinessLogic
                 var dtoList = DalFactory.UserRepo.GetAll();
                 foreach (var dto in dtoList)
                 {
-                    Users.Add( _user = new User()
-                        {
-                            Id = dto.Id, FirstName = dto.FirstName, LastName = dto.LastName, Email = dto.Email
-                        });
+                    Users.Add(DtoConverter.ConvertToUserObject(dto));
                 }
                 return Users;
             }
@@ -58,7 +55,7 @@ namespace Shts_BusinessLogic
             if (filter == UserFilter.Username)
             {
                 _dto = DalFactory.UserRepo.GetUserByEmail(_requestingUser.Email);
-                _user = new User() { Id = _dto.Id, FirstName = _dto.FirstName, LastName = _dto.LastName, Email = _dto.Email };
+                _user = DtoConverter.ConvertToUserObject(_dto);
 
 
             }
