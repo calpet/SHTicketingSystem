@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Shts.Dal.DTOs;
 using Shts_Entities.Enums;
 using Shts_Factories;
-using Shts_Interfaces.BLL;
+using Shts_Interfaces;
 
 namespace Shts_BusinessLogic
 {
-    public class UserCollection : IModelCollection<User>
+    public class UserCollection : IUserCollection
     {
         private UserDto _dto;
         private User _user;
@@ -31,7 +31,7 @@ namespace Shts_BusinessLogic
 
         public List<User> GetAll()
         {
-            if (_requestingUser.Role >= UserRole.Agent)
+            if (_requestingUser.Role == UserRole.Admin)
             {
                 Users = new List<User>();
                 var dtoList = DalFactory.UserRepo.GetAll();
@@ -53,9 +53,9 @@ namespace Shts_BusinessLogic
             
         }
 
-        public User SearchBy(FilterSettings setting)
+        public User SearchUserByFilter(UserFilter filter)
         {
-            if (setting == FilterSettings.Username)
+            if (filter == UserFilter.Username)
             {
                 _dto = DalFactory.UserRepo.GetUserByEmail(_requestingUser.Email);
                 _user = new User() { Id = _dto.Id, FirstName = _dto.FirstName, LastName = _dto.LastName, Email = _dto.Email };
@@ -64,5 +64,6 @@ namespace Shts_BusinessLogic
             }
             return _user;
         }
+
     }
 }

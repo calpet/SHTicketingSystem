@@ -4,12 +4,13 @@ using System.Text;
 
 namespace Shts_Entities.Enums
 {
-    public enum FilterSettings
+    public enum UserFilter
     {
         Username,
-        Unassigned,
         Id,
-        Role
+        Role,
+        FirstName,
+        LastName
     }
 
 }
