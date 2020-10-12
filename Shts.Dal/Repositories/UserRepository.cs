@@ -36,7 +36,10 @@ namespace Shts.Dal
         {
             
             _result = _dbCon.GetStringQuery($"SELECT `personID`, `firstName`, `lastName`, `gender`, `email`, `password`, `createdAt` FROM `person` WHERE `person`.`email` = @mail", _params = new object[] { email });
-            UserDto? user = new UserDto() {Id = Convert.ToInt32(_result[0]), FirstName = _result[1], LastName = _result[2], Email = _result[4], Password = _result[5], CreatedAt = DateTime.Parse(_result[6])};
+            if (_result.Count == 0)
+                return null;
+            
+            UserDto user = new UserDto() {Id = Convert.ToInt32(_result[0]), FirstName = _result[1], LastName = _result[2], Email = _result[4], Password = _result[5], CreatedAt = DateTime.Parse(_result[6])};
             return user;
         }
 

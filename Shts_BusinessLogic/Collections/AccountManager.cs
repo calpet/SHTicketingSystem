@@ -17,22 +17,34 @@ namespace Shts_BusinessLogic.Collections
 
             if (_userDto == null)
             {
+                string hashed = HashPassword(user.Password);
+                user.Password = hashed;
+                DalFactory.UserRepo.Create(DtoConverter.ConvertToUserDto(user));
+                
+            }
+            else
+            {
                 throw new AccountAlreadyExistsException(
                     "An account already exists with this e-mail, please try with a different e-mail.");
             }
 
-            DalFactory.UserRepo.Create(DtoConverter.ConvertToUserDto(user));
+
         }
 
         public bool ValidateCredentials(string email, string pwd)
         {
             _userDto = DalFactory.UserRepo.GetUserByEmail(email);
-            if (email != _userDto.Email || pwd != _userDto.Password) 
+            bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pwd, _userDto.Password);
+            if (!isPasswordCorrect) 
                 return false;
 
             return true;
+        }
 
-
+        private static string HashPassword(string pwd)
+        {
+            string hashedPwd = BCrypt.Net.BCrypt.HashPassword(pwd);
+            return hashedPwd;
         }
     }
 }

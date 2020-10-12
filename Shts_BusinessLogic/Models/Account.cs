@@ -12,11 +12,6 @@ namespace Shts_BusinessLogic.Models
         public string ConfirmPassword { get; private set; }
         public bool IsSignedIn { get; set; }
 
-        private protected string EncryptPassword(string pwd)
-        {
-
-            return pwd;
-        }
 
     }
 }
