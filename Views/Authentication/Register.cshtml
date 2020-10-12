@@ -1,0 +1,21 @@
+﻿@using System.Web
+@using Shts_Entities.Enums
+@model UserViewModel
+
+<form>
+    <div class="form-group">
+        <label>First name:</label>
+            <input class="form-control" asp-for="FirstName"/>
+        <label>Last name:</label>
+            <input class="form-control" asp-for="LastName"/>
+        <label>Gender: </label>
+            <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+                <option selected="selected" value="">Please select a gender:</option>
+            </select>
+        <label>E-mail:</label>
+            <input class="form-control" placeholder="email@example.com" asp-for="Email"/>
+        <label>Password: </label>
+            <input class="form-control" type="password" asp-for="Password"/>
+            <input class="btn btn-primary" type="submit" asp-action="CreateAccount"/>
+    </div>
+</form>
