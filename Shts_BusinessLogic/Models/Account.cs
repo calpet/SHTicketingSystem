@@ -30,10 +30,6 @@ namespace Shts_BusinessLogic.Models
             
 
             return false;
-
-
-
-
         }
       
     }
