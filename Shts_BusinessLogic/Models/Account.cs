@@ -7,7 +7,6 @@ namespace Shts_BusinessLogic.Models
 {
     public class Account
     {
-        private UserCollection _userCollection;
         public string Email { get; private set; }
         public string Password { get; private set; }
         public string ConfirmPassword { get; private set; }
