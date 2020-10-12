@@ -19,18 +19,5 @@ namespace Shts_BusinessLogic.Models
             return pwd;
         }
 
-        public bool ValidateCredentials(string username, string pwd)
-        {
-            User user = new User() {Email = username, Password = pwd};
-            _userCollection = new UserCollection(user);
-            User result = _userCollection.SearchUserByFilter(UserFilter.Username);
-
-            if (pwd == result.Password)
-                return true;
-            
-
-            return false;
-        }
-      
     }
 }

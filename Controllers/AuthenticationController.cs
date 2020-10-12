@@ -14,6 +14,11 @@ namespace SelfHelpTicketingSystem.Controllers
     {
         private User _user;
         private AccountManager _accountManager;
+
+        public AuthenticationController()
+        {
+            _accountManager = new AccountManager();
+        }
         public IActionResult Register()
         {
             return View();
@@ -27,9 +32,18 @@ namespace SelfHelpTicketingSystem.Controllers
         public IActionResult CreateAccount(UserViewModel uvm)
         {
             _user = new User() { FirstName = uvm.FirstName, LastName = uvm.LastName, Gender = uvm.Gender, Email = uvm.Email, Password = uvm.Password};
-            _accountManager = new AccountManager();
             _accountManager.Add(_user);
             return RedirectToAction("Login");
+        }
+
+
+        public IActionResult SignIn(UserViewModel user)
+        {
+            var result = _accountManager.ValidateCredentials(user.Email, user.Password);
+            if (result)
+                return RedirectToAction("Dashboard", "Home");
+
+            return RedirectToAction("Login", new {message = "incorrect"});
         }
     }
 }
