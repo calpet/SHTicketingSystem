@@ -24,11 +24,12 @@ namespace SelfHelpTicketingSystem.Controllers
             return View();
         }
 
-        public void Submit(UserViewModel uvm)
+        public IActionResult CreateAccount(UserViewModel uvm)
         {
             _user = new User() { FirstName = uvm.FirstName, LastName = uvm.LastName, Gender = uvm.Gender, Email = uvm.Email, Password = uvm.Password};
             _accountManager = new AccountManager();
             _accountManager.Add(_user);
+            return RedirectToAction("Login");
         }
     }
 }
