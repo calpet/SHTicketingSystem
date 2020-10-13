@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using SelfHelpTicketingSystem.Classes;
 using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
 using Shts_BusinessLogic.Collections;
 using Shts_Entities.Enums;
+using ICookieManager = Shts_Interfaces.GUI.ICookieManager;
 
 namespace SelfHelpTicketingSystem.Controllers
 {
@@ -14,10 +19,12 @@ namespace SelfHelpTicketingSystem.Controllers
     {
         private User _user;
         private AccountManager _accountManager;
+        private ICookieManager _cookieManager;
 
         public AuthenticationController()
         {
             _accountManager = new AccountManager();
+            _cookieManager = new CookieManager();
         }
         public IActionResult Register()
         {
@@ -41,7 +48,13 @@ namespace SelfHelpTicketingSystem.Controllers
         {
             var result = _accountManager.ValidateCredentials(user.Email, user.Password);
             if (result)
+            {
+                List<object> newCookie = _cookieManager.SetCookie(user.Email);
+                HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal)newCookie[0], (AuthenticationProperties)newCookie[1]
+                    ).Wait();
                 return RedirectToAction("Dashboard", "Home");
+            }
 
             return RedirectToAction("Login", new {message = "incorrect"});
         }
