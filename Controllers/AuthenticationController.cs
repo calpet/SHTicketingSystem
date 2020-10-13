@@ -10,8 +10,6 @@ using SelfHelpTicketingSystem.Classes;
 using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
 using Shts_BusinessLogic.Collections;
-using Shts_Entities.Enums;
-using ICookieManager = SelfHelpTicketingSystem.GUI_Interfaces.ICookieManager;
 
 namespace SelfHelpTicketingSystem.Controllers
 {

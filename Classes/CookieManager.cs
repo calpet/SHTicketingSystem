@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SelfHelpTicketingSystem.Models;
-using Shts_BusinessLogic;
-using ICookieManager = SelfHelpTicketingSystem.GUI_Interfaces.ICookieManager;
 
 namespace SelfHelpTicketingSystem.Classes
 {
