@@ -11,15 +11,16 @@ using ICookieManager = SelfHelpTicketingSystem.GUI_Interfaces.ICookieManager;
 
 namespace SelfHelpTicketingSystem.Classes
 {
-    public class CookieManager : ICookieManager
+    public static class CookieManager
     {
-        public static bool IsSignedOn { get; set; }
+        public static bool IsSignedIn { get; set; }
         public static Claim Claim { get; set; }
         public static List<Claim> Claims { get; set; }
         public static ClaimsIdentity Identity { get; set; }
         public static ClaimsPrincipal Principal { get; set; }
         public static AuthenticationProperties Properties { get; set; }
-        public List<object> SetCookie(UserViewModel user)
+
+        public static List<object> SetCookie(UserViewModel user)
         {
             Claims = new List<Claim>
             {

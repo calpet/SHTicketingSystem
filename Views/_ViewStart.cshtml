@@ -1,3 +1,17 @@
-﻿@{
+﻿@using SelfHelpTicketingSystem.Classes
+@using SelfHelpTicketingSystem.GUI_Interfaces
+@{
     Layout = "_Layout";
 }
+
+@{
+    if (CookieManager.IsSignedIn)
+    {
+        Layout = "_UserLayout";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
+}
+

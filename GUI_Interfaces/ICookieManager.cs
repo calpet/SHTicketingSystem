@@ -6,6 +6,7 @@ namespace SelfHelpTicketingSystem.GUI_Interfaces
 {
     public interface ICookieManager
     { 
+        public bool IsSignedIn { get; set; }
         List<object> SetCookie(UserViewModel user);
     }
 }

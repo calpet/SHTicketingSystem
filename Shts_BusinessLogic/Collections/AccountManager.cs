@@ -4,6 +4,7 @@ using System.Text;
 using Shts.Dal.DTOs;
 using Shts_BusinessLogic.Exceptions;
 using Shts_BusinessLogic.Models;
+using Shts_Entities.Enums;
 using Shts_Factories;
 
 namespace Shts_BusinessLogic.Collections
@@ -19,6 +20,7 @@ namespace Shts_BusinessLogic.Collections
             {
                 string hashed = HashPassword(user.Password);
                 user.Password = hashed;
+                user.Role = UserRole.SupportUser;
                 DalFactory.UserRepo.Create(DtoConverter.ConvertToUserDto(user));
                 
             }

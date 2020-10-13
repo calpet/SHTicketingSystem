@@ -19,12 +19,11 @@ namespace SelfHelpTicketingSystem.Controllers
     {
         private User _user;
         private AccountManager _accountManager;
-        private ICookieManager _cookieManager;
 
         public AuthenticationController()
         {
             _accountManager = new AccountManager();
-            _cookieManager = new CookieManager();
+            
         }
         public IActionResult Register()
         {
@@ -49,14 +48,23 @@ namespace SelfHelpTicketingSystem.Controllers
             var result = _accountManager.ValidateCredentials(user.Email, user.Password);
             if (result)
             {
-                List<object> newCookie = _cookieManager.SetCookie(user);
+                List<object> newCookie = CookieManager.SetCookie(user);
                 HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal)newCookie[0], (AuthenticationProperties)newCookie[1]
+                    CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal) newCookie[0], (AuthenticationProperties) newCookie[1]
                     ).Wait();
+                CookieManager.IsSignedIn = true;
+                ViewData["SignedIn"] = CookieManager.IsSignedIn;
                 return RedirectToAction("Dashboard", "Home");
             }
 
-            return RedirectToAction("Login", new {message = "incorrect"});
+            return RedirectToAction("Login", new {message = "Incorrect"});
+        }
+
+        public async Task<IActionResult> SignOut()
+        {
+            await HttpContext.SignOutAsync();
+            CookieManager.IsSignedIn = false;
+            return RedirectToAction("Index", "Home");
         }
     }
 }
