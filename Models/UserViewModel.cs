@@ -10,7 +10,10 @@ namespace SelfHelpTicketingSystem.Models
     public class UserViewModel
     {
         
+        [Required]
         public string FirstName { get; set; }
+
+        [Required]
         public string LastName { get; set; }
 
         [Required]
@@ -18,7 +21,10 @@ namespace SelfHelpTicketingSystem.Models
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
         public Gender Gender { get; set; }
+        public UserRole Role { get; set; }
         
     }
 }

@@ -5,7 +5,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using ICookieManager = Shts_Interfaces.GUI.ICookieManager;
+using SelfHelpTicketingSystem.Models;
+using Shts_BusinessLogic;
+using ICookieManager = SelfHelpTicketingSystem.GUI_Interfaces.ICookieManager;
 
 namespace SelfHelpTicketingSystem.Classes
 {
@@ -17,11 +19,12 @@ namespace SelfHelpTicketingSystem.Classes
         public static ClaimsIdentity Identity { get; set; }
         public static ClaimsPrincipal Principal { get; set; }
         public static AuthenticationProperties Properties { get; set; }
-        public List<object> SetCookie(string name)
+        public List<object> SetCookie(UserViewModel user)
         {
             Claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, name)
+                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             Identity = new ClaimsIdentity(Claims, CookieAuthenticationDefaults.AuthenticationScheme);
             Principal = new ClaimsPrincipal(Identity);

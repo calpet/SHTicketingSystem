@@ -35,11 +35,11 @@ namespace Shts.Dal
         public UserDto GetUserByEmail(string email)
         {
             
-            _result = _dbCon.GetStringQuery($"SELECT `personID`, `firstName`, `lastName`, `gender`, `email`, `password`, `createdAt` FROM `person` WHERE `person`.`email` = @mail", _params = new object[] { email });
+            _result = _dbCon.GetStringQuery($"SELECT `personID`, `firstName`, `lastName`, `gender`, `role`, `email`, `password`, `createdAt` FROM `person` WHERE `person`.`email` = @mail", _params = new object[] { email });
             if (_result.Count == 0)
                 return null;
             
-            UserDto user = new UserDto() {Id = Convert.ToInt32(_result[0]), FirstName = _result[1], LastName = _result[2], Email = _result[4], Password = _result[5], CreatedAt = DateTime.Parse(_result[6])};
+            UserDto user = new UserDto() {Id = Convert.ToInt32(_result[0]), FirstName = _result[1], LastName = _result[2], Gender = _result[3], Role = _result[4], Email = _result[5], Password = _result[6], CreatedAt = DateTime.Parse(_result[7])};
             return user;
         }
 
@@ -49,16 +49,16 @@ namespace Shts.Dal
             _result = _dbCon.GetStringQuery("SELECT * FROM `person`");
             for (int i = 0; i < _result.Count; i++)
             {
-                // If the remainder of i / 6 equals 0, turn the strings into properties for the UserDto, then remove the strings from the list.
-                if (i % 6 == 0)
+                // If the remainder of i / 7 equals 0, turn the strings into properties for the UserDto, then remove the strings from the list.
+                if (i % 7 == 0)
                 {
                     UserDto user = new UserDto()
                     {
                         Id = Convert.ToInt32(_result[0]), FirstName = _result[1], LastName = _result[2],
-                        Email = _result[4], Password = _result[5], CreatedAt = DateTime.Parse(_result[6])
+                        Gender = _result[3], Role = _result[4], Email = _result[5], Password = _result[6], CreatedAt = DateTime.Parse(_result[7])
                     };
                     userList.Add(user);
-                    _result.RemoveRange(0, 7);
+                    _result.RemoveRange(0, 8);
                 }
                 
             }

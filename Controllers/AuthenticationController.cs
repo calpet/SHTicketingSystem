@@ -11,7 +11,7 @@ using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
 using Shts_BusinessLogic.Collections;
 using Shts_Entities.Enums;
-using ICookieManager = Shts_Interfaces.GUI.ICookieManager;
+using ICookieManager = SelfHelpTicketingSystem.GUI_Interfaces.ICookieManager;
 
 namespace SelfHelpTicketingSystem.Controllers
 {
@@ -49,7 +49,7 @@ namespace SelfHelpTicketingSystem.Controllers
             var result = _accountManager.ValidateCredentials(user.Email, user.Password);
             if (result)
             {
-                List<object> newCookie = _cookieManager.SetCookie(user.Email);
+                List<object> newCookie = _cookieManager.SetCookie(user);
                 HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal)newCookie[0], (AuthenticationProperties)newCookie[1]
                     ).Wait();
