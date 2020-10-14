@@ -17,9 +17,8 @@ namespace Shts_BusinessLogic.Collections
 
             if (_userDto == null)
             {
-                if(CheckPasswordRequirements(user.Password)) {
-                    string hashed = HashPassword(user.Password);
-                    user.Password = hashed;
+                if (CheckPasswordRequirements(user.Password)) {
+                    user.Password = HashPassword(user.Password);
                     user.Role = UserRole.SupportUser;
                     UserDto newDto = DtoConverter.ConvertToUserDto(user);
                     return newDto;
@@ -45,16 +44,12 @@ namespace Shts_BusinessLogic.Collections
 
         public bool CheckPasswordRequirements(string password)
         {
-            if (!password.Any(char.IsUpper) || !password.Any(char.IsLower) || !password.Any(char.IsDigit) || password.Length < 6)
-                return false;
-
-            return true;
+            return password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit) && password.Length >= 6;
         }
 
         private string HashPassword(string pwd)
         {
-            string hashedPwd = BCrypt.Net.BCrypt.HashPassword(pwd);
-            return hashedPwd;
+            return BCrypt.Net.BCrypt.HashPassword(pwd);
         }
     }
 }
