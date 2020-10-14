@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Shts.Dal.DTOs;
+using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_Entities.Enums;
 using Shts_Factories;
 using Shts_Interfaces;
@@ -13,10 +14,16 @@ namespace Shts_BusinessLogic
         private User _user;
         private User _requestingUser;
         private List<User> _users;
+        private IAccountManager _accountManager;
 
         public UserCollection(User user)
         {
             _requestingUser = user;
+        }
+
+        public UserCollection(IAccountManager accountManager)
+        {
+            _accountManager = accountManager;
         }
 
 
@@ -24,7 +31,7 @@ namespace Shts_BusinessLogic
         {
             if (user != null)
             {
-                _dto = DtoConverter.ConvertToUserDto(user);
+                _dto = _accountManager.CreateAccount(user);
                 DalFactory.UserRepo.Create(_dto);
             }
         }
