@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SelfHelpTicketingSystem.Classes;
 using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
+using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Collections;
 
 namespace SelfHelpTicketingSystem.Controllers
@@ -16,12 +17,14 @@ namespace SelfHelpTicketingSystem.Controllers
     public class AuthenticationController : Controller
     {
         private User _user;
-        private AccountManager _accountManager;
+        private IUserCollection _userCollection;
+        private IAccountManager _accountManager;
 
-        public AuthenticationController()
+        public AuthenticationController(IAccountManager accountManager, IUserCollection userCollection)
         {
-            _accountManager = new AccountManager();
-            
+            _accountManager = accountManager;
+            _userCollection = userCollection;
+
         }
         public IActionResult Register()
         {
@@ -36,7 +39,7 @@ namespace SelfHelpTicketingSystem.Controllers
         public IActionResult CreateAccount(UserViewModel uvm)
         {
             _user = new User() { FirstName = uvm.FirstName, LastName = uvm.LastName, Gender = uvm.Gender, Email = uvm.Email, Password = uvm.Password};
-            _accountManager.Add(_user);
+            _userCollection.Add(_user);
             return RedirectToAction("Login");
         }
 

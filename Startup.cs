@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shts_BLLInterfaces;
+using Shts_BusinessLogic;
+using Shts_BusinessLogic.Collection_Interfaces;
+using Shts_BusinessLogic.Collections;
 
 namespace SelfHelpTicketingSystem
 {
@@ -25,6 +29,12 @@ namespace SelfHelpTicketingSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //Inject dependencies to controllers.
+            services.AddTransient<IAccountManager, AccountManager>();
+            services.AddTransient<IUserCollection, UserCollection>();
+            //services.AddTransient<ITicketCollection, TicketCollection>();
+
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
                 options =>

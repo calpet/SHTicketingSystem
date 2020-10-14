@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Shts.Dal.DTOs;
+using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Exceptions;
 using Shts_BusinessLogic.Models;
 using Shts_Entities.Enums;
@@ -9,10 +10,10 @@ using Shts_Factories;
 
 namespace Shts_BusinessLogic.Collections
 {
-    public class AccountManager
+    public class AccountManager : IAccountManager
     {
         private UserDto _userDto;
-        public void Add(User user)
+        public UserDto CreateAccount(User user)
         {
             _userDto = DalFactory.UserRepo.GetUserByEmail(user.Email);
 
@@ -21,8 +22,9 @@ namespace Shts_BusinessLogic.Collections
                 string hashed = HashPassword(user.Password);
                 user.Password = hashed;
                 user.Role = UserRole.SupportUser;
-                DalFactory.UserRepo.Create(DtoConverter.ConvertToUserDto(user));
-                
+                UserDto newDto = DtoConverter.ConvertToUserDto(user);
+                return newDto;
+
             }
             else
             {
@@ -43,7 +45,7 @@ namespace Shts_BusinessLogic.Collections
             return true;
         }
 
-        private static string HashPassword(string pwd)
+        private string HashPassword(string pwd)
         {
             string hashedPwd = BCrypt.Net.BCrypt.HashPassword(pwd);
             return hashedPwd;
