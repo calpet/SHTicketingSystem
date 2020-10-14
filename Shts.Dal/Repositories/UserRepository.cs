@@ -19,7 +19,7 @@ namespace Shts.Dal
 
         public void Create(UserDto user)
         {
-            _dbCon.ExecuteNonSearchQuery($"INSERT INTO `person`(`firstName`, `lastName`, `email`, `password`) VALUES (@fname, @lname, @email, @pwd)", _params = new object[] { user.FirstName, user.LastName, user.Email, user.Password });
+            _dbCon.ExecuteNonSearchQuery($"INSERT INTO `person`(`firstName`, `lastName`, `gender`, `role`, `email`, `password`) VALUES (@fname, @lname, @gender, @role, @email, @pwd)", _params = new object[] { user.FirstName, user.LastName, user.Gender, user.Role, user.Email, user.Password });
         }
 
         public void Edit(UserDto user)

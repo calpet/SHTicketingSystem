@@ -10,19 +10,23 @@ namespace SelfHelpTicketingSystem.Models
     public class UserViewModel
     {
         
-        [Required]
+        [Required(ErrorMessage = "First name required!")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Last name required!")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "E-mail required!")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password required!")]
         public string Password { get; set; }
 
         [Required]
+        [Compare("Password", ErrorMessage = "Passwords do not match!")]
+        public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Gender required!")]
         public Gender Gender { get; set; }
         public UserRole Role { get; set; }
         

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Shts.Dal.DTOs;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Exceptions;
@@ -19,11 +21,17 @@ namespace Shts_BusinessLogic.Collections
 
             if (_userDto == null)
             {
-                string hashed = HashPassword(user.Password);
-                user.Password = hashed;
-                user.Role = UserRole.SupportUser;
-                UserDto newDto = DtoConverter.ConvertToUserDto(user);
-                return newDto;
+                if(CheckPasswordRequirements(user.Password)) {
+                    string hashed = HashPassword(user.Password);
+                    user.Password = hashed;
+                    user.Role = UserRole.SupportUser;
+                    UserDto newDto = DtoConverter.ConvertToUserDto(user);
+                    return newDto;
+                }
+                else
+                {
+                    throw new ArgumentException("Password does not comply with the given requirements.");
+                }
 
             }
             else
@@ -38,6 +46,14 @@ namespace Shts_BusinessLogic.Collections
             _userDto = DalFactory.UserRepo.GetUserByEmail(email);
             bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pwd, _userDto.Password);
             if (!isPasswordCorrect) 
+                return false;
+
+            return true;
+        }
+
+        public bool CheckPasswordRequirements(string password)
+        {
+            if (!password.Any(char.IsUpper) || !password.Any(char.IsLower) || !password.Any(char.IsDigit) || password.Length < 6)
                 return false;
 
             return true;
