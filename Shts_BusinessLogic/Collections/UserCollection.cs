@@ -16,11 +16,15 @@ namespace Shts_BusinessLogic
         private List<User> _users;
         private IAccountManager _accountManager;
 
+
+        //Constructor for when a User wants to use a functionality.
         public UserCollection(User user)
         {
             _requestingUser = user;
         }
 
+
+        //Constructor for when a new account gets added.
         public UserCollection(IAccountManager accountManager)
         {
             _accountManager = accountManager;

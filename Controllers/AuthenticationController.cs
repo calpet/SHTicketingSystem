@@ -61,6 +61,7 @@ namespace SelfHelpTicketingSystem.Controllers
             return RedirectToAction("Login", new {message = "Incorrect"});
         }
 
+
         public async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync();
