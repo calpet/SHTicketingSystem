@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using Shts.Dal.DTOs;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Exceptions;
-using Shts_BusinessLogic.Models;
 using Shts_Entities.Enums;
 using Shts_Factories;
 
@@ -28,17 +24,13 @@ namespace Shts_BusinessLogic.Collections
                     UserDto newDto = DtoConverter.ConvertToUserDto(user);
                     return newDto;
                 }
-                else
-                {
-                    throw new ArgumentException("Password does not comply with the given requirements.");
-                }
+
+                throw new ArgumentException("Password does not comply with the given requirements.");
 
             }
-            else
-            {
-                throw new AccountAlreadyExistsException(
-                    "An account already exists with this e-mail, please try with a different e-mail.");
-            }
+
+            throw new AccountAlreadyExistsException(
+                "An account already exists with this e-mail, please try with a different e-mail.");
         }
 
         public bool ValidateCredentials(string email, string pwd)
