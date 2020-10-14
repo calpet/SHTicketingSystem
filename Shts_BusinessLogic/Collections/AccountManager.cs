@@ -31,8 +31,6 @@ namespace Shts_BusinessLogic.Collections
                 throw new AccountAlreadyExistsException(
                     "An account already exists with this e-mail, please try with a different e-mail.");
             }
-
-
         }
 
         public bool ValidateCredentials(string email, string pwd)
