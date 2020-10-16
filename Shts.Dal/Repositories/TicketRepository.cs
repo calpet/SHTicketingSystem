@@ -36,10 +36,8 @@ namespace Shts.Dal.Repositories
 
         public List<TicketDto> GetTicketsByUserId(int id)
         {
-            _result = _dbCon.GetStringQuery($"SELECT ticket.ticketID, subject, body, ticket.createdAt, lastEdited FROM ticket " +
-                                               "INNER JOIN personticket p on ticket.ticketID = p.ticketID " +
-                                               $"INNER JOIN person p2 on p.personID = p2.personID WHERE p2.personID = {id}");
             _tickets = new List<TicketDto>();
+            _result = _dbCon.GetStringQuery($"SELECT ticket.ticketID, subject, body, ticket.createdAt, lastEdited FROM ticket INNER JOIN personticket p on ticket.ticketID = p.ticketID INNER JOIN person p2 on p.personID = p2.personID WHERE p2.personID = {id}");
 
             for (int i = 0; i < _result.Count; i++)
             {
@@ -50,6 +48,7 @@ namespace Shts.Dal.Repositories
                     _result.RemoveRange(0, 5);
                 }
             }
+
             return _tickets;
         }
 
