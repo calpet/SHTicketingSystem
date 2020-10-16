@@ -11,14 +11,20 @@ namespace Shts_BusinessLogic.Collections
     public class AccountManager : IAccountManager
     {
         private UserDto _userDto;
+        private ICredentialsManager _credentialsManager;
+
+        public AccountManager(ICredentialsManager credentialsManager)
+        {
+            _credentialsManager = credentialsManager;
+        }
         public UserDto CreateAccount(User user)
         {
             _userDto = DalFactory.UserRepo.GetUserByEmail(user.Email);
 
             if (_userDto == null)
             {
-                if (CheckPasswordRequirements(user.Password)) {
-                    user.Password = HashPassword(user.Password);
+                if (_credentialsManager.CheckRequirements(user.Password)) {
+                    user.Password = _credentialsManager.Encrypt(user.Password);
                     user.Role = UserRole.SupportUser;
                     UserDto newDto = DtoConverter.ConvertToUserDto(user);
                     return newDto;
@@ -42,14 +48,5 @@ namespace Shts_BusinessLogic.Collections
             return true;
         }
 
-        public bool CheckPasswordRequirements(string password)
-        {
-            return password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit) && password.Length >= 6;
-        }
-
-        private string HashPassword(string pwd)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(pwd);
-        }
     }
 }

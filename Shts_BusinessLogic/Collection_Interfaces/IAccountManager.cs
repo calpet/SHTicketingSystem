@@ -6,6 +6,5 @@ namespace Shts_BusinessLogic.Collection_Interfaces
     {
         UserDto CreateAccount(User user);
         bool ValidateCredentials(string email, string password);
-        bool CheckPasswordRequirements(string password);
     }
 }
