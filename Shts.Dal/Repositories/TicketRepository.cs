@@ -41,7 +41,7 @@ namespace Shts.Dal.Repositories
 
             for (int i = 0; i < _result.Count; i++)
             {
-                if (i % 5 == 0 || i % 5 == 1)
+                if (_result.Count % 5 == 0)
                 {
                     _dto = new TicketDto() {Id = Convert.ToInt32(_result[0]), Subject = _result[1], Content = _result[2], CreatedAt = Convert.ToDateTime(_result[3]), LastEdited = Convert.ToDateTime(_result[4])};
                     _tickets.Add(_dto);
@@ -54,7 +54,18 @@ namespace Shts.Dal.Repositories
 
         public List<TicketDto> GetAll()
         {
-            return new List<TicketDto>();
+            _tickets = new List<TicketDto>();
+            _result = _dbCon.GetStringQuery("SELECT * FROM `ticket`");
+            for (int i = 0; i < _result.Count; i++)
+            {
+                if (_result.Count % 5 == 0) 
+                {
+                    _dto = new TicketDto() { Id = Convert.ToInt32(_result[0]), Subject = _result[1], Content = _result[2], CreatedAt = Convert.ToDateTime(_result[3]), LastEdited = Convert.ToDateTime(_result[4]) };
+                    _tickets.Add(_dto);
+                    _result.RemoveRange(0, 5);
+                }
+            }
+            return _tickets;
         }
     }
 }
