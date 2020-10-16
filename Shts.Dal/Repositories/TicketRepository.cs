@@ -38,7 +38,6 @@ namespace Shts.Dal.Repositories
         {
             _tickets = new List<TicketDto>();
             _result = _dbCon.GetStringQuery($"SELECT ticket.ticketID, subject, body, ticket.createdAt, lastEdited FROM ticket INNER JOIN personticket p on ticket.ticketID = p.ticketID INNER JOIN person p2 on p.personID = p2.personID WHERE p2.personID = {id}");
-
             for (int i = 0; i < _result.Count; i++)
             {
                 if (_result.Count % 5 == 0)
@@ -65,6 +64,7 @@ namespace Shts.Dal.Repositories
                     _result.RemoveRange(0, 5);
                 }
             }
+
             return _tickets;
         }
     }
