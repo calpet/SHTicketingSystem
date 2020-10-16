@@ -8,7 +8,9 @@ namespace Shts.Dal.Repositories
 {
     public class TicketRepository : ITicketRepository
     {
+        private object[] _params;
         private IDatabaseConnection _dbCon;
+        private List<string> _result;
 
         public TicketRepository(IDatabaseConnection dbCon)
         {
@@ -17,7 +19,7 @@ namespace Shts.Dal.Repositories
 
         public void Create(TicketDto ticket)
         {
-
+            _dbCon.ExecuteNonSearchQuery("INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body)", _params = new object[2] { ticket.Subject, ticket.Content });
         }
 
         public void Edit(TicketDto ticket)
