@@ -10,7 +10,9 @@ namespace Shts.Dal.Repositories
     {
         private object[] _params;
         private IDatabaseConnection _dbCon;
+        private TicketDto _dto;
         private List<string> _result;
+        private List<TicketDto> _tickets;
 
         public TicketRepository(IDatabaseConnection dbCon)
         {
@@ -29,12 +31,26 @@ namespace Shts.Dal.Repositories
 
         public void Delete(int id)
         {
-            _dbCon.ExecuteNonSearchQuery("DELETE FROM `ticket` WHERE `ticket`.`ticketID` = @id", _params = new object[] { id });
+            _dbCon.ExecuteNonSearchQuery($"DELETE FROM `ticket` WHERE `ticket`.`ticketID` = @id", _params = new object[] { id });
         }
 
-        public TicketDto GetTicketById(int id)
+        public List<TicketDto> GetTicketsByUserId(int id)
         {
-            return new TicketDto();
+            _result = _dbCon.GetStringQuery($"SELECT ticket.ticketID, subject, body, ticket.createdAt, lastEdited FROM ticket " +
+                                               "INNER JOIN personticket p on ticket.ticketID = p.ticketID " +
+                                               $"INNER JOIN person p2 on p.personID = p2.personID WHERE p2.personID = {id}");
+            _tickets = new List<TicketDto>();
+
+            for (int i = 0; i < _result.Count; i++)
+            {
+                if (i % 5 == 0 || i % 5 == 1)
+                {
+                    _dto = new TicketDto() {Id = Convert.ToInt32(_result[0]), Subject = _result[1], Content = _result[2], CreatedAt = Convert.ToDateTime(_result[3]), LastEdited = Convert.ToDateTime(_result[4])};
+                    _tickets.Add(_dto);
+                    _result.RemoveRange(0, 5);
+                }
+            }
+            return _tickets;
         }
 
         public List<TicketDto> GetAll()
