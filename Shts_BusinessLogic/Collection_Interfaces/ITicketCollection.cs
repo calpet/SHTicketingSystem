@@ -8,5 +8,6 @@ namespace Shts_BusinessLogic.Collection_Interfaces
     public interface ITicketCollection
     {
         List<Ticket> GetAll();
+        List<Ticket> GetTicketsByUser(User user);
     }
 }
