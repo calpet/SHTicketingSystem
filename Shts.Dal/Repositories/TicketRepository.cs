@@ -19,17 +19,17 @@ namespace Shts.Dal.Repositories
 
         public void Create(TicketDto ticket)
         {
-            _dbCon.ExecuteNonSearchQuery("INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body)", _params = new object[2] { ticket.Subject, ticket.Content });
+            _dbCon.ExecuteNonSearchQuery("INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body)", _params = new object[] { ticket.Subject, ticket.Content });
         }
 
         public void Edit(TicketDto ticket)
         {
-
+            _dbCon.ExecuteNonSearchQuery($"UPDATE `ticket` SET `subject` = @subject, `body` = @content, `lastEdited` = current_timestamp() WHERE `ticket`.`ticketID` = @id", _params = new object[] { ticket.Subject, ticket.Content, ticket.Id });
         }
 
         public void Delete(int id)
         {
-
+            _dbCon.ExecuteNonSearchQuery("DELETE FROM `ticket` WHERE `ticket`.`ticketID` = @id", _params = new object[] { id });
         }
 
         public TicketDto GetTicketById(int id)
