@@ -10,7 +10,9 @@ namespace Shts.Dal.Repositories
     {
         private object[] _params;
         private IDatabaseConnection _dbCon;
+        private TicketDto _dto;
         private List<string> _result;
+        private List<TicketDto> _tickets;
 
         public TicketRepository(IDatabaseConnection dbCon)
         {
@@ -19,27 +21,51 @@ namespace Shts.Dal.Repositories
 
         public void Create(TicketDto ticket)
         {
-            _dbCon.ExecuteNonSearchQuery("INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body)", _params = new object[2] { ticket.Subject, ticket.Content });
+            _dbCon.ExecuteNonSearchQuery("INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body)", _params = new object[] { ticket.Subject, ticket.Content });
         }
 
         public void Edit(TicketDto ticket)
         {
-
+            _dbCon.ExecuteNonSearchQuery($"UPDATE `ticket` SET `subject` = @subject, `body` = @content, `lastEdited` = current_timestamp() WHERE `ticket`.`ticketID` = @id", _params = new object[] { ticket.Subject, ticket.Content, ticket.Id });
         }
 
         public void Delete(int id)
         {
-
+            _dbCon.ExecuteNonSearchQuery($"DELETE FROM `ticket` WHERE `ticket`.`ticketID` = @id", _params = new object[] { id });
         }
 
-        public TicketDto GetTicketById(int id)
+        public List<TicketDto> GetTicketsByUserId(int id)
         {
-            return new TicketDto();
+            _tickets = new List<TicketDto>();
+            _result = _dbCon.GetStringQuery($"SELECT ticket.ticketID, subject, body, ticket.createdAt, lastEdited FROM ticket INNER JOIN personticket p on ticket.ticketID = p.ticketID INNER JOIN person p2 on p.personID = p2.personID WHERE p2.personID = {id}");
+            for (int i = 0; i < _result.Count; i++)
+            {
+                if (_result.Count % 5 == 0)
+                {
+                    _dto = new TicketDto() {Id = Convert.ToInt32(_result[0]), Subject = _result[1], Content = _result[2], CreatedAt = Convert.ToDateTime(_result[3]), LastEdited = Convert.ToDateTime(_result[4])};
+                    _tickets.Add(_dto);
+                    _result.RemoveRange(0, 5);
+                }
+            }
+
+            return _tickets;
         }
 
         public List<TicketDto> GetAll()
         {
-            return new List<TicketDto>();
+            _tickets = new List<TicketDto>();
+            _result = _dbCon.GetStringQuery("SELECT * FROM `ticket`");
+            for (int i = 0; i < _result.Count; i++)
+            {
+                if (_result.Count % 5 == 0) 
+                {
+                    _dto = new TicketDto() { Id = Convert.ToInt32(_result[0]), Subject = _result[1], Content = _result[2], CreatedAt = Convert.ToDateTime(_result[3]), LastEdited = Convert.ToDateTime(_result[4]) };
+                    _tickets.Add(_dto);
+                    _result.RemoveRange(0, 5);
+                }
+            }
+
+            return _tickets;
         }
     }
 }
