@@ -13,6 +13,7 @@ using Shts_BLLInterfaces;
 using Shts_BusinessLogic;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Collections;
+using Shts_BusinessLogic.Managers;
 
 namespace SelfHelpTicketingSystem
 {
@@ -33,6 +34,7 @@ namespace SelfHelpTicketingSystem
             //Inject dependencies to controllers.
             services.AddTransient<IAccountManager, AccountManager>();
             services.AddTransient<IUserCollection, UserCollection>();
+            services.AddTransient<ICredentialsManager, CredentialsManager>();
             //services.AddTransient<ITicketCollection, TicketCollection>();
 
 

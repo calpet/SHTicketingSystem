@@ -7,6 +7,6 @@ namespace Shts_Interfaces.DAL
 {
     public interface ITicketRepository : IRepository<TicketDto>
     {
-        TicketDto GetTicketById(int id);
+        List<TicketDto> GetTicketsByUserId(int id);
     }
 }
