@@ -49,8 +49,8 @@ namespace Shts.Dal
             _result = _dbCon.GetStringQuery("SELECT * FROM `person`");
             for (int i = 0; i < _result.Count; i++)
             {
-                // If the remainder of i / 7 equals 0 or 1, turn the strings into properties for the UserDto, then remove the strings from the list.
-                if (i % 7 == 0 || i % 7 == 1)
+                // If the remainder of i / 8 equals 0, turn the strings into properties for the UserDto, then remove the strings from the list.
+                if (_result.Count % 8 == 0)
                 {
                     UserDto user = new UserDto()
                     {
