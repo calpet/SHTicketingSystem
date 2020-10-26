@@ -63,13 +63,18 @@ namespace Shts_BusinessLogic
             
         }
 
-        public User SearchUserByFilter(UserFilter filter)
+        public User SearchUserByName(string name)
         {
-            if (filter == UserFilter.Username)
+            if (name != null)
             {
-                _dto = DalFactory.UserRepo.GetUserByEmail(_requestingUser.Email);
+                _dto = DalFactory.UserRepo.GetUserByName(name);
                 _user = DtoConverter.ConvertToUserObject(_dto);
             }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+
             return _user;
         }
 

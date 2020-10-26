@@ -33,7 +33,14 @@ namespace Shts_BusinessLogic
 
         public void Delete(int userId)
         {
-            DalFactory.UserRepo.Delete(userId);
+            if (this.Role <= UserRole.Admin || this.Id == userId)
+            {
+                DalFactory.UserRepo.Delete(userId);
+            }
+            else
+            {
+                throw new ArgumentException("User is not permitted to perform this operation.");
+            }
         }
     }
 }

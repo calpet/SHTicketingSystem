@@ -10,6 +10,6 @@ namespace Shts_BusinessLogic
     {
         void Add(User user);
         List<User> GetAll();
-        User SearchUserByFilter(UserFilter filter);
+        User SearchUserByName(string name);
     }
 }
