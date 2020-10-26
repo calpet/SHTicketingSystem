@@ -43,16 +43,6 @@ namespace Shts.Dal
             return user;
         }
 
-        public UserDto GetUserByName(string name)
-        {
-            _result = _dbCon.GetStringQuery($"SELECT `personID`, `firstName`, `lastName`, `gender`, `role`, `email`, `password`, `createdAt` FROM `person` WHERE `person`.`firstName` = @name", _params = new object[] { name });
-            if (_result.Count == 0)
-                return null;
-
-            UserDto user = new UserDto() { Id = Convert.ToInt32(_result[0]), FirstName = _result[1], LastName = _result[2], Gender = _result[3], Role = _result[4], Email = _result[5], Password = _result[6], CreatedAt = DateTime.Parse(_result[7]) };
-            return user;
-        }
-
         public List<UserDto> GetAll()
         {
             List<UserDto> userList = new List<UserDto>();

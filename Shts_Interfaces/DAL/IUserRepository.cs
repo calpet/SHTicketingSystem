@@ -8,6 +8,5 @@ namespace Shts_Interfaces.DAL
     public interface IUserRepository : IRepository<UserDto>
     {
         UserDto GetUserByEmail(string email);
-        UserDto GetUserByName(string name);
     }
 }

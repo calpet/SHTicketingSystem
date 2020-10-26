@@ -42,33 +42,30 @@ namespace Shts_BusinessLogic
 
         public List<User> GetAll()
         {
-            if (_requestingUser.Role == UserRole.Admin)
-            {
-                _users = new List<User>();
-                var dtoList = DalFactory.UserRepo.GetAll();
+            _users = new List<User>();
+            var dtoList = DalFactory.UserRepo.GetAll();
                 
-                foreach (var dto in dtoList)
-                {
-                    _users.Add(DtoConverter.ConvertToUserObject(dto));
-                }
-
-                return _users;
-            }
-
-            else
+            foreach (var dto in dtoList)
             {
-                throw new InsufficientPermissionException("You have insufficient permission to perform this action.");
+                _users.Add(DtoConverter.ConvertToUserObject(dto));
             }
 
-            
-        }
+            return _users;
+            }
 
         public User SearchUserByName(string name)
         {
             if (name != null)
             {
-                _dto = DalFactory.UserRepo.GetUserByName(name);
-                _user = DtoConverter.ConvertToUserObject(_dto);
+                _users = GetAll();
+
+                for (int i = 0; i < _users.Count; i++)
+                {
+                    if (name == _users[i].FirstName || name == _users[i].LastName)
+                    { 
+                        _user = DtoConverter.ConvertToUserObject(_dto);
+                    }
+                }
             }
             else
             {
