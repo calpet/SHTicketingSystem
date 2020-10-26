@@ -38,7 +38,7 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult CreateAccount(UserViewModel uvm)
         {
-            _user = new User() { FirstName = uvm.FirstName, LastName = uvm.LastName, Gender = uvm.Gender, Email = uvm.Email, Password = uvm.Password};
+            _user = ViewModelConverter.ConvertViewModelToModel(uvm);
             _userCollection.Add(_user);
             return RedirectToAction("Login");
         }

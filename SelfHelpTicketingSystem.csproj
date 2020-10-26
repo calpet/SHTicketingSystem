@@ -41,4 +41,8 @@
     <ProjectReference Include="Shts_BusinessLogic\Shts_BusinessLogic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Tickets\" />
+  </ItemGroup>
+
 </Project>

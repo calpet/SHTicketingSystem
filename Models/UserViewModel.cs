@@ -9,6 +9,7 @@ namespace SelfHelpTicketingSystem.Models
 {
     public class UserViewModel
     {
+        public int UserId { get; set; }
         
         [Required(ErrorMessage = "First name required!")]
         public string FirstName { get; set; }

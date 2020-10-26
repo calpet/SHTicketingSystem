@@ -22,6 +22,7 @@ namespace SelfHelpTicketingSystem.Classes
             Claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email),
+                new Claim("UserID", user.UserId.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             Identity = new ClaimsIdentity(Claims, CookieAuthenticationDefaults.AuthenticationScheme);
