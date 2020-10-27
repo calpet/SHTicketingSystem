@@ -4,13 +4,12 @@ using System.Text;
 
 namespace Shts_Entities.Enums
 {
-    public enum UserFilter
+    public enum Status
     {
-        Username,
-        Id,
-        Role,
-        FirstName,
-        LastName
+        Open,
+        OnHold,
+        Assigned,
+        Solved,
+        Closed
     }
-
 }

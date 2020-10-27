@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
+using Shts_BusinessLogic.Models;
+using Shts_Entities.Enums;
 
 namespace SelfHelpTicketingSystem.Classes
 {
@@ -11,17 +13,27 @@ namespace SelfHelpTicketingSystem.Classes
     {
         private static User _user;
         private static UserViewModel _uvm;
+        private static Ticket _ticket;
+        private static TicketViewModel _tvm;
 
-        public static User ConvertViewModelToModel(UserViewModel uvm)
+        public static User ConvertViewModelToUser(UserViewModel uvm)
         {
-            _user = new User() { Id = uvm.UserId, FirstName = uvm.FirstName, LastName = uvm.LastName, Gender = uvm.Gender, Email = uvm.Email, Password = uvm.Password };
-            return _user;
+           return _user = new User() { Id = uvm.UserId, FirstName = uvm.FirstName, LastName = uvm.LastName, Gender = uvm.Gender, Email = uvm.Email, Password = uvm.Password };
         }
 
-        public static UserViewModel ConvertModelToViewModel(User user)
+        public static UserViewModel ConvertUserToViewModel(User user)
         {
-            _uvm = new UserViewModel() { UserId = user.Id, FirstName = user.FirstName, LastName = user.LastName, Gender = user.Gender, Email = user.Email, Password = user.Password };
-            return _uvm;
+            return _uvm = new UserViewModel() { UserId = user.Id, FirstName = user.FirstName, LastName = user.LastName, Gender = user.Gender, Email = user.Email, Password = user.Password };
+        }
+
+        public static Ticket ConvertViewModelToTicket(TicketViewModel tvm)
+        {
+            return _ticket = new Ticket() { Id = tvm.Id, Subject = tvm.Subject, Content = tvm.Content, Author = tvm.Author, Handler = tvm.Handler, Attachment = tvm.Attachment, CreatedAt = tvm.CreatedAt, LastEdited = tvm.LastEdited, Priority = tvm.Priority, Status = tvm.Status};
+        }
+
+        public static TicketViewModel ConvertTicketToViewModel(Ticket ticket)
+        {
+            return _tvm = new TicketViewModel() { Id = ticket.Id, Subject = ticket.Subject, Content = ticket.Content, Author = ticket.Author, Handler = ticket.Handler, Attachment = ticket.Attachment, CreatedAt = ticket.CreatedAt, LastEdited = ticket.LastEdited, Priority = ticket.Priority, Status = ticket.Status};
         }
     }
 }

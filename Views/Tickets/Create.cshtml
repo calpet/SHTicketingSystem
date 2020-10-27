@@ -1,0 +1,59 @@
+﻿@model SelfHelpTicketingSystem.Models.TicketViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>TicketViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Handler" class="control-label"></label>
+                <input asp-for="Handler" class="form-control" />
+                <span asp-validation-for="Handler" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject" class="control-label"></label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Attachment" class="control-label"></label>
+                <input asp-for="Attachment" class="form-control" />
+                <span asp-validation-for="Attachment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Priority" class="control-label"></label>
+                <input asp-for="Priority" class="form-control" />
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" asp-action="CreateTicket" asp-controller="Tickets" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Dashboard" asp-controller="Home">Back to Dashboard</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

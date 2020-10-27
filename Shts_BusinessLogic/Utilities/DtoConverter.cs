@@ -29,13 +29,13 @@ namespace Shts_BusinessLogic
 
         public static Ticket ConvertToTicketObject(TicketDto dto)
         {
-            _ticket = new Ticket() { Id = dto.Id, Attachment = dto.Attachment, Subject = dto.Subject, Content = dto.Content, CreatedAt = dto.CreatedAt, LastEdited = dto.LastEdited };
+            _ticket = new Ticket() { Id = dto.Id, Attachment = dto.Attachment, Subject = dto.Subject, Content = dto.Content, CreatedAt = dto.CreatedAt, LastEdited = dto.LastEdited, Status = Enum.Parse<Status>(dto.Status), Priority = Enum.Parse<Priority>(dto.Priority)};
             return _ticket;
         }
 
         public static TicketDto ConvertToTicketDto(Ticket ticket)
         {
-            _ticketDto = new TicketDto() { Id = ticket.Id, Attachment = ticket.Attachment, Subject = ticket.Subject, Content = ticket.Content, CreatedAt = ticket.CreatedAt, LastEdited = ticket.LastEdited };
+            _ticketDto = new TicketDto() { Id = ticket.Id, Attachment = ticket.Attachment, Subject = ticket.Subject, Content = ticket.Content, CreatedAt = ticket.CreatedAt, LastEdited = ticket.LastEdited, Status = ticket.Status.ToString(), Priority = ticket.Priority.ToString()};
             return _ticketDto;
         }
 

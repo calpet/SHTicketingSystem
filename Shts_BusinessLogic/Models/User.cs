@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
+using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Models;
 using Shts_Entities.Enums;
 using Shts_Factories;
 
 namespace Shts_BusinessLogic
 {
-    public class User
+    public class User : IUser
     {
         public int Id { get; set; }
         public string Email { get; set; }

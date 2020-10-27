@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Shts_BLLInterfaces;
 using Shts_BusinessLogic;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Collections;
@@ -35,7 +34,8 @@ namespace SelfHelpTicketingSystem
             services.AddTransient<IAccountManager, AccountManager>();
             services.AddTransient<IUserCollection, UserCollection>();
             services.AddTransient<ICredentialsManager, CredentialsManager>();
-            //services.AddTransient<ITicketCollection, TicketCollection>();
+            services.AddTransient<ITicketCollection, TicketCollection>();
+            services.AddTransient<IUser, User>();
 
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,15 +15,28 @@ namespace SelfHelpTicketingSystem.Controllers
     {
         private ITicketCollection _ticketColl;
         private IUserCollection _userColl;
-        private User _user;
-        public TicketsController(ITicketCollection ticketColl, IUserCollection userColl)
+        private IUser _user;
+        public TicketsController(ITicketCollection ticketColl, IUserCollection userColl, IUser user)
         {
             _ticketColl = ticketColl;
             _userColl = userColl;
+            _user = user;
         }
         public IActionResult Create()
         {
-            return View();
+            if (CookieManager.IsSignedIn)
+            {
+                return View();
+            }
+
+            return RedirectToAction("Login", "Authentication", "UserNotSignedIn");
+        }
+
+        public void CreateTicket(TicketViewModel ticket)
+        {
+            var model = ViewModelConverter.ConvertViewModelToTicket(ticket);
+            _user.CreateTicket(model);
+            RedirectToAction("Dashboard", "Home");
         }
 
         public IActionResult Edit(int id)
@@ -37,8 +51,14 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult Preview(UserViewModel uvm)
         {
-            var list = _ticketColl.GetTicketsByUser(ViewModelConverter.ConvertViewModelToModel(uvm));
-            return View();
+            List<TicketViewModel> ticketList = new List<TicketViewModel>();
+            var list = _ticketColl.GetTicketsByUser(ViewModelConverter.ConvertViewModelToUser(uvm));
+            foreach (var ticket in list)
+            {
+                var viewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+                ticketList.Add(viewModel);
+            }
+            return View(ticketList);
         }
 
         public IActionResult Ticket()

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Shts_Entities.Enums;
 
-namespace Shts.Dal
+namespace SelfHelpTicketingSystem.Models
 {
-    public class TicketDto
+    public class TicketViewModel
     {
         public int Id { get; set; }
         public string Author { get; set; }
@@ -10,10 +14,9 @@ namespace Shts.Dal
         public string Subject { get; set; }
         public string Content { get; set; }
         public string Attachment { get; set; }
-        public string Priority { get; set; }
-        public string Status { get; set; }
+        public Priority Priority { get; set; }
+        public Status Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastEdited { get; set; }
     }
-
 }
