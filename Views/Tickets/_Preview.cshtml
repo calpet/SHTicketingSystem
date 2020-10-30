@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TicketViewModel>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <td>#</td>
+            <td>Status</td>
+            <td>Subject</td>
+            <td>Last edited</td>
+            <td>Handler</td>
+        </tr>
+    </thead>
+    @foreach (var ticket in Model)
+    {
+        <tr>
+            <td>@ticket.Id</td>
+            <td>@ticket.Status</td>
+            <td>@ticket.Subject</td>
+            <td>@ticket.LastEdited</td>
+            <td>@ticket.Author</td>
+        </tr>
+    }
+</table>

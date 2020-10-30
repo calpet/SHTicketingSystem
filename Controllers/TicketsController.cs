@@ -47,16 +47,16 @@ namespace SelfHelpTicketingSystem.Controllers
             return View();
         }
 
-        public IActionResult Preview(UserViewModel uvm)
+        public IActionResult Preview(int id)
         {
             List<TicketViewModel> ticketList = new List<TicketViewModel>();
-            var list = _ticketColl.GetTicketsByUser(ViewModelConverter.ConvertViewModelToUser(uvm));
+            var list = _ticketColl.GetTicketsByUserId(id);
             foreach (var ticket in list)
             {
                 var viewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
                 ticketList.Add(viewModel);
             }
-            return View(ticketList);
+            return View("_Preview", ticketList);
         }
 
         public IActionResult Ticket()

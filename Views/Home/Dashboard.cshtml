@@ -1,1 +1,13 @@
-﻿@Context.User.IsInRole("SupportUser");
+﻿@using Shts_BusinessLogic.Collection_Interfaces
+@using SelfHelpTicketingSystem.Classes
+@model IEnumerable<TicketViewModel>;
+@{
+    ITicketCollection collection;
+    var userId = Convert.ToInt32(CookieManager.GetUserId());
+}
+
+
+<h3>Your Tickets:</h3>
+<script>
+    var url = '@Url.Action("Preview", "Tickets", new {id = userId})';
+    window.location = url;</script>
