@@ -12,17 +12,8 @@ namespace Shts_BusinessLogic
     {
         private UserDto _dto;
         private User _user;
-        private User _requestingUser;
         private List<User> _users;
         private IAccountManager _accountManager;
-
-
-        //Constructor for when a User wants to use a functionality.
-        public UserCollection(User user)
-        {
-            _requestingUser = user;
-        }
-
 
         //Constructor for when a new account gets added.
         public UserCollection(IAccountManager accountManager)
@@ -72,6 +63,16 @@ namespace Shts_BusinessLogic
                 throw new ArgumentNullException();
             }
 
+            return _user;
+        }
+
+        public User SearchUserByEmail(string email)
+        {
+            if (email != null)
+            {
+                _users = GetAll();
+                _user = _users.Find(x => x.Email == email);
+            }
             return _user;
         }
 

@@ -49,6 +49,8 @@ namespace SelfHelpTicketingSystem.Controllers
             var result = _accountManager.ValidateCredentials(user.Email, user.Password);
             if (result)
             {
+                _user = _userCollection.SearchUserByEmail(user.Email);
+                user.UserId = _user.Id;
                 List<object> newCookie = CookieManager.SetCookie(user);
                 HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal) newCookie[0], (AuthenticationProperties) newCookie[1]

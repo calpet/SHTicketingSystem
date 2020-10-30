@@ -35,5 +35,11 @@ namespace SelfHelpTicketingSystem.Classes
                 Properties
             };
         }
+
+        public static string GetUserId()
+        {
+            var claim = Identity.FindFirst("UserID");
+            return claim == null ? string.Empty : claim.Value;
+        }
     }
 }

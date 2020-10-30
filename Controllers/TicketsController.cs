@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SelfHelpTicketingSystem.Classes;
 using SelfHelpTicketingSystem.Models;
@@ -11,6 +12,8 @@ using Shts_BusinessLogic.Collection_Interfaces;
 
 namespace SelfHelpTicketingSystem.Controllers
 {
+
+    [Authorize]
     public class TicketsController : Controller
     {
         private ITicketCollection _ticketColl;
@@ -24,12 +27,7 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult Create()
         {
-            if (CookieManager.IsSignedIn)
-            {
-                return View();
-            }
-
-            return RedirectToAction("Login", "Authentication", "UserNotSignedIn");
+            return View();
         }
 
         public void CreateTicket(TicketViewModel ticket)

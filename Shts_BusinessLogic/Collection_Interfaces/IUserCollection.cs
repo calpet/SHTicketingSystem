@@ -11,5 +11,6 @@ namespace Shts_BusinessLogic
         void Add(User user);
         List<User> GetAll();
         User SearchUserByName(string name);
+        User SearchUserByEmail(string email);
     }
 }
