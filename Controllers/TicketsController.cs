@@ -14,14 +14,14 @@ namespace SelfHelpTicketingSystem.Controllers
     public class TicketsController : Controller
     {
         private ITicketCollection _ticketColl;
-        private IUserCollection _userColl;
         private IUser _user;
-        public TicketsController(ITicketCollection ticketColl, IUserCollection userColl, IUser user)
+
+        public TicketsController(ITicketCollection ticketColl, IUser user)
         {
             _ticketColl = ticketColl;
-            _userColl = userColl;
             _user = user;
         }
+
         public IActionResult Create()
         {
             if (CookieManager.IsSignedIn)

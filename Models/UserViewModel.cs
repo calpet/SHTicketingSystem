@@ -18,6 +18,7 @@ namespace SelfHelpTicketingSystem.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "E-mail required!")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password required!")]

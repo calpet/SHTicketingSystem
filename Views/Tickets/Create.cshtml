@@ -14,16 +14,6 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Handler" class="control-label"></label>
-                <input asp-for="Handler" class="form-control" />
-                <span asp-validation-for="Handler" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Subject" class="control-label"></label>
                 <input asp-for="Subject" class="form-control" />
                 <span asp-validation-for="Subject" class="text-danger"></span>
@@ -33,6 +23,7 @@
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
+            <!--Change attachment field to upload files in a later sprint pls :)-->
             <div class="form-group">
                 <label asp-for="Attachment" class="control-label"></label>
                 <input asp-for="Attachment" class="form-control" />
