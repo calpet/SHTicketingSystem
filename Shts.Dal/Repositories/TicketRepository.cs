@@ -54,14 +54,14 @@ namespace Shts.Dal.Repositories
         public List<TicketDto> GetAll()
         {
             _tickets = new List<TicketDto>();
-            _result = _dbCon.GetStringQuery("SELECT * FROM `ticket`");
+            _result = _dbCon.GetStringQuery("SELECT ticket.ticketID, p2.firstName, p2.lastName, subject, body, ticket.createdAt, lastEdited, status, priority FROM ticket INNER JOIN personticket p on ticket.ticketID = p.ticketID INNER JOIN person p2 on p.personID = p2.personID");
             for (int i = 0; i < _result.Count; i++)
             {
-                if (_result.Count % 5 == 0) 
+                if (_result.Count % 9 == 0) 
                 {
-                    _dto = new TicketDto() { Id = Convert.ToInt32(_result[0]), Subject = _result[1], Content = _result[2], CreatedAt = Convert.ToDateTime(_result[3]), LastEdited = Convert.ToDateTime(_result[4]) };
+                    _dto = new TicketDto() { Id = Convert.ToInt32(_result[0]), Author = _result[1] + " " + _result[2], Subject = _result[3], Content = _result[4], CreatedAt = Convert.ToDateTime(_result[5]), LastEdited = Convert.ToDateTime(_result[6]), Status = _result[7], Priority = _result[8] };
                     _tickets.Add(_dto);
-                    _result.RemoveRange(0, 5);
+                    _result.RemoveRange(0, 9);
                 }
             }
 

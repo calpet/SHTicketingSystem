@@ -9,5 +9,6 @@ namespace Shts_BusinessLogic.Collection_Interfaces
     {
         List<Ticket> GetAll();
         List<Ticket> GetTicketsByUserId(int id);
+        Ticket GetTicketById(int id);
     }
 }

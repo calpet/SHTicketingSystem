@@ -1,8 +1,11 @@
-﻿@model SelfHelpTicketingSystem.Models.TicketViewModel
+﻿@using SelfHelpTicketingSystem.Classes
+
+@model SelfHelpTicketingSystem.Models.TicketViewModel
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string name = CookieManager.GetName();
 }
 
 <h1>Create</h1>
@@ -33,6 +36,9 @@
                 <label asp-for="Priority" class="control-label"></label>
                 <input asp-for="Priority" class="form-control" />
                 <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Author" value="@name"/>
             </div>
             <div class="form-group">
                 <input type="submit" asp-action="CreateTicket" asp-controller="Tickets" value="Create" class="btn btn-primary" />

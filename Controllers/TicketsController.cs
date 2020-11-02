@@ -37,6 +37,12 @@ namespace SelfHelpTicketingSystem.Controllers
             RedirectToAction("Dashboard", "Home");
         }
 
+        public IActionResult Details(int id)
+        {
+            var ticket = ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id));
+            return View(ticket);
+        }
+
         public IActionResult Edit(int id)
         {
             return View();
@@ -57,11 +63,6 @@ namespace SelfHelpTicketingSystem.Controllers
                 ticketList.Add(viewModel);
             }
             return View("_Preview", ticketList);
-        }
-
-        public IActionResult Ticket()
-        {
-            return View();
         }
     }
 }

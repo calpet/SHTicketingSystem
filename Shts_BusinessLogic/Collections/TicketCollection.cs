@@ -36,5 +36,18 @@ namespace Shts_BusinessLogic.Collections
 
             return _tickets;
         }
+
+        public Ticket GetTicketById(int id)
+        {
+            _ticket = null;
+            var dtoList = GetAll();
+            foreach (var t in dtoList)
+            {
+                if (t.Id == id)
+                    _ticket = new Ticket() {Id = t.Id, Author = t.Author, Subject = t.Subject, Content = t.Content, CreatedAt = t.CreatedAt, LastEdited = t.LastEdited, Status = t.Status, Priority = t.Priority, Handler = t.Handler, Attachment = t.Attachment};
+            }
+
+            return _ticket;
+        }
     }
 }

@@ -22,7 +22,8 @@ namespace SelfHelpTicketingSystem.Classes
         {
             Claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("Name", user.FirstName + user.LastName),
                 new Claim("UserID", user.UserId.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
@@ -41,6 +42,13 @@ namespace SelfHelpTicketingSystem.Classes
         public static string GetUserId()
         {
             var claim = Identity.FindFirst("UserID");
+            return claim == null ? string.Empty : claim.Value;
+        }
+
+        [Authorize]
+        public static string GetName()
+        {
+            var claim = Identity.FindFirst("Name");
             return claim == null ? string.Empty : claim.Value;
         }
     }
