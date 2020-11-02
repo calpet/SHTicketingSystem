@@ -24,10 +24,10 @@ namespace Shts_BusinessLogic.Collections
             return _tickets;
         }
 
-        public List<Ticket> GetTicketsByUser(User user)
+        public List<Ticket> GetTicketsByUserId(int id)
         {
             _tickets = new List<Ticket>();
-            var dtoList = DalFactory.TicketRepo.GetTicketsByUserId(user.Id);
+            var dtoList = DalFactory.TicketRepo.GetTicketsByUserId(id);
             foreach (var dto in dtoList)
             {
                 _ticket = DtoConverter.ConvertToTicketObject(dto);
@@ -35,6 +35,19 @@ namespace Shts_BusinessLogic.Collections
             }
 
             return _tickets;
+        }
+
+        public Ticket GetTicketById(int id)
+        {
+            _ticket = null;
+            var dtoList = GetAll();
+            foreach (var t in dtoList)
+            {
+                if (t.Id == id)
+                    _ticket = new Ticket() {Id = t.Id, Author = t.Author, Subject = t.Subject, Content = t.Content, CreatedAt = t.CreatedAt, LastEdited = t.LastEdited, Status = t.Status, Priority = t.Priority, Handler = t.Handler, Attachment = t.Attachment};
+            }
+
+            return _ticket;
         }
     }
 }

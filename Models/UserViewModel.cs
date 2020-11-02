@@ -9,6 +9,7 @@ namespace SelfHelpTicketingSystem.Models
 {
     public class UserViewModel
     {
+        public int UserId { get; set; }
         
         [Required(ErrorMessage = "First name required!")]
         public string FirstName { get; set; }
@@ -17,6 +18,7 @@ namespace SelfHelpTicketingSystem.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "E-mail required!")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password required!")]

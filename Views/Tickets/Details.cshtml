@@ -1,0 +1,75 @@
+﻿@using SelfHelpTicketingSystem.Classes
+@model SelfHelpTicketingSystem.Models.TicketViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var uid = CookieManager.GetUserId();
+}
+
+<h1>Details</h1>
+
+<div>
+    <hr />
+    <div> @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) </div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Handler)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Handler)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Attachment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Attachment)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            <label>Created at</label>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            <label>Last edited</label>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastEdited)
+        </dd>
+    </dl>
+</div>
+<div>
+    
+    @Html.ActionLink("Back to list", "Preview", new { id = uid })
+</div>

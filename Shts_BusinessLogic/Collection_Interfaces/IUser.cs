@@ -5,10 +5,11 @@ using Shts_BusinessLogic.Models;
 
 namespace Shts_BusinessLogic.Collection_Interfaces
 {
-    public interface ITicketCollection
+    public interface IUser
     {
-        List<Ticket> GetAll();
-        List<Ticket> GetTicketsByUserId(int id);
-        Ticket GetTicketById(int id);
+        int Id { get; set; }
+        void Edit(User user);
+        void CreateTicket(Ticket ticket);
+        void Delete(int userId);
     }
 }

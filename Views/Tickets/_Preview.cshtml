@@ -1,0 +1,25 @@
+﻿@model IEnumerable<TicketViewModel>
+
+<table class="table">
+    <thead class="thead-dark bg-dark text-light">
+        <tr>
+            <td>#</td>
+            <td>Status</td>
+            <td>Subject</td>
+            <td>Last edited</td>
+            <td>Handler</td>
+            <td></td>
+        </tr>
+    </thead>
+    @foreach (var ticket in Model)
+    {
+        <tr>
+            <td name="id">@ticket.Id</td>
+            <td>@ticket.Status</td>
+            <td>@ticket.Subject</td>
+            <td>@ticket.LastEdited</td>
+            <td>@ticket.Author</td>
+            <td>@Html.ActionLink("View details", "Details", new{id = ticket.Id})</td>
+        </tr>
+    }
+</table>
