@@ -16,14 +16,15 @@ namespace SelfHelpTicketingSystem.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private User _user;
+        private IUser _user;
         private IUserCollection _userCollection;
         private IAccountManager _accountManager;
 
-        public AuthenticationController(IAccountManager accountManager, IUserCollection userCollection)
+        public AuthenticationController(IAccountManager accountManager, IUserCollection userCollection, IUser user)
         {
             _accountManager = accountManager;
             _userCollection = userCollection;
+            _user = user;
 
         }
         public IActionResult Register()

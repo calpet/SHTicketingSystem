@@ -10,9 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shts_BusinessLogic;
+using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Collections;
 using Shts_BusinessLogic.Managers;
+using Shts_BusinessLogic.Models;
 
 namespace SelfHelpTicketingSystem
 {
@@ -36,6 +38,7 @@ namespace SelfHelpTicketingSystem
             services.AddTransient<ICredentialsManager, CredentialsManager>();
             services.AddTransient<ITicketCollection, TicketCollection>();
             services.AddTransient<IUser, User>();
+            services.AddTransient<ITicket, Ticket>();
 
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
