@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using SelfHelpTicketingSystem.Classes;
 using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
+using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_BusinessLogic.Collection_Interfaces;
 
 namespace SelfHelpTicketingSystem.Controllers
@@ -18,11 +19,13 @@ namespace SelfHelpTicketingSystem.Controllers
     {
         private ITicketCollection _ticketColl;
         private IUser _user;
+        private ITicket _ticket;
 
-        public TicketsController(ITicketCollection ticketColl, IUser user)
+        public TicketsController(ITicketCollection ticketColl, IUser user, ITicket ticket)
         {
             _ticketColl = ticketColl;
             _user = user;
+            _ticket = ticket;
         }
 
         public IActionResult Create()
@@ -30,11 +33,11 @@ namespace SelfHelpTicketingSystem.Controllers
             return View();
         }
 
-        public void CreateTicket(TicketViewModel ticket)
+        public IActionResult CreateTicket(TicketViewModel ticket)
         {
             var model = ViewModelConverter.ConvertViewModelToTicket(ticket);
             _user.CreateTicket(model);
-            RedirectToAction("Dashboard", "Home");
+            return RedirectToAction("Dashboard", "Home");
         }
 
         public IActionResult Details(int id)
@@ -45,7 +48,13 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult Edit(int id)
         {
-            return View();
+            return View(ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id)));
+        }
+
+        public IActionResult EditTicket(TicketViewModel ticket)
+        { 
+            _ticket.Edit(ViewModelConverter.ConvertViewModelToTicket(ticket));
+            return RedirectToAction("Details", "Tickets", new {id = ticket.Id});
         }
 
         public IActionResult Delete(int id)

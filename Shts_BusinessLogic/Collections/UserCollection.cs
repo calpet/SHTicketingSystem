@@ -22,7 +22,7 @@ namespace Shts_BusinessLogic
         }
 
 
-        public void Add(User user)
+        public void Add(IUser user)
         {
             if (user != null)
             {

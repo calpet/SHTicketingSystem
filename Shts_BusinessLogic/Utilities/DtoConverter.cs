@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Shts.Dal;
 using Shts.Dal.DTOs;
+using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Models;
 using Shts_Entities.Enums;
 
@@ -21,7 +22,7 @@ namespace Shts_BusinessLogic
             return _user;
         }
 
-        public static UserDto ConvertToUserDto(User user)
+        public static UserDto ConvertToUserDto(IUser user)
         {
             _userDto = new UserDto() { FirstName = user.FirstName, LastName = user.LastName, Gender = user.Gender.ToString(), Role = user.Role.ToString(), Email = user.Email, Password = user.Password };
             return _userDto;

@@ -39,14 +39,12 @@ namespace Shts_BusinessLogic.Collections
 
         public Ticket GetTicketById(int id)
         {
-            _ticket = null;
-            var dtoList = GetAll();
-            foreach (var t in dtoList)
+            if (id != null)
             {
-                if (t.Id == id)
-                    _ticket = new Ticket() {Id = t.Id, Author = t.Author, Subject = t.Subject, Content = t.Content, CreatedAt = t.CreatedAt, LastEdited = t.LastEdited, Status = t.Status, Priority = t.Priority, Handler = t.Handler, Attachment = t.Attachment};
+                _tickets = GetAll();
+                _ticket = _tickets.Find(x => x.Id == id);
             }
-
+            
             return _ticket;
         }
     }
