@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Shts.Dal;
 using Shts.Dal.DTOs;
+using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Models;
 using Shts_Entities.Enums;
@@ -36,7 +37,7 @@ namespace Shts_BusinessLogic
 
         public static TicketDto ConvertToTicketDto(Ticket ticket)
         {
-            _ticketDto = new TicketDto() { Id = ticket.Id, Attachment = ticket.Attachment, Author = ticket.Author, Subject = ticket.Subject, Content = ticket.Content, CreatedAt = ticket.CreatedAt, LastEdited = ticket.LastEdited, Status = ticket.Status.ToString(), Priority = ticket.Priority.ToString()};
+            _ticketDto = new TicketDto() { Id = ticket.Id, Attachment = ticket.Attachment, Author = ticket.Author, AuthorId = ticket.AuthorId, Subject = ticket.Subject, Content = ticket.Content, CreatedAt = ticket.CreatedAt, LastEdited = ticket.LastEdited, Status = ticket.Status.ToString(), Priority = ticket.Priority.ToString()};
             return _ticketDto;
         }
 

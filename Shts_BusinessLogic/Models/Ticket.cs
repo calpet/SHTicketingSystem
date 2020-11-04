@@ -11,6 +11,7 @@ namespace Shts_BusinessLogic.Models
     {
         public int Id { get; set; }
         public string Author { get; set; }
+        public int AuthorId { get; set; }
         public string Handler { get; set; }
         public string Subject { get; set; }
         public string Content { get; set; }
@@ -31,5 +32,11 @@ namespace Shts_BusinessLogic.Models
                 throw new ArgumentNullException("The ticket you provided was null");
             }
         }
+
+        public void Delete(Ticket ticket)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    string name = CookieManager.GetName();
+    int uid = Convert.ToInt32(CookieManager.GetUserId());
 }
 
 <h1>Create</h1>
@@ -38,7 +38,7 @@
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="Author" value="@name"/>
+                <input type="hidden" asp-for="AuthorId" value="@uid"/>
             </div>
             <div class="form-group">
                 <input type="submit" asp-action="CreateTicket" asp-controller="Tickets" value="Create" class="btn btn-primary" />

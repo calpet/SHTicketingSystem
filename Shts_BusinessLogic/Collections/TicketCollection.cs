@@ -47,5 +47,16 @@ namespace Shts_BusinessLogic.Collections
             
             return _ticket;
         }
+
+        public Ticket GetTicketBySubject(string subject)
+        {
+            if (!String.IsNullOrEmpty(subject))
+            {
+                _tickets = GetAll();
+                _ticket = _tickets.Find(x => x.Subject == subject);
+            }
+
+            return _ticket;
+        }
     }
 }
