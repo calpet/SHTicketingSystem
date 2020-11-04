@@ -28,7 +28,7 @@ namespace SelfHelpTicketingSystem.Classes
 
         public static Ticket ConvertViewModelToTicket(TicketViewModel tvm)
         {
-            return _ticket = new Ticket() { Id = tvm.Id, Subject = tvm.Subject, Content = tvm.Content, Author = tvm.Author, Handler = tvm.Handler, Attachment = tvm.Attachment, CreatedAt = tvm.CreatedAt, LastEdited = tvm.LastEdited, Priority = tvm.Priority, Status = tvm.Status};
+            return _ticket = new Ticket() { Id = tvm.Id, Subject = tvm.Subject, Content = tvm.Content, Author = tvm.Author, AuthorId = tvm.AuthorId, Handler = tvm.Handler, Attachment = tvm.Attachment, CreatedAt = tvm.CreatedAt, LastEdited = tvm.LastEdited, Priority = tvm.Priority, Status = tvm.Status};
         }
 
         public static TicketViewModel ConvertTicketToViewModel(Ticket ticket)

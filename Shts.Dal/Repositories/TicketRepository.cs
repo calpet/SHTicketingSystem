@@ -21,7 +21,7 @@ namespace Shts.Dal.Repositories
 
         public void Create(TicketDto ticket)
         {
-            _dbCon.ExecuteNonSearchQuery("INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body)", _params = new object[] { ticket.Subject, ticket.Content });
+            _dbCon.ExecuteNonSearchQuery("START TRANSACTION; INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body); INSERT INTO `personticket`(`personID`, `ticketID`) VALUES (@uid, LAST_INSERT_ID()); COMMIT;", _params = new object[] { ticket.Subject, ticket.Content, ticket.AuthorId });
         }
 
         public void Edit(TicketDto ticket)

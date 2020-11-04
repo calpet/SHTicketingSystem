@@ -10,6 +10,7 @@ namespace SelfHelpTicketingSystem.Models
     {
         public int Id { get; set; }
         public string Author { get; set; }
+        public int AuthorId { get; set; }
         public string Handler { get; set; }
         public string Subject { get; set; }
         public string Content { get; set; }
