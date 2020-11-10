@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<TicketViewModel>
 
+@if (TempData["NoTickets"] != null)
+{
+    <p class="alert alert-danger">@TempData["NoTickets"]</p>
+}
 <table class="table">
     <thead class="thead-dark bg-dark text-light">
         <tr>
