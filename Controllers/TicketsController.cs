@@ -66,11 +66,19 @@ namespace SelfHelpTicketingSystem.Controllers
         {
             List<TicketViewModel> ticketList = new List<TicketViewModel>();
             var list = _ticketColl.GetTicketsByUserId(id);
-            foreach (var ticket in list)
+            if (list.Count != 0)
             {
-                var viewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
-                ticketList.Add(viewModel);
+                foreach (var ticket in list)
+                {
+                    var viewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+                    ticketList.Add(viewModel);
+                }
             }
+            else
+            {
+                TempData["NoTickets"] = "No tickets have been found yet. Please create a new ticket.";
+            }
+
             return View("_Preview", ticketList);
         }
     }
