@@ -72,14 +72,14 @@ namespace Shts_BusinessLogic
             {
                 _users = GetAll();
                 _user = _users.Find(x => x.Email == email);
-                _user.FullName = _user.FirstName + _user.LastName;
+                _user.FullName = _user.FirstName + " " + _user.LastName;
             }
             return _user;
         }
 
         public IUser GetUserById(int id)
         {
-            if (id == 1)
+            if (id == 1 || id == 0)
             {
                 _user = new User() { FullName = "Unassigned" };
             }
@@ -87,7 +87,7 @@ namespace Shts_BusinessLogic
             {
                 _users = GetAll();
                 _user = _users.Find(x => x.Id == id);
-                _user.FullName = _user.FirstName + _user.LastName;
+                _user.FullName = _user.FirstName + " " + _user.LastName;
             }
             
 

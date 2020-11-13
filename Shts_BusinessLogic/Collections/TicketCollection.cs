@@ -5,6 +5,8 @@ using System.Text;
 using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Models;
+using Shts_BusinessLogic.Utilities;
+using Shts_Entities.Enums;
 using Shts_Factories;
 
 namespace Shts_BusinessLogic.Collections
@@ -13,61 +15,53 @@ namespace Shts_BusinessLogic.Collections
     {
         private List<ITicket> _tickets;
         private ITicket _ticket;
+        private IUserCollection _userColl;
+
+        public TicketCollection(IUserCollection userColl)
+        {
+            _userColl = userColl;
+        }
 
         public List<ITicket> GetAll()
         {
-            _tickets = new List<ITicket>();
+            List<ITicket> tickets = new List<ITicket>();
             var dtoList = DalFactory.TicketRepo.GetAll();
-            foreach (var dto in dtoList)
+            var mergedList = TicketMerger.MergeExistingTickets(dtoList);
+            foreach (var dto in mergedList)
             {
-                var duplicate = dtoList.FindAll(t => t.Id == dto.Id).Where(t => t.AuthorId != dto.AuthorId).FirstOrDefault();
-                if (duplicate != null)
-                {
-                    dto.AgentId = duplicate.AuthorId;
-                    dtoList.Remove(duplicate);
-                }
-                else
-                {
-                    dto.AgentId = 1;
-                }
-
                 _ticket = DtoConverter.ConvertToTicketObject(dto);
-                _tickets.Add(_ticket);
+                tickets.Add(_ticket);
             }
-            return _tickets;
+
+            return tickets;
         }
+        
 
         public List<ITicket> GetTicketsByUserId(int id)
         {
-            _tickets = new List<ITicket>();
-            var dtoList = GetAll();//DalFactory.TicketRepo.GetTicketsByUserId(id);
-            foreach (var dto in dtoList)
+            List<ITicket> tickets = new List<ITicket>();
+            var modelList = GetAll();
+            foreach (var mdl in modelList)
             {
-                var duplicate = dtoList.FindAll(t => t.Id == dto.Id).Where(t => t.AuthorId != dto.AuthorId).FirstOrDefault();
-                if (duplicate != null)
+                if (mdl.AuthorId == id)
                 {
-                    dto.AgentId = duplicate.AuthorId;
-                    dtoList.Remove(duplicate);
-                    //_ticket = DtoConverter.ConvertToTicketObject(dto);
-                    _tickets.Add(dto);
+                    tickets.Add(mdl);
                 }
-                else
-                {
-                    dto.AgentId = 1;
-                }
-
-                
             }
 
-            return _tickets;
+            return tickets;
         }
 
         public ITicket GetTicketById(int id)
         {
-            if (id != null)
+            if (id != 0 || id != 1)
             {
-                _tickets = GetAll();
-                _ticket = _tickets.Find(x => x.Id == id);
+                List<ITicket> tickets = GetAll();
+                _ticket = tickets.Find(x => x.Id == id);
+            }
+            else
+            {
+                throw new ArgumentException("Can't find tickets for user 0 or 1.");
             }
             
             return _ticket;
@@ -77,8 +71,8 @@ namespace Shts_BusinessLogic.Collections
         {
             if (!String.IsNullOrEmpty(subject))
             {
-                _tickets = GetAll();
-                _ticket = _tickets.Find(x => x.Subject == subject);
+                List<ITicket> tickets = GetAll();
+                _ticket = tickets.Find(x => x.Subject == subject);
             }
 
             return _ticket;

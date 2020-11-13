@@ -29,15 +29,15 @@ namespace Shts_BusinessLogic
             return _userDto;
         }
 
-        public static Ticket ConvertToTicketObject(TicketDto dto)
+        public static ITicket ConvertToTicketObject(TicketDto dto)
         {
-            _ticket = new Ticket() { Id = dto.Id, Attachment = dto.Attachment, Author = dto.Author, Subject = dto.Subject, Content = dto.Content, CreatedAt = dto.CreatedAt, LastEdited = dto.LastEdited, Status = Enum.Parse<Status>(dto.Status), Priority = Enum.Parse<Priority>(dto.Priority)};
+            _ticket = new Ticket() { Id = dto.Id, Attachment = dto.Attachment, AuthorId = dto.AuthorId, AgentId = dto.AgentId, Subject = dto.Subject, Content = dto.Content, CreatedAt = dto.CreatedAt, LastEdited = dto.LastEdited, Status = Enum.Parse<Status>(dto.Status), Priority = Enum.Parse<Priority>(dto.Priority)};
             return _ticket;
         }
 
         public static TicketDto ConvertToTicketDto(ITicket ticket)
         {
-            _ticketDto = new TicketDto() { Id = ticket.Id, Attachment = ticket.Attachment, Author = ticket.Author, AuthorId = ticket.AuthorId, Subject = ticket.Subject, Content = ticket.Content, CreatedAt = ticket.CreatedAt, LastEdited = ticket.LastEdited, Status = ticket.Status.ToString(), Priority = ticket.Priority.ToString()};
+            _ticketDto = new TicketDto() { Id = ticket.Id, Attachment = ticket.Attachment, AuthorId = ticket.AuthorId, Subject = ticket.Subject, Content = ticket.Content, CreatedAt = ticket.CreatedAt, LastEdited = ticket.LastEdited, Status = ticket.Status.ToString(), Priority = ticket.Priority.ToString()};
             return _ticketDto;
         }
 
