@@ -11,8 +11,8 @@ namespace Shts_BusinessLogic
     public class UserCollection : IUserCollection
     {
         private UserDto _dto;
-        private User _user;
-        private List<User> _users;
+        private IUser _user;
+        private List<IUser> _users;
         private IAccountManager _accountManager;
 
         //Constructor for when a new account gets added.
@@ -31,9 +31,9 @@ namespace Shts_BusinessLogic
             }
         }
 
-        public List<User> GetAll()
+        public List<IUser> GetAll()
         {
-            _users = new List<User>();
+            _users = new List<IUser>();
             var dtoList = DalFactory.UserRepo.GetAll();
                 
             foreach (var dto in dtoList)
@@ -44,7 +44,7 @@ namespace Shts_BusinessLogic
             return _users;
             }
 
-        public User SearchUserByName(string name)
+        public IUser GetUserByName(string name)
         {
             if (name != null)
             {
@@ -66,15 +66,32 @@ namespace Shts_BusinessLogic
             return _user;
         }
 
-        public User SearchUserByEmail(string email)
+        public IUser GetUserByEmail(string email)
         {
             if (email != null)
             {
                 _users = GetAll();
                 _user = _users.Find(x => x.Email == email);
+                _user.FullName = _user.FirstName + _user.LastName;
             }
             return _user;
         }
 
+        public IUser GetUserById(int id)
+        {
+            if (id == 1)
+            {
+                _user = new User() { FullName = "Unassigned" };
+            }
+            else
+            {
+                _users = GetAll();
+                _user = _users.Find(x => x.Id == id);
+                _user.FullName = _user.FirstName + _user.LastName;
+            }
+            
+
+            return _user;
+        }
     }
 }

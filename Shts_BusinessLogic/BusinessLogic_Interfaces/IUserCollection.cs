@@ -10,8 +10,9 @@ namespace Shts_BusinessLogic
     public interface IUserCollection
     {
         void Add(IUser user);
-        List<User> GetAll();
-        User SearchUserByName(string name);
-        User SearchUserByEmail(string email);
+        List<IUser> GetAll();
+        IUser GetUserByName(string name);
+        IUser GetUserByEmail(string email);
+        IUser GetUserById(int id);
     }
 }

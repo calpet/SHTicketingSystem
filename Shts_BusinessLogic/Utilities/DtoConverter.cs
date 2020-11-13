@@ -35,7 +35,7 @@ namespace Shts_BusinessLogic
             return _ticket;
         }
 
-        public static TicketDto ConvertToTicketDto(Ticket ticket)
+        public static TicketDto ConvertToTicketDto(ITicket ticket)
         {
             _ticketDto = new TicketDto() { Id = ticket.Id, Attachment = ticket.Attachment, Author = ticket.Author, AuthorId = ticket.AuthorId, Subject = ticket.Subject, Content = ticket.Content, CreatedAt = ticket.CreatedAt, LastEdited = ticket.LastEdited, Status = ticket.Status.ToString(), Priority = ticket.Priority.ToString()};
             return _ticketDto;

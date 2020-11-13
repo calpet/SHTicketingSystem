@@ -1,4 +1,7 @@
-﻿@model IEnumerable<TicketViewModel>
+﻿@using Shts_BusinessLogic
+
+@inject IUserCollection UserCollection
+@model IEnumerable<TicketViewModel>
 
 @if (TempData["NoTickets"] != null)
 {
@@ -22,7 +25,7 @@
             <td>@ticket.Status</td>
             <td>@ticket.Subject</td>
             <td>@ticket.LastEdited</td>
-            <td>@ticket.Author</td>
+            <td>@UserCollection.GetUserById(ticket.AgentId).FullName</td>
             <td>@Html.ActionLink("View details", "Details", new { id = ticket.Id })</td>
         </tr>
     }
