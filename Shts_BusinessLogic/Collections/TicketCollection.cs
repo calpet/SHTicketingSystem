@@ -13,20 +13,13 @@ namespace Shts_BusinessLogic.Collections
 {
     public class TicketCollection : ITicketCollection
     {
-        private List<ITicket> _tickets;
         private ITicket _ticket;
-        private IUserCollection _userColl;
-
-        public TicketCollection(IUserCollection userColl)
-        {
-            _userColl = userColl;
-        }
 
         public List<ITicket> GetAll()
         {
             List<ITicket> tickets = new List<ITicket>();
             var dtoList = DalFactory.TicketRepo.GetAll();
-            var mergedList = TicketMerger.MergeExistingTickets(dtoList);
+            var mergedList = TicketMerger.MergeDuplicateTickets(dtoList);
             foreach (var dto in mergedList)
             {
                 _ticket = DtoConverter.ConvertToTicketObject(dto);
@@ -36,7 +29,6 @@ namespace Shts_BusinessLogic.Collections
             return tickets;
         }
         
-
         public List<ITicket> GetTicketsByUserId(int id)
         {
             List<ITicket> tickets = new List<ITicket>();

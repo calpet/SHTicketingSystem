@@ -17,7 +17,7 @@ namespace Shts_BusinessLogic.Utilities
         private static IUserCollection _userColl;
         private static List<TicketDto> _tempList;
 
-        public static List<TicketDto> MergeExistingTickets(List<TicketDto> tickets)
+        public static List<TicketDto> MergeDuplicateTickets(List<TicketDto> tickets)
         {
             _tempList = new List<TicketDto>();
             foreach (TicketDto t1 in tickets)
