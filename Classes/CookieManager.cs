@@ -18,12 +18,12 @@ namespace SelfHelpTicketingSystem.Classes
         public static ClaimsPrincipal Principal { get; set; }
         public static AuthenticationProperties Properties { get; set; }
 
-        public static List<object> SetCookie(UserViewModel user)
+        public static List<object> SetCookie(LoggedInUserViewModel user)
         {
             Claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim("Name", user.FirstName + user.LastName),
+                new Claim("Name", user.FirstName + " " + user.LastName),
                 new Claim("UserID", user.UserId.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };

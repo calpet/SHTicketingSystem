@@ -39,25 +39,37 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult CreateAccount(UserViewModel uvm)
         {
-            _user = ViewModelConverter.ConvertViewModelToUser(uvm);
-            _userCollection.Add(_user);
+            if (ModelState.IsValid)
+            {
+                _user = ViewModelConverter.ConvertViewModelToUser(uvm);
+                _userCollection.Add(_user);
+            }
+
             return RedirectToAction("Login");
         }
 
 
-        public IActionResult SignIn(UserViewModel user)
+        public IActionResult SignIn(LoggedInUserViewModel user)
         {
-            var result = _accountManager.ValidateCredentials(user.Email, user.Password);
-            if (result)
-            {
-                _user = _userCollection.GetUserByEmail(user.Email);
-                user.UserId = _user.Id;
-                List<object> newCookie = CookieManager.SetCookie(user);
-                HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal) newCookie[0], (AuthenticationProperties) newCookie[1]
+            if (ModelState.IsValid) 
+            { 
+                bool result = _accountManager.ValidateCredentials(user.Email, user.Password);
+                if (result)
+                {
+                    _user = _userCollection.GetUserByEmail(user.Email);
+                    user.UserId = _user.Id;
+                    user.Role = _user.Role;
+                    user.FirstName = _user.FirstName;
+                    user.LastName = _user.LastName;
+                    List<object> newCookie = CookieManager.SetCookie(user);
+                    HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal) newCookie[0],
+                        (AuthenticationProperties) newCookie[1]
                     ).Wait();
-                CookieManager.IsSignedIn = true;
-                ViewData["SignedIn"] = CookieManager.IsSignedIn;
+                    CookieManager.IsSignedIn = true;
+                    ViewData["SignedIn"] = CookieManager.IsSignedIn;
+                }
+
                 return RedirectToAction("Dashboard", "Home");
             }
 
