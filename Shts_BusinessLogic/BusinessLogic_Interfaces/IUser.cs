@@ -12,12 +12,13 @@ namespace Shts_BusinessLogic.Collection_Interfaces
         int Id { get; set; }
         string FirstName { get; set; }
         string LastName { get; set; }
+        string FullName { get; set; }
         Gender Gender { get; set; }
         string Email { get; set; }
         string Password { get; set; }
         UserRole Role { get; set; }
-        void Edit(User user);
-        void CreateTicket(Ticket ticket);
+        void Edit(IUser user);
+        void CreateTicket(ITicket ticket);
         void Delete(int userId);
     }
 }

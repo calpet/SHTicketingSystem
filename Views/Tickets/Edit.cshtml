@@ -1,8 +1,10 @@
-﻿@model SelfHelpTicketingSystem.Models.TicketViewModel
+﻿@using SelfHelpTicketingSystem.Classes
+@model SelfHelpTicketingSystem.Models.TicketViewModel
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //int id = Convert.ToInt32(CookieManager.GetUserId());
 }
 
 <h1>Edit</h1>
@@ -13,12 +15,6 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Handler" class="control-label"></label>
-                <input asp-for="Handler" class="form-control" />
-                <span asp-validation-for="Handler" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Subject" class="control-label"></label>
                 <input asp-for="Subject" class="form-control" />
@@ -35,7 +31,7 @@
                 <span asp-validation-for="Attachment" class="text-danger"></span>
             </div>
             <div class="form-group">
-            <input type="hidden" asp-for="Id" class="form-control" />
+            <input type="hidden" asp-for="Id" name ="id" value="@Model.Id" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" asp-action="EditTicket" asp-controller="Tickets" value="Save" class="btn btn-primary" />
@@ -45,6 +41,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Preview">Back to List</a>
 </div>
 
