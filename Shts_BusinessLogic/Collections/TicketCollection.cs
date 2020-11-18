@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Shts.Dal;
 using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Models;
@@ -18,8 +19,8 @@ namespace Shts_BusinessLogic.Collections
         public List<ITicket> GetAll()
         {
             List<ITicket> tickets = new List<ITicket>();
-            var dtoList = DalFactory.TicketRepo.GetAll();
-            var mergedList = TicketMerger.MergeDuplicateTickets(dtoList);
+            List<TicketDto> dtoList = DalFactory.TicketRepo.GetAll();
+            List<TicketDto> mergedList = TicketMerger.MergeDuplicateTickets(dtoList);
             foreach (var dto in mergedList)
             {
                 _ticket = DtoConverter.ConvertToTicketObject(dto);
@@ -32,7 +33,7 @@ namespace Shts_BusinessLogic.Collections
         public List<ITicket> GetTicketsByUserId(int id)
         {
             List<ITicket> tickets = new List<ITicket>();
-            var modelList = GetAll();
+            List<ITicket> modelList = GetAll();
             foreach (var mdl in modelList)
             {
                 if (mdl.AuthorId == id)

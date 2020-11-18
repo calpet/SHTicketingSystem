@@ -35,14 +35,23 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult CreateTicket(TicketViewModel ticket)
         {
-            var model = ViewModelConverter.ConvertViewModelToTicket(ticket);
-            _user.CreateTicket(model);
+            if (ModelState.IsValid)
+            {
+                ITicket model = ViewModelConverter.ConvertViewModelToTicket(ticket);
+                _user.CreateTicket(model);
+            }
+            else
+            {
+                TempData["CreateTicketFailed"] = "Failed to create ticket. Did you fill in every field?";
+                return RedirectToAction("Create");
+            }
+
             return RedirectToAction("Dashboard", "Home");
         }
 
         public IActionResult Details(int id)
         {
-            var ticket = ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id));
+            TicketViewModel ticket = ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id));
             return View(ticket);
         }
 

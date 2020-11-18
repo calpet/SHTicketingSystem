@@ -35,7 +35,10 @@ namespace Shts_BusinessLogic.Models
 
         public void Delete(ITicket ticket)
         {
-            throw new NotImplementedException();
+            if (ticket != null)
+            {
+                DalFactory.TicketRepo.Delete(ticket.Id);
+            } 
         }
 
     }
