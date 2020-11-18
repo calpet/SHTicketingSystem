@@ -30,7 +30,7 @@ namespace Shts_BusinessLogic.Collections
                     return newDto;
                 }
 
-                throw new ArgumentException("Password does not comply with the given requirements.");
+                throw new PasswordRequirementException("Password does not comply with the given requirements.");
 
             }
 
