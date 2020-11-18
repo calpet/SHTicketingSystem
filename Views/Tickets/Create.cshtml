@@ -9,6 +9,10 @@
 }
 
 <h1>Create</h1>
+@if (TempData["CreateTicketFailed"] != null)
+{
+    <p class="alert alert-danger">@TempData["CreateTicketFailed"]</p>
+}
 
 <h4>TicketViewModel</h4>
 <hr />
@@ -38,7 +42,7 @@
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="AuthorId" value="@uid"/>
+                <input type="hidden" asp-for="AuthorId" value="@uid" />
             </div>
             <div class="form-group">
                 <input type="submit" asp-action="CreateTicket" asp-controller="Tickets" value="Create" class="btn btn-primary" />

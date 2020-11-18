@@ -6,7 +6,6 @@
     var userId = Convert.ToInt32(CookieManager.GetUserId());
 }
 
-
 <h3>Your Tickets:</h3>
 <script>
     var url = '@Url.Action("Preview", "Tickets", new {id = userId})';
