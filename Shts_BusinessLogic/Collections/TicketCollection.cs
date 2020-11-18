@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using Shts.Dal;
@@ -47,6 +48,7 @@ namespace Shts_BusinessLogic.Collections
 
         public ITicket GetTicketById(int id)
         {
+            //user 0 doesn't exist, id 1 is reserved for the unassigned user.
             if (id != 0 || id != 1)
             {
                 List<ITicket> tickets = GetAll();
@@ -54,7 +56,7 @@ namespace Shts_BusinessLogic.Collections
             }
             else
             {
-                throw new ArgumentException("Can't find tickets for user 0 or 1.");
+                throw new ValidationException(("User does not exist."));
             }
             
             return _ticket;
@@ -62,13 +64,15 @@ namespace Shts_BusinessLogic.Collections
 
         public ITicket GetTicketBySubject(string subject)
         {
+            ITicket ticket = null;
+
             if (!String.IsNullOrEmpty(subject))
             {
                 List<ITicket> tickets = GetAll();
-                _ticket = tickets.Find(x => x.Subject == subject);
+                ticket = tickets.Find(x => x.Subject == subject);
             }
 
-            return _ticket;
+            return ticket;
         }
     }
 }
