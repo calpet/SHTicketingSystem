@@ -15,12 +15,10 @@ namespace Shts_BusinessLogic
         private List<IUser> _users;
         private IAccountManager _accountManager;
 
-        //Constructor for when a new account gets added.
         public UserCollection(IAccountManager accountManager)
         {
             _accountManager = accountManager;
         }
-
 
         public void Add(IUser user)
         {

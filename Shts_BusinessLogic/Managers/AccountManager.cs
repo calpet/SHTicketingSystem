@@ -11,27 +11,15 @@ namespace Shts_BusinessLogic.Collections
     public class AccountManager : IAccountManager
     {
         private UserDto _userDto;
-        private ICredentialsManager _credentialsManager;
 
-        public AccountManager(ICredentialsManager credentialsManager)
-        {
-            _credentialsManager = credentialsManager;
-        }
         public UserDto CreateAccount(IUser user)
         {
             _userDto = DalFactory.UserRepo.GetUserByEmail(user.Email);
 
             if (_userDto == null)
             {
-                if (_credentialsManager.CheckRequirements(user.Password)) {
-                    user.Password = _credentialsManager.Encrypt(user.Password);
-                    user.Role = UserRole.SupportUser;
-                    UserDto newDto = DtoConverter.ConvertToUserDto(user);
-                    return newDto;
-                }
-
-                throw new ArgumentException("Password does not comply with the given requirements.");
-
+                UserDto newDto = DtoConverter.ConvertToUserDto(user);
+                return newDto;
             }
 
             throw new AccountAlreadyExistsException(
