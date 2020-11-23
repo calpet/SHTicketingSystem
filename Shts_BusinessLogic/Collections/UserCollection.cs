@@ -22,8 +22,12 @@ namespace Shts_BusinessLogic
         {
             if (user != null)
             {
-                _dto = _accountManager.CreateAccount(user);
-                DalFactory.UserRepo.Create(_dto);
+                bool accountDoesntExist = _accountManager.CheckIfAccountExists(user);
+                if (accountDoesntExist)
+                {
+                    _dto = DtoConverter.ConvertToUserDto(user);
+                    DalFactory.UserRepo.Create(_dto);
+                }
             }
         }
 
