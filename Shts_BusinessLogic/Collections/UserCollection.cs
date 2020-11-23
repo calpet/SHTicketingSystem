@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using Shts.Dal.DTOs;
 using Shts_BusinessLogic.Collection_Interfaces;
-using Shts_Entities.Enums;
 using Shts_Factories;
-using Shts_Interfaces;
 
 namespace Shts_BusinessLogic
 {
