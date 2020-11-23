@@ -4,13 +4,11 @@ using System.Text;
 
 namespace Shts_Entities.Enums
 {
-    public enum UserFilter
+    public enum Priority
     {
-        Username,
-        Id,
-        Role,
-        FirstName,
-        LastName
+        Unassigned,
+        Low,
+        Medium,
+        High
     }
-
 }

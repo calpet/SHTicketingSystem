@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using SelfHelpTicketingSystem.Models;
 
 namespace SelfHelpTicketingSystem.Classes
@@ -17,11 +18,13 @@ namespace SelfHelpTicketingSystem.Classes
         public static ClaimsPrincipal Principal { get; set; }
         public static AuthenticationProperties Properties { get; set; }
 
-        public static List<object> SetCookie(UserViewModel user)
+        public static List<object> SetCookie(LoggedInUserViewModel user)
         {
             Claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("Name", user.FirstName + " " + user.LastName),
+                new Claim("UserID", user.UserId.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             Identity = new ClaimsIdentity(Claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -33,6 +36,20 @@ namespace SelfHelpTicketingSystem.Classes
                 Principal,
                 Properties
             };
+        }
+
+        [Authorize]
+        public static string GetUserId()
+        {
+            var claim = Identity.FindFirst("UserID");
+            return claim == null ? string.Empty : claim.Value;
+        }
+
+        [Authorize]
+        public static string GetName()
+        {
+            var claim = Identity.FindFirst("Name");
+            return claim == null ? string.Empty : claim.Value;
         }
     }
 }

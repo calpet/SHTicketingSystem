@@ -17,7 +17,7 @@ namespace Shts_BusinessLogic.Collections
         {
             _credentialsManager = credentialsManager;
         }
-        public UserDto CreateAccount(User user)
+        public UserDto CreateAccount(IUser user)
         {
             _userDto = DalFactory.UserRepo.GetUserByEmail(user.Email);
 

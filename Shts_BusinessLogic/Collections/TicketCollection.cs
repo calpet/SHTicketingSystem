@@ -1,40 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Shts.Dal;
+using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Models;
+using Shts_BusinessLogic.Utilities;
+using Shts_Entities.Enums;
 using Shts_Factories;
 
 namespace Shts_BusinessLogic.Collections
 {
     public class TicketCollection : ITicketCollection
     {
-        private List<Ticket> _tickets;
-        private Ticket _ticket;
+        private ITicket _ticket;
 
-        public List<Ticket> GetAll()
+        public List<ITicket> GetAll()
         {
-            _tickets = new List<Ticket>();
-            var dtoList = DalFactory.TicketRepo.GetAll();
-            foreach (var dto in dtoList)
+            List<ITicket> tickets = new List<ITicket>();
+            List<TicketDto> dtoList = DalFactory.TicketRepo.GetAll();
+            List<TicketDto> mergedList = TicketMerger.MergeDuplicateTickets(dtoList);
+            foreach (var dto in mergedList)
             {
                 _ticket = DtoConverter.ConvertToTicketObject(dto);
-                _tickets.Add(_ticket);
+                tickets.Add(_ticket);
             }
-            return _tickets;
+
+            return tickets;
+        }
+        
+        public List<ITicket> GetTicketsByUserId(int id)
+        {
+            List<ITicket> tickets = new List<ITicket>();
+            List<ITicket> modelList = GetAll();
+            foreach (var mdl in modelList)
+            {
+                if (mdl.AuthorId == id)
+                {
+                    tickets.Add(mdl);
+                }
+            }
+
+            return tickets;
         }
 
-        public List<Ticket> GetTicketsByUser(User user)
+        public ITicket GetTicketById(int id)
         {
-            _tickets = new List<Ticket>();
-            var dtoList = DalFactory.TicketRepo.GetTicketsByUserId(user.Id);
-            foreach (var dto in dtoList)
+            if (id != 0 || id != 1)
             {
-                _ticket = DtoConverter.ConvertToTicketObject(dto);
-                _tickets.Add(_ticket);
+                List<ITicket> tickets = GetAll();
+                _ticket = tickets.Find(x => x.Id == id);
+            }
+            else
+            {
+                throw new ArgumentException("Can't find tickets for user 0 or 1.");
+            }
+            
+            return _ticket;
+        }
+
+        public ITicket GetTicketBySubject(string subject)
+        {
+            if (!String.IsNullOrEmpty(subject))
+            {
+                List<ITicket> tickets = GetAll();
+                _ticket = tickets.Find(x => x.Subject == subject);
             }
 
-            return _tickets;
+            return _ticket;
         }
     }
 }
