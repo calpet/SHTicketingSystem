@@ -42,7 +42,7 @@ namespace Shts_BusinessLogic
 
         public IUser GetUserByName(string name)
         {
-            if (name != null)
+            if (!String.IsNullOrEmpty(name))
             {
                 _users = GetAll();
 
@@ -54,22 +54,19 @@ namespace Shts_BusinessLogic
                     }
                 }
             }
-            else
-            {
-                throw new ArgumentNullException();
-            }
 
             return _user;
         }
 
         public IUser GetUserByEmail(string email)
         {
-            if (email != null)
+            if (!String.IsNullOrEmpty(email))
             {
                 _users = GetAll();
                 _user = _users.Find(x => x.Email == email);
                 _user.FullName = _user.FirstName + " " + _user.LastName;
             }
+
             return _user;
         }
 

@@ -52,11 +52,7 @@ namespace Shts_BusinessLogic.Collections
                 List<ITicket> tickets = GetAll();
                 _ticket = tickets.Find(x => x.Id == id);
             }
-            else
-            {
-                throw new ArgumentException("Can't find tickets for user 0 or 1.");
-            }
-            
+
             return _ticket;
         }
 
