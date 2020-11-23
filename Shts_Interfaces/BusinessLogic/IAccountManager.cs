@@ -4,7 +4,8 @@ namespace Shts_BusinessLogic.Collection_Interfaces
 {
     public interface IAccountManager
     {
-        UserDto CreateAccount(IUser user);
-        bool ValidateCredentials(string email, string password);
+        bool CheckIfAccountExists(IUser user);
+        bool ValidateAccount(string email, string password);
+        IUser ConfigureAccount(IUser user);
     }
 }

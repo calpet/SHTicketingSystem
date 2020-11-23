@@ -45,10 +45,9 @@ namespace SelfHelpTicketingSystem.Controllers
             if (ModelState.IsValid)
             {
                 _user = ViewModelConverter.ConvertViewModelToUser(uvm);
-                if (_credentialsManager.CheckRequirements(_user.Password))
+                IUser configuredUser = _accountManager.ConfigureAccount(_user);
+                if (configuredUser != null)
                 {
-                    _user.Password = _credentialsManager.Encrypt(_user.Password);
-                    _user.Role = UserRole.SupportUser;
                     _userCollection.Add(_user);
                 }
                 else
@@ -66,7 +65,7 @@ namespace SelfHelpTicketingSystem.Controllers
         {
             if (ModelState.IsValid) 
             { 
-                bool result = _accountManager.ValidateCredentials(user.Email, user.Password);
+                bool result = _accountManager.ValidateAccount(user.Email, user.Password);
                 if (result)
                 {
                     _user = _userCollection.GetUserByEmail(user.Email);

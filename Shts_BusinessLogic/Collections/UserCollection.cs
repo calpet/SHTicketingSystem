@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using Shts.Dal.DTOs;
 using Shts_BusinessLogic.Collection_Interfaces;
-using Shts_Entities.Enums;
 using Shts_Factories;
-using Shts_Interfaces;
 
 namespace Shts_BusinessLogic
 {
@@ -24,8 +22,12 @@ namespace Shts_BusinessLogic
         {
             if (user != null)
             {
-                _dto = _accountManager.CreateAccount(user);
-                DalFactory.UserRepo.Create(_dto);
+                bool accountDoesntExist = _accountManager.CheckIfAccountExists(user);
+                if (accountDoesntExist)
+                {
+                    _dto = DtoConverter.ConvertToUserDto(user);
+                    DalFactory.UserRepo.Create(_dto);
+                }
             }
         }
 
@@ -44,7 +46,7 @@ namespace Shts_BusinessLogic
 
         public IUser GetUserByName(string name)
         {
-            if (name != null)
+            if (!String.IsNullOrEmpty(name))
             {
                 _users = GetAll();
 
@@ -56,22 +58,19 @@ namespace Shts_BusinessLogic
                     }
                 }
             }
-            else
-            {
-                throw new ArgumentNullException();
-            }
 
             return _user;
         }
 
         public IUser GetUserByEmail(string email)
         {
-            if (email != null)
+            if (!String.IsNullOrEmpty(email))
             {
                 _users = GetAll();
                 _user = _users.Find(x => x.Email == email);
                 _user.FullName = _user.FirstName + " " + _user.LastName;
             }
+
             return _user;
         }
 

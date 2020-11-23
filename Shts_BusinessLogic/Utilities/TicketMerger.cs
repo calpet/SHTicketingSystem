@@ -36,13 +36,13 @@ namespace Shts_BusinessLogic.Utilities
             return _ticketList;
         }
 
-        private static void SetTicketAgent(TicketDto realTicket, TicketDto agentTicket)
+        private static void SetTicketAgent(TicketDto actualTicket, TicketDto agentTicket)
         {
             _userColl = new UserCollection(new AccountManager());
             IUser user = _userColl.GetUserById(agentTicket.AuthorId);
             if (user.Role != UserRole.SupportUser)
             {
-                realTicket.AgentId = user.Id;
+                actualTicket.AgentId = user.Id;
             }
         }
     }
