@@ -17,6 +17,10 @@
     <div class="login-form">
         <form>
             <h2 class="text-center">Sign up</h2>
+            @if (TempData["PasswordNotGood"] != null)
+            {
+                <p class="alert alert-danger">@TempData["PasswordNotGood"]</p>
+            }
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-prepend">

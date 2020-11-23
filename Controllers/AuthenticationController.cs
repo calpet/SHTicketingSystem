@@ -11,6 +11,7 @@ using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Collections;
+using Shts_Entities.Enums;
 
 namespace SelfHelpTicketingSystem.Controllers
 {
@@ -19,12 +20,14 @@ namespace SelfHelpTicketingSystem.Controllers
         private IUser _user;
         private IUserCollection _userCollection;
         private IAccountManager _accountManager;
+        private ICredentialsManager _credentialsManager;
 
-        public AuthenticationController(IAccountManager accountManager, IUserCollection userCollection, IUser user)
+        public AuthenticationController(IAccountManager accountManager, IUserCollection userCollection, IUser user, ICredentialsManager credentialsManager)
         {
             _accountManager = accountManager;
             _userCollection = userCollection;
             _user = user;
+            _credentialsManager = credentialsManager;
 
         }
         public IActionResult Register()
@@ -42,7 +45,17 @@ namespace SelfHelpTicketingSystem.Controllers
             if (ModelState.IsValid)
             {
                 _user = ViewModelConverter.ConvertViewModelToUser(uvm);
-                _userCollection.Add(_user);
+                if (_credentialsManager.CheckRequirements(_user.Password))
+                {
+                    _user.Password = _credentialsManager.Encrypt(_user.Password);
+                    _user.Role = UserRole.SupportUser;
+                    _userCollection.Add(_user);
+                }
+                else
+                {
+                    TempData["PasswordNotGood"] = "Password does not comply with the given requirements.";
+                    return RedirectToAction("Register");
+                }
             }
 
             return RedirectToAction("Login");

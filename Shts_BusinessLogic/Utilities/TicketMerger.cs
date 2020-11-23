@@ -29,7 +29,7 @@ namespace Shts_BusinessLogic.Utilities
                         t1.AuthorId != t2.AuthorId)
                     {
                         duplicatesFound = true;
-                        _userColl = new UserCollection(new AccountManager(new CredentialsManager()));
+                        _userColl = new UserCollection(new AccountManager());
                         var user = _userColl.GetUserById(t1.AuthorId);
                         if (user.Role != UserRole.SupportUser)
                         {
