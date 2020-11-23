@@ -41,11 +41,8 @@ namespace Shts_BusinessLogic.Collections
         public bool ValidateCredentials(string email, string pwd)
         {
             _userDto = DalFactory.UserRepo.GetUserByEmail(email);
-            bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pwd, _userDto.Password);
-            if (!isPasswordCorrect) 
-                return false;
-
-            return true;
+            return BCrypt.Net.BCrypt.Verify(pwd, _userDto.Password);
+            
         }
 
     }
