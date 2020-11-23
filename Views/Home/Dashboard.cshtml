@@ -1,5 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Shts_BusinessLogic.Collection_Interfaces
+@using SelfHelpTicketingSystem.Classes
+@model IEnumerable<TicketViewModel>;
 @{
+    ITicketCollection collection;
+    var userId = Convert.ToInt32(CookieManager.GetUserId());
 }
+
+<h3>Your Tickets:</h3>
+<script>
+    var url = '@Url.Action("Preview", "Tickets", new {id = userId})';
+    window.location = url;</script>

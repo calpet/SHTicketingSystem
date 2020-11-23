@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shts.Dal.DTOs;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using Shts_Entities.Enums;
 
-namespace Shts.Dal
+namespace SelfHelpTicketingSystem.Models
 {
-    public class TicketDto
+    public class TicketViewModel
     {
-        public TicketDto()
-        {
-            Users = new List<UserDto>();
-        }
         public int Id { get; set; }
         public string Author { get; set; }
-        public List<UserDto> Users { get; set; }
         public int AuthorId { get; set; }
         public int AgentId { get; set; }
+        [Required]
         public string Subject { get; set; }
+        [Required]
         public string Content { get; set; }
+        [Required]
         public string Attachment { get; set; }
-        public string Priority { get; set; }
-        public string Status { get; set; }
+        [Required]
+        public Priority Priority { get; set; }
+        public Status Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastEdited { get; set; }
     }
-
 }
