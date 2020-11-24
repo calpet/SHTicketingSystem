@@ -11,6 +11,7 @@ using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Collections;
+using Shts_Entities.Enums;
 
 namespace SelfHelpTicketingSystem.Controllers
 {
@@ -19,12 +20,14 @@ namespace SelfHelpTicketingSystem.Controllers
         private IUser _user;
         private IUserCollection _userCollection;
         private IAccountManager _accountManager;
+        private ICredentialsManager _credentialsManager;
 
-        public AuthenticationController(IAccountManager accountManager, IUserCollection userCollection, IUser user)
+        public AuthenticationController(IAccountManager accountManager, IUserCollection userCollection, IUser user, ICredentialsManager credentialsManager)
         {
             _accountManager = accountManager;
             _userCollection = userCollection;
             _user = user;
+            _credentialsManager = credentialsManager;
 
         }
         public IActionResult Register()
@@ -39,25 +42,46 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult CreateAccount(UserViewModel uvm)
         {
-            _user = ViewModelConverter.ConvertViewModelToUser(uvm);
-            _userCollection.Add(_user);
+            if (ModelState.IsValid)
+            {
+                _user = ViewModelConverter.ConvertViewModelToUser(uvm);
+                IUser configuredUser = _accountManager.ConfigureAccount(_user);
+                if (configuredUser != null)
+                {
+                    _userCollection.Add(_user);
+                }
+                else
+                {
+                    TempData["PasswordNotGood"] = "Password does not comply with the given requirements.";
+                    return RedirectToAction("Register");
+                }
+            }
+
             return RedirectToAction("Login");
         }
 
 
-        public IActionResult SignIn(UserViewModel user)
+        public IActionResult SignIn(LoggedInUserViewModel user)
         {
-            var result = _accountManager.ValidateCredentials(user.Email, user.Password);
-            if (result)
-            {
-                _user = _userCollection.SearchUserByEmail(user.Email);
-                user.UserId = _user.Id;
-                List<object> newCookie = CookieManager.SetCookie(user);
-                HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal) newCookie[0], (AuthenticationProperties) newCookie[1]
+            if (ModelState.IsValid) 
+            { 
+                bool result = _accountManager.ValidateAccount(user.Email, user.Password);
+                if (result)
+                {
+                    _user = _userCollection.GetUserByEmail(user.Email);
+                    user.UserId = _user.Id;
+                    user.Role = _user.Role;
+                    user.FirstName = _user.FirstName;
+                    user.LastName = _user.LastName;
+                    List<object> newCookie = CookieManager.SetCookie(user);
+                    HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal) newCookie[0],
+                        (AuthenticationProperties) newCookie[1]
                     ).Wait();
-                CookieManager.IsSignedIn = true;
-                ViewData["SignedIn"] = CookieManager.IsSignedIn;
+                    CookieManager.IsSignedIn = true;
+                    ViewData["SignedIn"] = CookieManager.IsSignedIn;
+                }
+
                 return RedirectToAction("Dashboard", "Home");
             }
 

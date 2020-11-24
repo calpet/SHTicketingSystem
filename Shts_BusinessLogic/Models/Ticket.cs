@@ -12,7 +12,7 @@ namespace Shts_BusinessLogic.Models
         public int Id { get; set; }
         public string Author { get; set; }
         public int AuthorId { get; set; }
-        public string Handler { get; set; }
+        public int AgentId { get; set; }
         public string Subject { get; set; }
         public string Content { get; set; }
         public string Attachment { get; set; }
@@ -21,7 +21,7 @@ namespace Shts_BusinessLogic.Models
         public DateTime CreatedAt { get; set; }
         public DateTime LastEdited { get; set; }
 
-        public void Edit(Ticket ticket)
+        public void Edit(ITicket ticket)
         {
             if (ticket != null)
             {
@@ -33,9 +33,12 @@ namespace Shts_BusinessLogic.Models
             }
         }
 
-        public void Delete(Ticket ticket)
+        public void Delete(ITicket ticket)
         {
-            throw new NotImplementedException();
+            if (ticket != null)
+            {
+                DalFactory.TicketRepo.Delete(ticket.Id);
+            } 
         }
 
     }

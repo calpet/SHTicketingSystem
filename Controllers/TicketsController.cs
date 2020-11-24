@@ -35,14 +35,23 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult CreateTicket(TicketViewModel ticket)
         {
-            var model = ViewModelConverter.ConvertViewModelToTicket(ticket);
-            _user.CreateTicket(model);
+            if (ModelState.IsValid)
+            {
+                ITicket model = ViewModelConverter.ConvertViewModelToTicket(ticket);
+                _user.CreateTicket(model);
+            }
+            else
+            {
+                TempData["CreateTicketFailed"] = "Failed to create ticket. Did you fill in every field?";
+                return RedirectToAction("Create");
+            }
+
             return RedirectToAction("Dashboard", "Home");
         }
 
         public IActionResult Details(int id)
         {
-            var ticket = ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id));
+            TicketViewModel ticket = ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id));
             return View(ticket);
         }
 
@@ -66,11 +75,19 @@ namespace SelfHelpTicketingSystem.Controllers
         {
             List<TicketViewModel> ticketList = new List<TicketViewModel>();
             var list = _ticketColl.GetTicketsByUserId(id);
-            foreach (var ticket in list)
+            if (list.Count != 0)
             {
-                var viewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
-                ticketList.Add(viewModel);
+                foreach (var ticket in list)
+                {
+                    var viewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+                    ticketList.Add(viewModel);
+                }
             }
+            else
+            {
+                TempData["NoTickets"] = "No tickets have been found yet. Please create a new ticket.";
+            }
+
             return View("_Preview", ticketList);
         }
     }

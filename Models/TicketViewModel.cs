@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Shts_Entities.Enums;
@@ -11,10 +12,14 @@ namespace SelfHelpTicketingSystem.Models
         public int Id { get; set; }
         public string Author { get; set; }
         public int AuthorId { get; set; }
-        public string Handler { get; set; }
+        public int AgentId { get; set; }
+        [Required]
         public string Subject { get; set; }
+        [Required]
         public string Content { get; set; }
+        [Required]
         public string Attachment { get; set; }
+        [Required]
         public Priority Priority { get; set; }
         public Status Status { get; set; }
         public DateTime CreatedAt { get; set; }

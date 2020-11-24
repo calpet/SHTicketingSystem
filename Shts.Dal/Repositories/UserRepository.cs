@@ -24,7 +24,7 @@ namespace Shts.Dal
 
         public void Edit(UserDto user)
         {
-            _dbCon.ExecuteNonSearchQuery($"UPDATE `person` SET `firstName` = @fname, `lastName` = @lname, `email` = @email, `password` = @pwd WHERE `person`.`personID` = @id", _params = new object[] { user.FirstName, user.LastName, user.Email, user.Password, user.Id });
+            _dbCon.ExecuteNonSearchQuery($"UPDATE `person` SET `firstName` = @fname, `lastName` = @lname, `gender` = @gender, `role` = @role, `email` = @email, `password` = @pwd WHERE `person`.`personID` = @id", _params = new object[] { user.FirstName, user.LastName, user.Gender, user.Role, user.Email, user.Password, user.Id });
         }
 
         public void Delete(int id)

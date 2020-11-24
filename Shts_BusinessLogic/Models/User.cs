@@ -18,16 +18,17 @@ namespace Shts_BusinessLogic
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FullName { get; set; }
         public Gender Gender { get; set; }
         public UserRole Role { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public void Edit(User user)
+        public void Edit(IUser user)
         {
             DalFactory.UserRepo.Edit(DtoConverter.ConvertToUserDto(user));
         }
 
-        public void CreateTicket(Ticket ticket)
+        public void CreateTicket(ITicket ticket)
         {
             var dto = DtoConverter.ConvertToTicketDto(ticket);
             DalFactory.TicketRepo.Create(dto);

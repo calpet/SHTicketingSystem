@@ -3,6 +3,7 @@ using System.Linq;
 using Shts.Dal.DTOs;
 using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Exceptions;
+using Shts_BusinessLogic.Managers;
 using Shts_Entities.Enums;
 using Shts_Factories;
 
@@ -11,41 +12,38 @@ namespace Shts_BusinessLogic.Collections
     public class AccountManager : IAccountManager
     {
         private UserDto _userDto;
-        private ICredentialsManager _credentialsManager;
+        private CredentialsManager _credentialsManager;
 
-        public AccountManager(ICredentialsManager credentialsManager)
+        public AccountManager()
         {
-            _credentialsManager = credentialsManager;
+            _credentialsManager = new CredentialsManager();
         }
-        public UserDto CreateAccount(IUser user)
+
+        public bool CheckIfAccountExists(IUser user)
         {
             _userDto = DalFactory.UserRepo.GetUserByEmail(user.Email);
-
-            if (_userDto == null)
-            {
-                if (_credentialsManager.CheckRequirements(user.Password)) {
-                    user.Password = _credentialsManager.Encrypt(user.Password);
-                    user.Role = UserRole.SupportUser;
-                    UserDto newDto = DtoConverter.ConvertToUserDto(user);
-                    return newDto;
-                }
-
-                throw new ArgumentException("Password does not comply with the given requirements.");
-
-            }
-
-            throw new AccountAlreadyExistsException(
-                "An account already exists with this e-mail, please try with a different e-mail.");
+            return _userDto == null;
         }
 
-        public bool ValidateCredentials(string email, string pwd)
+        public bool ValidateAccount(string email, string pwd)
         {
             _userDto = DalFactory.UserRepo.GetUserByEmail(email);
-            bool isPasswordCorrect = BCrypt.Net.BCrypt.Verify(pwd, _userDto.Password);
-            if (!isPasswordCorrect) 
-                return false;
+            return BCrypt.Net.BCrypt.Verify(pwd, _userDto.Password);
+        }
 
-            return true;
+        public IUser ConfigureAccount(IUser user)
+        {
+            if (_credentialsManager.CheckRequirements(user.Password))
+            {
+                user.Password = _credentialsManager.Encrypt(user.Password);
+                user.Role = UserRole.SupportUser;
+            }
+            else
+            {
+                user = null;
+            }
+
+            return user;
         }
 
     }
