@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SelfHelpTicketingSystem.Classes;
 using SelfHelpTicketingSystem.Models;
+using Shts_BusinessLogic.BusinessLogic_Interfaces;
+using Shts_BusinessLogic.Collection_Interfaces;
 
 namespace SelfHelpTicketingSystem.Controllers
 {
@@ -16,11 +18,14 @@ namespace SelfHelpTicketingSystem.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ITicketCollection _ticketCollection;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ITicketCollection ticketCollection)
         {
             _logger = logger;
+            _ticketCollection = ticketCollection;
         }
+
 
         public IActionResult Index()
         {
@@ -30,6 +35,27 @@ namespace SelfHelpTicketingSystem.Controllers
         public IActionResult Dashboard()
         {
             return View();
+        }
+
+        [Authorize(Roles = "Agent, Administrator")]
+        public IActionResult AgentDashboard()
+        {
+            List<ITicket> unassignedTickets = _ticketCollection.GetUnassignedTickets();
+            List<TicketViewModel> viewModels = new List<TicketViewModel>();
+            if (unassignedTickets.Count > 0)
+            {
+                foreach (var ticket in unassignedTickets)
+                {
+                    var viewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+                    viewModels.Add(viewModel);
+                }
+            }
+            else
+            {
+                TempData["NoUnassignedTicketsFound"] = "There are no unassigned tickets.";
+            }
+
+            return View(viewModels);
         }
 
         public IActionResult Privacy()

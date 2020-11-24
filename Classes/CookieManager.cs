@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using SelfHelpTicketingSystem.Models;
+using Shts_Entities.Enums;
 
 namespace SelfHelpTicketingSystem.Classes
 {
@@ -50,6 +51,13 @@ namespace SelfHelpTicketingSystem.Classes
         {
             var claim = Identity.FindFirst("Name");
             return claim == null ? string.Empty : claim.Value;
+        }
+
+        [Authorize]
+        public static UserRole GetRole()
+        {
+            var claim = Identity.FindFirst(ClaimTypes.Role);
+            return Enum.Parse<UserRole>(claim == null ? string.Empty : claim.Value);
         }
     }
 }

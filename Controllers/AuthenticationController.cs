@@ -30,11 +30,14 @@ namespace SelfHelpTicketingSystem.Controllers
             _credentialsManager = credentialsManager;
 
         }
+
+        
         public IActionResult Register()
         {
             return View();
         }
 
+        
         public IActionResult Login()
         {
             return View();
@@ -68,26 +71,34 @@ namespace SelfHelpTicketingSystem.Controllers
                 bool result = _accountManager.ValidateAccount(user.Email, user.Password);
                 if (result)
                 {
-                    _user = _userCollection.GetUserByEmail(user.Email);
-                    user.UserId = _user.Id;
-                    user.Role = _user.Role;
-                    user.FirstName = _user.FirstName;
-                    user.LastName = _user.LastName;
-                    List<object> newCookie = CookieManager.SetCookie(user);
-                    HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal) newCookie[0],
-                        (AuthenticationProperties) newCookie[1]
-                    ).Wait();
-                    CookieManager.IsSignedIn = true;
-                    ViewData["SignedIn"] = CookieManager.IsSignedIn;
+                    ConfigureCookie(user);
                 }
 
-                return RedirectToAction("Dashboard", "Home");
+                string[] urlValues = RedirectHelper.AssignCorrectUserRedirect(user.Role);
+
+                return RedirectToAction(urlValues[0], urlValues[1]);
             }
 
             return RedirectToAction("Login", new {message = "Incorrect"});
         }
 
+        public void ConfigureCookie(LoggedInUserViewModel user)
+        {
+            _user = _userCollection.GetUserByEmail(user.Email);
+            user.UserId = _user.Id;
+            user.Role = _user.Role;
+            user.FirstName = _user.FirstName;
+            user.LastName = _user.LastName;
+            List<object> newCookie = CookieManager.SetCookie(user);
+            HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, (ClaimsPrincipal)newCookie[0],
+                (AuthenticationProperties)newCookie[1]
+            ).Wait();
+            CookieManager.IsSignedIn = true;
+            ViewData["SignedIn"] = CookieManager.IsSignedIn;
+        }
+
+        
 
         public async Task<IActionResult> SignOut()
         {
