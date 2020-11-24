@@ -45,6 +45,13 @@ namespace Shts_BusinessLogic.Collections
             return tickets;
         }
 
+        public List<ITicket> GetUnassignedTickets()
+        {
+            List<ITicket> allTickets = GetAll();
+            return allTickets.Where(ticket => ticket.AuthorId == 1).ToList();
+
+        }
+
         public ITicket GetTicketById(int id)
         {
             if (id != 0 || id != 1)
