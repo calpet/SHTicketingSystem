@@ -61,7 +61,7 @@ namespace SelfHelpTicketingSystem.Controllers
         }
 
         public IActionResult EditTicket(TicketViewModel ticket)
-        { 
+        {
             _ticket.Edit(ViewModelConverter.ConvertViewModelToTicket(ticket));
             return RedirectToAction("Details", "Tickets", new {id = ticket.Id});
         }
