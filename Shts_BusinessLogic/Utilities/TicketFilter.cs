@@ -8,12 +8,12 @@ using Shts_Entities.Enums;
 
 namespace Shts_BusinessLogic.Utilities
 {
-    public class TicketMerger
+    public class TicketFilter
     {
         private static IUserCollection _userColl;
         private static List<TicketDto> _ticketList;
 
-        public static List<TicketDto> MergeDuplicateTickets(List<TicketDto> tickets)
+        public static List<TicketDto> FilterDuplicateTickets(List<TicketDto> tickets)
         {
             _ticketList = new List<TicketDto>();
             foreach (TicketDto t1 in tickets)
