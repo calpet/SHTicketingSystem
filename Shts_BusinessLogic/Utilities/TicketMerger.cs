@@ -39,10 +39,17 @@ namespace Shts_BusinessLogic.Utilities
         private static void SetTicketAgent(TicketDto actualTicket, TicketDto agentTicket)
         {
             _userColl = new UserCollection(new AccountManager());
-            IUser user = _userColl.GetUserById(agentTicket.AuthorId);
-            if (user.Role != UserRole.SupportUser)
+            if (agentTicket.AgentId != 1)
             {
-                actualTicket.AgentId = user.Id;
+                IUser user = _userColl.GetUserById(agentTicket.AuthorId);
+                if (user.Role != UserRole.SupportUser)
+                {
+                    actualTicket.AgentId = user.Id;
+                }
+            }
+            else
+            {
+                actualTicket.AgentId = 1;
             }
         }
     }
