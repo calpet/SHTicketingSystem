@@ -27,8 +27,12 @@ namespace Shts_BusinessLogic.Collections
 
         public bool ValidateAccount(string email, string pwd)
         {
-            _userDto = DalFactory.UserRepo.GetUserByEmail(email);
-            return BCrypt.Net.BCrypt.Verify(pwd, _userDto.Password);
+            UserDto foundUser = DalFactory.UserRepo.GetUserByEmail(email);
+            if (foundUser == null)
+            {
+                return false;
+            }
+            return BCrypt.Net.BCrypt.Verify(pwd, foundUser.Password);
         }
 
         public IUser ConfigureAccount(IUser user)

@@ -73,13 +73,18 @@ namespace SelfHelpTicketingSystem.Controllers
                 {
                     ConfigureCookie(user);
                 }
+                else
+                {
+                    TempData["CredentialsIncorrect"] = "Your username and/or password is incorrect.";
+                    return RedirectToAction("SignIn");
+                }
 
                 string[] urlValues = RedirectHelper.AssignCorrectUserRedirect(user.Role);
 
                 return RedirectToAction(urlValues[0], urlValues[1]);
             }
 
-            return RedirectToAction("Login", new {message = "Incorrect"});
+            return RedirectToAction("Login");
         }
 
         public void ConfigureCookie(LoggedInUserViewModel user)
