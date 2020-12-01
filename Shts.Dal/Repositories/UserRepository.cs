@@ -27,6 +27,11 @@ namespace Shts.Dal
             _dbCon.ExecuteNonSearchQuery($"UPDATE `person` SET `firstName` = @fname, `lastName` = @lname, `gender` = @gender, `role` = @role, `email` = @email, `password` = @pwd WHERE `person`.`personID` = @id", _params = new object[] { user.FirstName, user.LastName, user.Gender, user.Role, user.Email, user.Password, user.Id });
         }
 
+        public void AssignUserToTicket(int userId, int ticketId)
+        {
+            _dbCon.ExecuteNonSearchQuery($"UPDATE `personTicket` SET `personID` = @pid WHERE `personID` = 1 AND `ticketID` = @tid", _params = new object[] { userId, ticketId });
+        }
+
         public void Delete(int id)
         {
             _dbCon.ExecuteNonSearchQuery($"DELETE FROM `person` WHERE `person`.`personID` = @uid", _params = new object[] { id });

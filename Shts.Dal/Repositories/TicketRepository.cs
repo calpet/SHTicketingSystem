@@ -23,7 +23,10 @@ namespace Shts.Dal.Repositories
 
         public void Create(TicketDto ticket)
         {
-            _dbCon.ExecuteNonSearchQuery($"START TRANSACTION; INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body); INSERT INTO `personticket`(`personID`, `ticketID`) VALUES (@uid, LAST_INSERT_ID()), (1, LAST_INSERT_ID()); COMMIT;", _params = new object[] { ticket.Subject, ticket.Content, ticket.AuthorId });
+            _dbCon.ExecuteNonSearchQuery($"START TRANSACTION; " +
+                                         $"INSERT INTO `ticket`(`subject`, `body`) VALUES (@subject, @body); " +
+                                         $"INSERT INTO `personticket`(`personID`, `ticketID`) VALUES (@uid, LAST_INSERT_ID()), (1, LAST_INSERT_ID()); " +
+                                         $"COMMIT;", _params = new object[] { ticket.Subject, ticket.Content, ticket.AuthorId });
         }
 
         public void Edit(TicketDto ticket)
@@ -39,7 +42,8 @@ namespace Shts.Dal.Repositories
         public List<TicketDto> GetAll()
         {
             _tickets = new List<TicketDto>();
-            _result = _dbCon.GetStringQuery("SELECT ticket.ticketID, p2.firstName, p2.lastName, p2.role, p2.email, subject, body, ticket.createdAt, lastEdited, status, priority, p2.personID FROM ticket INNER JOIN personticket p on ticket.ticketID = p.ticketID INNER JOIN person p2 on p.personID = p2.personID");
+            _result = _dbCon.GetStringQuery("SELECT ticket.ticketID, p2.firstName, p2.lastName, p2.role, p2.email, subject, body, ticket.createdAt, lastEdited, status, priority, p2.personID " +
+                                            "FROM ticket INNER JOIN personticket p on ticket.ticketID = p.ticketID INNER JOIN person p2 on p.personID = p2.personID");
             for (int i = 0; i < _result.Count; i++)
             {
                 if (_result.Count % 12 == 0)

@@ -40,10 +40,10 @@ namespace SelfHelpTicketingSystem.Classes
         }
 
         [Authorize]
-        public static string GetUserId()
+        public static int GetUserId()
         {
             var claim = Identity.FindFirst("UserID");
-            return claim == null ? string.Empty : claim.Value;
+            return Convert.ToInt32(claim == null ? string.Empty : claim.Value);
         }
 
         [Authorize]

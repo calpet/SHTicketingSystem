@@ -66,6 +66,14 @@ namespace SelfHelpTicketingSystem.Controllers
             return RedirectToAction("Details", "Tickets", new {id = ticket.Id});
         }
 
+        [Authorize(Roles = "Agent, Admin")]
+        public IActionResult AssignAgentToTicket(int ticketId)
+        {
+            int userId = CookieManager.GetUserId();
+            _user.AssignAgentToTicket(userId, ticketId);
+            return RedirectToAction("AgentDashboard", "Home");
+        }
+
         public IActionResult Delete(int id)
         {
             return View();

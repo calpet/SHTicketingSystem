@@ -13,24 +13,25 @@
 }
 <table class="table">
     <thead class="thead-dark bg-dark text-light">
-        <tr>
+        <tr class="col-md">
             <td>#</td>
             <td>Status</td>
             <td>Subject</td>
             <td>Last edited</td>
-            <td>Handler</td>
+            <td>Agent</td>
             <td></td>
         </tr>
     </thead>
     @foreach (var ticket in Model)
     {
-        <tr>
+        <tr class="col-md">
             <td name="id">@ticket.Id</td>
             <td>@ticket.Status</td>
             <td>@ticket.Subject</td>
             <td>@ticket.LastEdited</td>
             <td>@UserCollection.GetUserById(ticket.AgentId).FullName</td>
             <td>@Html.ActionLink("View details", "Details", "Tickets", new { id = ticket.Id })</td>
+            <td>@Html.ActionLink("Assign ticket", "AssignAgentToTicket", "Tickets", new { ticketId = ticket.Id })</td>
         </tr>
     }
 </table>
