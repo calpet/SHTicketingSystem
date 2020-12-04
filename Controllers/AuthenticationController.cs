@@ -54,15 +54,11 @@ namespace SelfHelpTicketingSystem.Controllers
                 if (configuredUser != null)
                 {
                     _userCollection.Add(_user);
-                }
-                else
-                {
-                    TempData["PasswordNotGood"] = "Password does not comply with the given requirements.";
-                    return RedirectToAction("Register");
+                    return RedirectToAction("Login");
                 }
             }
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Register");
         }
 
         public IActionResult SignIn(LoggedInUserViewModel user)
@@ -92,7 +88,7 @@ namespace SelfHelpTicketingSystem.Controllers
             return RedirectToAction("Login");
         }
 
-        public void ConfigureCookie(LoggedInUserViewModel user)
+        private void ConfigureCookie(LoggedInUserViewModel user)
         {
             if (ModelState.IsValid)
             {
