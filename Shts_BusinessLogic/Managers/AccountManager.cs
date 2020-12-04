@@ -22,7 +22,7 @@ namespace Shts_BusinessLogic.Collections
         public bool CheckIfAccountExists(IUser user)
         {
             UserCollection collection = new UserCollection(this);
-            IUser foundUser = collection.GetUserByEmail(user.Email);//DalFactory.UserRepo.GetUserByEmail(user.Email);
+            IUser foundUser = collection.GetUserByEmail(user.Email);
             return foundUser == null;
         }
 

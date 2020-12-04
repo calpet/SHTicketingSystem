@@ -54,6 +54,7 @@ namespace SelfHelpTicketingSystem.Controllers
                 if (configuredUser != null)
                 {
                     _userCollection.Add(_user);
+                    return RedirectToAction("Login");
                 }
                 else
                 {
@@ -62,7 +63,7 @@ namespace SelfHelpTicketingSystem.Controllers
                 }
             }
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Register");
         }
 
         public IActionResult SignIn(LoggedInUserViewModel user)

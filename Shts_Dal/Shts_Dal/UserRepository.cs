@@ -19,7 +19,9 @@ namespace Shts_Dal
         {
             using (_connection.OpenConnection())
             {
-                string query = "INSERT INTO `person`(`firstName`, `lastName`, `gender`, `role`, `email`, `password`) VALUES (@fname, @lname, @gender, @role, @email, @pwd)";
+                string query = @"
+INSERT INTO `person`(`firstName`, `lastName`, `gender`, `role`, `email`, `password`) 
+VALUES (@fname, @lname, @gender, @role, @email, @pwd)";
                     using (MySqlCommand cmd = new MySqlCommand(query, _connection.GetConnection))
                     {
                         cmd.Parameters.AddWithValue("@fname", entity.FirstName);
