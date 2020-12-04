@@ -107,14 +107,17 @@ namespace Shts_Dal
 
         public void AssignUserToTicket(int userId, int ticketId)
         {
-            string query = "UPDATE `personTicket` SET `personID` = @pid WHERE `personID` = 1 AND `ticketID` = @tid";
-
-            using (MySqlCommand cmd = new MySqlCommand(query, _connection.GetConnection))
+            using (_connection.OpenConnection())
             {
-                cmd.Parameters.AddWithValue("@pid", userId);
-                cmd.Parameters.AddWithValue("@tid", ticketId);
+                string query = "UPDATE `personTicket` SET `personID` = @pid WHERE `personID` = 1 AND `ticketID` = @tid";
 
-                cmd.ExecuteNonQuery();
+                using (MySqlCommand cmd = new MySqlCommand(query, _connection.GetConnection))
+                {
+                    cmd.Parameters.AddWithValue("@pid", userId);
+                    cmd.Parameters.AddWithValue("@tid", ticketId);
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
     }
