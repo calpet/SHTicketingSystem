@@ -12,12 +12,15 @@ namespace SelfHelpTicketingSystem.Models
         public int UserId { get; set; }
         
         [Required(ErrorMessage = "First name required!")]
+        [StringLength(100, ErrorMessage = "{0} must be atleast {2} characters long.", MinimumLength = 2)]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last name required!")]
+        [StringLength(100, ErrorMessage = "{0} must be atleast {2} characters long.", MinimumLength = 2)]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "E-mail required!")]
+        [StringLength(100, ErrorMessage = "{0} must be atleast {2} characters long.", MinimumLength = 10)]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 

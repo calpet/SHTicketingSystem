@@ -87,7 +87,7 @@ namespace SelfHelpTicketingSystem.Controllers
             return RedirectToAction("Login");
         }
 
-        public void ConfigureCookie(LoggedInUserViewModel user)
+        private void ConfigureCookie(LoggedInUserViewModel user)
         {
             _user = _userCollection.GetUserByEmail(user.Email);
             user.UserId = _user.Id;
