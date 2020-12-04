@@ -56,11 +56,6 @@ namespace SelfHelpTicketingSystem.Controllers
                     _userCollection.Add(_user);
                     return RedirectToAction("Login");
                 }
-                else
-                {
-                    TempData["PasswordNotGood"] = "Password does not comply with the given requirements.";
-                    return RedirectToAction("Register");
-                }
             }
 
             return RedirectToAction("Register");
