@@ -39,7 +39,7 @@ namespace SelfHelpTicketingSystem.Controllers
 
         [Authorize(Roles = "Agent, Administrator")]
         public IActionResult AgentDashboard()
-        {
+         {
             List<ITicket> unassignedTickets = _ticketCollection.GetUnassignedTickets();
             List<TicketViewModel> viewModels = new List<TicketViewModel>();
             if (unassignedTickets.Count > 0)

@@ -21,14 +21,16 @@ namespace Shts_BusinessLogic.Collections
 
         public bool CheckIfAccountExists(IUser user)
         {
-            _userDto = DalFactory.UserRepo.GetUserByEmail(user.Email);
-            return _userDto == null;
+            UserCollection collection = new UserCollection(this);
+            IUser foundUser = collection.GetUserByEmail(user.Email);//DalFactory.UserRepo.GetUserByEmail(user.Email);
+            return foundUser == null;
         }
 
         public bool ValidateAccount(string email, string pwd)
         {
-            UserDto foundUser = DalFactory.UserRepo.GetUserByEmail(email);
-            if (foundUser == null)
+            UserCollection collection = new UserCollection(this);
+            IUser foundUser = collection.GetUserByEmail(email);
+            if (foundUser == null || foundUser.Email == "unassigned")
             {
                 return false;
             }
