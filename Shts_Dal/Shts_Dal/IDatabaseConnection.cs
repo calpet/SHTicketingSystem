@@ -9,6 +9,6 @@ namespace Shts_Dal
     {
         MySqlConnection OpenConnection();
         MySqlConnection GetConnection { get; }
-        void CloseConnection(MySqlConnection connection);
+        void CloseConnection();
     }
 }

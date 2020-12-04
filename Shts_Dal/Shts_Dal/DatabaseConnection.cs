@@ -21,11 +21,11 @@ namespace Shts_Dal
 
         public MySqlConnection GetConnection => _connection;
 
-        public void CloseConnection(MySqlConnection connection)
+        public void CloseConnection()
         {
             try
             {
-                connection.Close();
+                _connection.Close();
             }
             catch (MySqlException e)
             {

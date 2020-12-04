@@ -73,8 +73,7 @@ namespace Shts_Dal
 
             using (_connection.OpenConnection())
             {
-                //@TODO: Make sure the user fields in this query are handled somewhere else.
-                string query = "SELECT ticket.ticketID, p2.firstName, p2.lastName, p2.role, p2.email, subject, body, ticket.createdAt, lastEdited, status, priority, p2.personID " +
+                string query = "SELECT ticket.ticketID, subject, body, ticket.createdAt, lastEdited, status, priority, p2.personID " +
                                "FROM ticket INNER JOIN personticket p on ticket.ticketID = p.ticketID INNER JOIN person p2 on p.personID = p2.personID";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, _connection.GetConnection))
@@ -85,18 +84,20 @@ namespace Shts_Dal
                         TicketDto ticket = new TicketDto()
                         {
                             Id = reader.GetInt32(0),
-                            Subject = reader.GetString(5),
-                            Content = reader.GetString(6),
-                            CreatedAt = reader.GetDateTime(7),
-                            LastEdited = reader.GetDateTime(8),
-                            Status = reader.GetString(9),
-                            Priority = reader.GetString(10),
-                            AuthorId = reader.GetInt32(11)
+                            Subject = reader.GetString(1),
+                            Content = reader.GetString(2),
+                            CreatedAt = reader.GetDateTime(3),
+                            LastEdited = reader.GetDateTime(4),
+                            Status = reader.GetString(5),
+                            Priority = reader.GetString(6),
+                            AuthorId = reader.GetInt32(7)
                         };
 
                         allTickets.Add(ticket);
                     }
                 }
+
+                _connection.CloseConnection();
             }
 
             return allTickets;

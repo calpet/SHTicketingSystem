@@ -82,6 +82,7 @@ namespace Shts_Dal
                 using (MySqlCommand cmd = new MySqlCommand(query, _connection.GetConnection))
                 {
                     var reader = cmd.ExecuteReader();
+
                     while (reader.Read())
                     {
                         UserDto user = new UserDto()
