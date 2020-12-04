@@ -46,7 +46,7 @@ namespace SelfHelpTicketingSystem
                 {
                     options.LoginPath = "/Authentication/Login";
                     options.Cookie.Name = "SHTSCookie";
-                    options.LogoutPath = "/Authentication/Logout";
+                    options.LogoutPath = "/Authentication/SignOut";
 
                 }
             );

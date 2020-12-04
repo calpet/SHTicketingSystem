@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
+using Shts.Interfaces;
 
 namespace Shts.Dal
 {

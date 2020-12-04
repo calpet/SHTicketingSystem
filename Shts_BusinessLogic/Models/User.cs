@@ -28,6 +28,11 @@ namespace Shts_BusinessLogic
             DalFactory.UserRepo.Edit(DtoConverter.ConvertToUserDto(user));
         }
 
+        public void AssignAgentToTicket(int agentId, int ticketId)
+        {
+            DalFactory.UserRepo.AssignUserToTicket(agentId, ticketId);
+        }
+
         public void CreateTicket(ITicket ticket)
         {
             var dto = DtoConverter.ConvertToTicketDto(ticket);

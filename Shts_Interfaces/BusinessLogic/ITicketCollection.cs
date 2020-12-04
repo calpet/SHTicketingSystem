@@ -9,6 +9,7 @@ namespace Shts_BusinessLogic.Collection_Interfaces
     {
         List<ITicket> GetAll();
         List<ITicket> GetTicketsByUserId(int id);
+        List<ITicket> GetUnassignedTickets();
         ITicket GetTicketById(int id);
         ITicket GetTicketBySubject(string subject);
     }

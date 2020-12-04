@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Shts.Dal
+namespace Shts.Interfaces
 {
     public interface IDatabaseConnection
     {

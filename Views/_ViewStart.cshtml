@@ -1,17 +1,24 @@
 ﻿@using SelfHelpTicketingSystem.Classes
+@using Shts_Entities.Enums
 
 @{
     Layout = "_Layout";
 }
 
 @{
-    if (CookieManager.IsSignedIn)
+    if (!CookieManager.IsSignedIn)
+    {
+        Layout = "_Layout";
+    }
+
+    else if (CookieManager.IsSignedIn && CookieManager.GetRole() == UserRole.SupportUser)
     {
         Layout = "_UserLayout";
     }
-    else
+
+    else if (CookieManager.IsSignedIn && CookieManager.GetRole() >= UserRole.Agent)
     {
-        Layout = "_Layout";
+        Layout = "_AgentLayout";
     }
 }
 

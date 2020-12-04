@@ -20,7 +20,7 @@ namespace Shts_BusinessLogic.Collections
         {
             List<ITicket> tickets = new List<ITicket>();
             List<TicketDto> dtoList = DalFactory.TicketRepo.GetAll();
-            List<TicketDto> mergedList = TicketMerger.MergeDuplicateTickets(dtoList);
+            List<TicketDto> mergedList = TicketFilter.FilterDuplicateTickets(dtoList);
             foreach (var dto in mergedList)
             {
                 _ticket = DtoConverter.ConvertToTicketObject(dto);
@@ -43,6 +43,13 @@ namespace Shts_BusinessLogic.Collections
             }
 
             return tickets;
+        }
+
+        public List<ITicket> GetUnassignedTickets()
+        {
+            List<ITicket> allTickets = GetAll();
+            return allTickets.Where(ticket => ticket.AgentId == 1 || ticket.AgentId == 0).ToList();
+
         }
 
         public ITicket GetTicketById(int id)
