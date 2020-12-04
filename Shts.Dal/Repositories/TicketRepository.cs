@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Shts.Dal.DTOs;
+using Shts.Interfaces;
 using Shts_Interfaces;
 using Shts_Interfaces.DAL;
 
