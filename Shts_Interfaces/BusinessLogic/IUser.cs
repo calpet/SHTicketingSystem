@@ -17,6 +17,7 @@ namespace Shts_BusinessLogic.Collection_Interfaces
         string Password { get; set; }
         UserRole Role { get; set; }
         void Edit(IUser user);
+        void AssignAgentToTicket(int agentId, int ticketId);
         void CreateTicket(ITicket ticket);
         void Delete(int userId);
     }
