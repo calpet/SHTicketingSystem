@@ -33,12 +33,13 @@ namespace SelfHelpTicketingSystem
             services.AddControllersWithViews();
 
             //Inject dependencies to controllers.
-            services.AddTransient<IAccountManager, AccountManager>();
-            services.AddTransient<IUserCollection, UserCollection>();
-            services.AddTransient<ICredentialsManager, CredentialsManager>();
-            services.AddTransient<ITicketCollection, TicketCollection>();
-            services.AddTransient<IUser, User>();
-            services.AddTransient<ITicket, Ticket>();
+            //AddScoped: Objects are the same within a request, but different across different requests. I picked scoped because I find transient to be overkill.
+            services.AddScoped<IAccountManager, AccountManager>();
+            services.AddScoped<IUserCollection, UserCollection>();
+            services.AddScoped<ICredentialsManager, CredentialsManager>();
+            services.AddScoped<ITicketCollection, TicketCollection>();
+            services.AddScoped<IUser, User>();
+            services.AddScoped<ITicket, Ticket>();
 
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
