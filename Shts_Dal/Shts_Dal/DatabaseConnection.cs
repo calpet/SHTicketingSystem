@@ -10,7 +10,6 @@ namespace Shts_Dal
     {
         private MySqlConnection _connection;
         private const string _connectionString = "Server=127.0.0.1;Database=shts;Username=root;Convert Zero Datetime=True;sslmode=none";
-        private MySqlCommand _command;
 
         public MySqlConnection OpenConnection()
         {

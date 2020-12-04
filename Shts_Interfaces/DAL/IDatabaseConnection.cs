@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using MySql.Data.MySqlClient;
 
-namespace Shts.Interfaces
+namespace Shts_Dal
 {
     public interface IDatabaseConnection
     {
-        List<string> GetStringQuery(string query, params object[] parameters);
-        void ExecuteNonSearchQuery(string query, params object[] parameters);
-        
+        MySqlConnection OpenConnection();
+        MySqlConnection GetConnection { get; }
+        void CloseConnection(MySqlConnection connection);
     }
 }

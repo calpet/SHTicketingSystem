@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shts.Dal\Shts.Dal.csproj" />
     <ProjectReference Include="..\Shts_Dal\Shts_Dal\Shts_Dal.csproj" />
     <ProjectReference Include="..\Shts_Entities\Shts_Entities.csproj" />
     <ProjectReference Include="..\Shts_Interfaces\Shts_Interfaces.csproj" />

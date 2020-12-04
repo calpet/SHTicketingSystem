@@ -8,7 +8,7 @@ using Shts_Interfaces.DAL;
 
 namespace Shts.Dal.Repositories
 {
-    public class TicketRepository : ITicketRepository
+    public class TticketRepository
     {
         private object[] _params;
         private IDatabaseConnection _dbCon;
@@ -17,7 +17,7 @@ namespace Shts.Dal.Repositories
         private List<string> _result;
         private List<TicketDto> _tickets;
 
-        public TicketRepository(IDatabaseConnection dbCon)
+        public TticketRepository(IDatabaseConnection dbCon)
         {
             _dbCon = dbCon;
         }
