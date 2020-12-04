@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Shts.Dal.DTOs;
+using Shts.Interfaces;
 using Shts_Interfaces;
 using Shts_Interfaces.DAL;
 

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Org.BouncyCastle.Bcpg;
 using Shts.Dal;
 using Shts.Dal.DTOs;
 using Shts_BusinessLogic.BusinessLogic_Interfaces;
@@ -10,7 +12,7 @@ namespace Shts_BusinessLogic.Utilities
 {
     public class TicketFilter
     {
-        private static IUserCollection _userColl;
+        private static IUserCollection _userColl = new UserCollection(new AccountManager());
         private static List<TicketDto> _ticketList;
 
         public static List<TicketDto> FilterDuplicateTickets(List<TicketDto> tickets)
@@ -36,20 +38,18 @@ namespace Shts_BusinessLogic.Utilities
             return _ticketList;
         }
 
-        private static void SetTicketAgent(TicketDto actualTicket, TicketDto agentTicket)
+        private static void SetTicketAgent(TicketDto actualTicket, TicketDto duplicateTicket)
         {
-            _userColl = new UserCollection(new AccountManager());
-            if (agentTicket.AgentId != 1)
+            var duplicateUser = _userColl.GetUserById(duplicateTicket.AuthorId);
+            if (duplicateUser.Role != UserRole.SupportUser && duplicateTicket.AuthorId == 0 || duplicateUser.Role != UserRole.SupportUser && duplicateTicket.AuthorId == 1)
             {
-                IUser user = _userColl.GetUserById(agentTicket.AuthorId);
-                if (user.Role != UserRole.SupportUser)
-                {
-                    actualTicket.AgentId = user.Id;
-                }
-            }
-            else
+                actualTicket.AgentId = 1; //Set Agent of actualTicket as unassigned.
+            } 
+            
+            else if (duplicateUser.Role != UserRole.SupportUser)
             {
-                actualTicket.AgentId = 1;
+                actualTicket.AgentId = duplicateTicket.AuthorId;
+                
             }
         }
     }
