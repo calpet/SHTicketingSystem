@@ -84,7 +84,9 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult Delete(int id)
         {
-            return View();
+            _ticket.Delete(id);
+            var routeValues = RedirectHelper.AssignCorrectUserRedirect(CookieManager.GetRole());
+            return RedirectToAction(routeValues[0], routeValues[1]);
         }
 
         public IActionResult Preview(int id)

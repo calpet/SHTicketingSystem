@@ -33,12 +33,9 @@ namespace Shts_BusinessLogic.Models
             }
         }
 
-        public void Delete(ITicket ticket)
+        public void Delete(int ticketId)
         {
-            if (ticket != null)
-            {
-                DalFactory.TicketRepo.Delete(ticket.Id);
-            } 
+            DalFactory.TicketRepo.Delete(ticketId);
         }
 
     }
