@@ -33,12 +33,13 @@ namespace SelfHelpTicketingSystem.Controllers
             return View();
         }
 
-        public IActionResult CreateTicket(TicketViewModel ticket)
+        public IActionResult CreateTicket(TicketViewModel ticketViewModel)
         {
             if (ModelState.IsValid)
             {
-                ITicket model = ViewModelConverter.ConvertViewModelToTicket(ticket);
-                _user.CreateTicket(model);
+                ticketViewModel.Content = HtmlMarkupManager.EncodeHtml(ticketViewModel.Content);
+                ITicket ticket = ViewModelConverter.ConvertViewModelToTicket(ticketViewModel);
+                _user.CreateTicket(ticket);
             }
             else
             {
@@ -51,8 +52,10 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult Details(int id)
         {
-            TicketViewModel ticket = ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id));
-            return View(ticket);
+            var ticket = _ticketColl.GetTicketById(id);
+            ticket.Content = HtmlMarkupManager.DecodeHtml(ticket.Content);
+            TicketViewModel ticketViewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+            return View(ticketViewModel);
         }
 
         public IActionResult Edit(int id)
