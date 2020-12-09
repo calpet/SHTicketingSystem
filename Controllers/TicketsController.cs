@@ -33,12 +33,18 @@ namespace SelfHelpTicketingSystem.Controllers
             return View();
         }
 
-        public IActionResult CreateTicket(TicketViewModel ticket)
+        public IActionResult CreateTicket(TicketViewModel ticketViewModel)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && ticketViewModel.StrippedContent.Length < 5000)
             {
-                ITicket model = ViewModelConverter.ConvertViewModelToTicket(ticket);
-                _user.CreateTicket(model);
+                ticketViewModel.Content = HtmlMarkupManager.EncodeHtml(ticketViewModel.Content);
+                ITicket ticket = ViewModelConverter.ConvertViewModelToTicket(ticketViewModel);
+                _user.CreateTicket(ticket);
+            }
+            else if (!ModelState.IsValid && ticketViewModel.StrippedContent.Length > 5000)
+            {
+                TempData["CreateTicketFailed"] = "The content of your ticket has more than 5000 characters, please shorten the text.";
+                return RedirectToAction("Create");
             }
             else
             {
@@ -51,8 +57,10 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult Details(int id)
         {
-            TicketViewModel ticket = ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id));
-            return View(ticket);
+            var ticket = _ticketColl.GetTicketById(id);
+            ticket.Content = HtmlMarkupManager.DecodeHtml(ticket.Content);
+            TicketViewModel ticketViewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+            return View(ticketViewModel);
         }
 
         public IActionResult Edit(int id)
@@ -76,7 +84,9 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult Delete(int id)
         {
-            return View();
+            _ticket.Delete(id);
+            var routeValues = RedirectHelper.AssignCorrectUserRedirect(CookieManager.GetRole());
+            return RedirectToAction(routeValues[0], routeValues[1]);
         }
 
         public IActionResult Preview(int id)

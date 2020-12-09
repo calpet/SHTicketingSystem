@@ -56,10 +56,14 @@ namespace Shts_Dal
         {
             using (_connection.OpenConnection())
             {
-                string query = $"DELETE FROM `ticket` WHERE `ticket`.`ticketID` = @id";
+                string query = @"START TRANSACTION; 
+                                  DELETE FROM `personTicket` WHERE `personTicket`.`ticketID` = @tid; 
+                                  DELETE FROM `ticket` WHERE `ticket`.`ticketID` = @id; 
+                                  COMMIT;";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, _connection.GetConnection))
                 {
+                    cmd.Parameters.AddWithValue("tid", id);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();

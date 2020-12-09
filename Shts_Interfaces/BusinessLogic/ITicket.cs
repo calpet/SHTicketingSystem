@@ -19,6 +19,6 @@ namespace Shts_BusinessLogic.BusinessLogic_Interfaces
         DateTime CreatedAt { get; set; }
         DateTime LastEdited { get; set; }
         void Edit(ITicket ticket);
-        void Delete(ITicket ticket);
+        void Delete(int ticketId);
     }
 }
