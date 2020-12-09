@@ -35,15 +35,15 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult CreateTicket(TicketViewModel ticketViewModel)
         {
-            if (ModelState.IsValid && ticketViewModel.StrippedContent.Length < 500)
+            if (ModelState.IsValid && ticketViewModel.StrippedContent.Length < 5000)
             {
                 ticketViewModel.Content = HtmlMarkupManager.EncodeHtml(ticketViewModel.Content);
                 ITicket ticket = ViewModelConverter.ConvertViewModelToTicket(ticketViewModel);
                 _user.CreateTicket(ticket);
             }
-            else if (!ModelState.IsValid && ticketViewModel.StrippedContent.Length > 500)
+            else if (!ModelState.IsValid && ticketViewModel.StrippedContent.Length > 5000)
             {
-                TempData["CreateTicketFailed"] = "The content of your ticket has more than 500 characters, please shorten the text.";
+                TempData["CreateTicketFailed"] = "The content of your ticket has more than 5000 characters, please shorten the text.";
                 return RedirectToAction("Create");
             }
             else
