@@ -13,12 +13,12 @@
 </head>
 
 <h1>Create</h1>
+
 @if (TempData["CreateTicketFailed"] != null)
 {
     <p class="alert alert-danger">@TempData["CreateTicketFailed"]</p>
 }
 
-<h4>TicketViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -31,10 +31,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Content" class="control-label"></label>
-                <input hidden asp-for="Content" class="form-control" name="content" rows="6" />
+                <input hidden asp-for="Content" class="form-control" name="content" rows="12" />
                 <div id="editor" name="editor">
-                    @(new HtmlString(""))
                 </div>
+                <br />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <!--Change attachment field to upload files in a later sprint pls :)-->

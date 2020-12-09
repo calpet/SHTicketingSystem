@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using SelfHelpTicketingSystem.Classes;
 using Shts_Entities.Enums;
 
 namespace SelfHelpTicketingSystem.Models
@@ -14,9 +15,13 @@ namespace SelfHelpTicketingSystem.Models
         public int AuthorId { get; set; }
         public int AgentId { get; set; }
         [Required]
+        [MaxLength(50, ErrorMessage = "Your ticket subject has more than 50 characters.")]
         public string Subject { get; set; }
+
         [Required]
+        [MaxLength(500, ErrorMessage = "Your ticket body has more than 500 characters.")]
         public string Content { get; set; }
+        public string StrippedContent => HtmlMarkupManager.StripHtmlTags(Content);
         [Required]
         public string Attachment { get; set; }
         [Required]
