@@ -28,7 +28,7 @@ namespace Shts_Dal
         private string GetConnectionString()
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional:true, reloadOnChange:true);
-            return builder.Build().GetSection("ConnectionStrings").GetSection("Default").Value;
+            return builder.Build().GetSection("ConnectionStrings").GetSection("LocalConnection").Value;
         }
 
         public void CloseConnection(MySqlConnection connection)
