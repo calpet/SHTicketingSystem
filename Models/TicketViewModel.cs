@@ -21,7 +21,6 @@ namespace SelfHelpTicketingSystem.Models
         [Required]
         [MaxLength(5000, ErrorMessage = "Your ticket body has more than 5000 characters.")]
         public string Content { get; set; }
-        [Required]
         public string Attachment { get; set; }
         [Required]
         public Priority Priority { get; set; }

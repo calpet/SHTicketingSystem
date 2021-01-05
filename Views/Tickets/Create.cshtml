@@ -1,5 +1,6 @@
 ﻿@using SelfHelpTicketingSystem.Classes
 @using Microsoft.AspNetCore.Html
+@using Shts_Entities.Enums
 
 @model SelfHelpTicketingSystem.Models.TicketViewModel
 
@@ -37,15 +38,12 @@
                 <br />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <!--Change attachment field to upload files in a later sprint pls :)-->
-            <div class="form-group">
-                <label asp-for="Attachment" class="control-label"></label>
-                <input asp-for="Attachment" class="form-control" />
-                <span asp-validation-for="Attachment" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Priority" class="control-label"></label>
-                <input asp-for="Priority" class="form-control" />
+                <br />
+                <select asp-for="Priority" asp-items="Html.GetEnumSelectList<Priority>()">
+                    <option selected="selected">Please select the impact of your problem:</option>
+                </select>
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">
