@@ -39,12 +39,14 @@ namespace Shts_Dal
         {
             using (_connection.OpenConnection())
             {
-                string query = $"UPDATE `ticket` SET `subject` = @subject, `body` = @content, `lastEdited` = current_timestamp() WHERE `ticket`.`ticketID` = @id";
+                string query = $"UPDATE `ticket` SET `subject` = @subject, `body` = @content, `status` = @status, `priority` = @priority, `lastEdited` = current_timestamp() WHERE `ticket`.`ticketID` = @id";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, _connection.GetConnection))
                 {
                     cmd.Parameters.AddWithValue("@subject", entity.Subject);
-                    cmd.Parameters.AddWithValue("@body", entity.Content);
+                    cmd.Parameters.AddWithValue("@content", entity.Content);
+                    cmd.Parameters.AddWithValue("@status", entity.Status);
+                    cmd.Parameters.AddWithValue("@priority", entity.Priority);
                     cmd.Parameters.AddWithValue("@id", entity.Id);
 
                     cmd.ExecuteNonQuery();

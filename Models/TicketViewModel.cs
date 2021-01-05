@@ -21,7 +21,6 @@ namespace SelfHelpTicketingSystem.Models
         [Required]
         [MaxLength(5000, ErrorMessage = "Your ticket body has more than 5000 characters.")]
         public string Content { get; set; }
-        public string StrippedContent => HtmlMarkupManager.StripHtmlTags(Content);
         [Required]
         public string Attachment { get; set; }
         [Required]
@@ -29,5 +28,7 @@ namespace SelfHelpTicketingSystem.Models
         public Status Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastEdited { get; set; }
+
+        public string StrippedContent { get; set; }
     }
 }

@@ -35,13 +35,14 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult CreateTicket(TicketViewModel ticketViewModel)
         {
-            if (ModelState.IsValid && ticketViewModel.StrippedContent.Length < 5000)
+            string strippedContent = HtmlMarkupManager.StripHtmlTags(ticketViewModel.Content);
+            if (ModelState.IsValid && strippedContent.Length < 5000)
             {
                 ticketViewModel.Content = HtmlMarkupManager.EncodeHtml(ticketViewModel.Content);
                 ITicket ticket = ViewModelConverter.ConvertViewModelToTicket(ticketViewModel);
                 _user.CreateTicket(ticket);
             }
-            else if (!ModelState.IsValid && ticketViewModel.StrippedContent.Length > 5000)
+            else if (!ModelState.IsValid && strippedContent.Length > 5000)
             {
                 TempData["CreateTicketFailed"] = "The content of your ticket has more than 5000 characters, please shorten the text.";
                 return RedirectToAction("Create");
@@ -71,7 +72,7 @@ namespace SelfHelpTicketingSystem.Controllers
         public IActionResult EditTicket(TicketViewModel ticket)
         {
             _ticket.Edit(ViewModelConverter.ConvertViewModelToTicket(ticket));
-            return RedirectToAction("Details", "Tickets", new {id = ticket.Id});
+            return RedirectToAction("Details", new { id = ticket.Id });
         }
 
         [Authorize(Roles = "Agent, Admin")]
