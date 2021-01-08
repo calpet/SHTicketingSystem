@@ -8,7 +8,7 @@ namespace Shts_Interfaces.BusinessLogic
     {
         void Add(IComment comment);
         List<IComment> GetAll();
-        List<IComment> GetCommentsByUserId(int id);
+        List<IComment> GetCommentsByTicketId(int id);
         IComment GetCommentById(int id);
 
     }
