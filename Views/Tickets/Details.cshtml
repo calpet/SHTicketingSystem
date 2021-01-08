@@ -93,10 +93,7 @@ else
         <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <script>
-                    var url = @Url.Action("Comment", controller: "Comments", values: comment);
-                    window.location = url;
-                </script>
+                @{Html.RenderPartial("_Comment", comment);}
             </div>
         </div>
     </div>

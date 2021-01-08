@@ -95,6 +95,11 @@ namespace SelfHelpTicketingSystem.Controllers
             return View(ticketViewModel);
         }
 
+        public IActionResult Comment(CommentViewModel comment)
+        {
+            return View("_Comment", comment);
+        }
+
         public IActionResult Edit(int id)
         {
             return View(ViewModelConverter.ConvertTicketToViewModel(_ticketColl.GetTicketById(id)));

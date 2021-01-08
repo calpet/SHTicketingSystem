@@ -11,9 +11,6 @@ namespace SelfHelpTicketingSystem.Controllers
     [Authorize]
     public class CommentsController : Controller
     {
-        public IActionResult Comment(CommentViewModel comment)
-        {
-            return View("_Comment", comment);
-        }
+        
     }
 }
