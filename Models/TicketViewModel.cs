@@ -27,7 +27,7 @@ namespace SelfHelpTicketingSystem.Models
         public Status Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastEdited { get; set; }
-
+        public List<CommentViewModel> Comments { get; set; }
         public string StrippedContent { get; set; }
     }
 }

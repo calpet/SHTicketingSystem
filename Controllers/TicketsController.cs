@@ -10,6 +10,7 @@ using SelfHelpTicketingSystem.Models;
 using Shts_BusinessLogic;
 using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_BusinessLogic.Collection_Interfaces;
+using Shts_Interfaces.BusinessLogic;
 
 namespace SelfHelpTicketingSystem.Controllers
 {
@@ -18,14 +19,20 @@ namespace SelfHelpTicketingSystem.Controllers
     public class TicketsController : Controller
     {
         private ITicketCollection _ticketColl;
+        private ICommentCollection _commentColl;
+        private IUserCollection _userColl;
         private IUser _user;
         private ITicket _ticket;
+        private IComment _comment;
 
-        public TicketsController(ITicketCollection ticketColl, IUser user, ITicket ticket)
+        public TicketsController(ITicketCollection ticketColl, ICommentCollection commentColl, IUserCollection userColl, IUser user, ITicket ticket, IComment comment)
         {
             _ticketColl = ticketColl;
+            _commentColl = commentColl;
+            _userColl = userColl;
             _user = user;
             _ticket = ticket;
+            _comment = comment;
         }
 
         public IActionResult Create()
@@ -61,6 +68,30 @@ namespace SelfHelpTicketingSystem.Controllers
             var ticket = _ticketColl.GetTicketById(id);
             ticket.Content = HtmlMarkupManager.DecodeHtml(ticket.Content);
             TicketViewModel ticketViewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+            var comments = _commentColl.GetCommentsByTicketId(ticketViewModel.Id);
+            ticketViewModel.Comments = new List<CommentViewModel>();
+            if (ticketViewModel.Comments.Count == 0)
+            {
+                foreach (var comment in comments)
+                {
+                    CommentViewModel cvm = new CommentViewModel()
+                    {
+                        Id = comment.Id,
+                        TicketId = comment.TicketId,
+                        Author = _userColl.GetUserById(comment.CreatorId).FullName,
+                        Text = comment.Text,
+                        CreatedAt = comment.CreatedAt,
+                        LastEdited = comment.LastEdited
+                    };
+
+                    ticketViewModel.Comments.Add(cvm);
+                }
+            }
+            else
+            {
+                TempData["NoComments"] = "No comments have been found for this ticket!";
+            }
+            
             return View(ticketViewModel);
         }
 

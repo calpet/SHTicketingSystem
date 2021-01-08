@@ -15,6 +15,7 @@ using Shts_BusinessLogic.Collection_Interfaces;
 using Shts_BusinessLogic.Collections;
 using Shts_BusinessLogic.Managers;
 using Shts_BusinessLogic.Models;
+using Shts_Interfaces.BusinessLogic;
 
 namespace SelfHelpTicketingSystem
 {
@@ -38,8 +39,12 @@ namespace SelfHelpTicketingSystem
             services.AddScoped<IUserCollection, UserCollection>();
             services.AddScoped<ICredentialsManager, CredentialsManager>();
             services.AddScoped<ITicketCollection, TicketCollection>();
+            services.AddScoped<ICommentCollection, CommentCollection>();
             services.AddScoped<IUser, User>();
             services.AddScoped<ITicket, Ticket>();
+            services.AddScoped<IComment, Comment>();
+            
+
 
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(

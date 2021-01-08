@@ -78,6 +78,30 @@
         </dd>
     </dl>
 </div>
+<div class="page-header">
+    <h1> Comments </h1>
+    <hr />
+</div>
+@if (Model.Comments.Count == 0)
+{
+    <p class="alert alert-danger align-content-center">@TempData["NoComments"]</p>
+}
+else
+{
+    foreach (var comment in Model.Comments)
+    {
+        <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <script>
+                    var url = @Url.Action("Comment", controller: "Comments", values: comment);
+                    window.location = url;
+                </script>
+            </div>
+        </div>
+    </div>
+}
+}
 <br />
 <div>
     @Html.ActionLink("Back to list", "Preview", new { id = uid })
