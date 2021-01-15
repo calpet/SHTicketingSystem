@@ -28,6 +28,7 @@ namespace SelfHelpTicketingSystem.Models
         public DateTime CreatedAt { get; set; }
         public DateTime LastEdited { get; set; }
         public List<CommentViewModel> Comments { get; set; }
+        public CommentViewModel Comment { get; set; }
         public string StrippedContent { get; set; }
     }
 }

@@ -5,25 +5,17 @@
 
 <head>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="css/comment.css" rel="stylesheet"/>
+    <link href="~/css/comment.css" rel="stylesheet"/>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="~/js/comment.js"></script>
 </head>
 
-<div class="comments-list">
-                <div class="media">
-                    <p class="pull-right"><small>@Model.CreatedAt</small></p>
-                    <a class="media-left" href="#">
-                        <!--For profile pics if you still have time to add them -->
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading user_name">@Model.Author</h4>
-                        @Model.Text
-                        
-                        @if (CookieManager.GetUserId() == Model.AuthorId)
-                        {
-                            <p><small><a href="">Edit</a> - <a href="">Delete</a></small></p>
-                        }
-                    </div>
-                </div>
-            </div>
+<div class="container">
+    <div class="row comment mb-0 float-left">
+        <div class="head">
+            <br /><small><strong class="user">@Model.Author</strong> @Model.CreatedAt</small><p>@Html.Raw(Model.Text) </p>
+        </div>
+    </div>
+    <div class="mt-0"></div>
+</div>

@@ -1,8 +1,45 @@
-﻿.user_name {
-    font-size: 14px;
-    font-weight: bold;
+﻿hr {
+    border-top: 1px solid #000 !important;
 }
 
-.comments-list .media {
-    border-bottom: 1px dotted #ccc;
+html, body {
+    height: 100%;
+}
+
+.page-wrap {
+    min-height: 100%;
+    /* equal to footer height */
+    margin-bottom: -142px;
+}
+
+.page-wrap:after {
+    content: "";
+    display: block;
+}
+
+.site-footer, .page-wrap:after {
+    height: 142px;
+}
+
+#addcomment {
+    z-index: 1;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.comment {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.head {
+    margin-bottom: 10px;
+}
+
+.user {
+    margin-right: 10px;
 }

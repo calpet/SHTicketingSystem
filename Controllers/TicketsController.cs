@@ -66,6 +66,7 @@ namespace SelfHelpTicketingSystem.Controllers
         public IActionResult Details(int id)
         {
             var ticket = _ticketColl.GetTicketById(id);
+            ViewData["TicketID"] = id;
             ticket.Content = HtmlMarkupManager.DecodeHtml(ticket.Content);
             TicketViewModel ticketViewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
             var comments = _commentColl.GetCommentsByTicketId(ticketViewModel.Id);
@@ -79,7 +80,7 @@ namespace SelfHelpTicketingSystem.Controllers
                         Id = comment.Id,
                         TicketId = comment.TicketId,
                         Author = _userColl.GetUserById(comment.CreatorId).FullName,
-                        Text = comment.Text,
+                        Text = HtmlMarkupManager.DecodeHtml(comment.Text),
                         CreatedAt = comment.CreatedAt,
                         LastEdited = comment.LastEdited
                     };
