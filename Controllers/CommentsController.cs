@@ -36,7 +36,37 @@ namespace SelfHelpTicketingSystem.Controllers
 
             TempData["CommentPostFailed"] = "Please write your comment before posting.";
             return RedirectToAction("Details", "Tickets", new { id = Convert.ToInt32(commentViewModel.TicketId) });
+        }
 
+        public IActionResult Delete(int id)
+        {
+            _comment.Delete(id);
+            var routeValues = RedirectHelper.AssignCorrectUserRedirect(CookieManager.GetRole());
+            return RedirectToAction(routeValues[0], routeValues[1]);
+        }
+
+        public IActionResult Edit(CommentViewModel commentViewModel)
+        {
+            return View(commentViewModel);
+        }
+
+
+        /*Due to unknown reasons, this Action does not work & due to lack of time I've given up on fixing it.*/
+        public IActionResult UpdateComment(CommentViewModel commentViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _comment.Text = HtmlMarkupManager.EncodeHtml(commentViewModel.Text);
+                _comment.CreatorId = commentViewModel.AuthorId;
+                _comment.TicketId = commentViewModel.TicketId;
+                _comment.CreatedAt = commentViewModel.CreatedAt;
+                _comment.LastEdited = commentViewModel.LastEdited;
+                _comment.Edit(_comment);
+                return RedirectToAction("Details", "Tickets", new { id = Convert.ToInt32(commentViewModel.TicketId) });
+            }
+
+            TempData["CommentEditFailed"] = "Please write your comment before posting.";
+            return RedirectToAction("Details", "Tickets", new { id = Convert.ToInt32(commentViewModel.TicketId) });
         }
     }
 }

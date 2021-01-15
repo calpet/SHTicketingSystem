@@ -1,0 +1,36 @@
+﻿@model SelfHelpTicketingSystem.Models.CommentViewModel
+
+@using SelfHelpTicketingSystem.Classes
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>CommentViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden asp-for="Id" value="@Model.Id"/>
+            <input hidden asp-for="TicketId" value="@Model.TicketId"/>
+            <input hidden asp-for="CreatedAt" value="@Model.CreatedAt"/>
+            <input hidden asp-for="AuthorId" value="@Convert.ToInt32(CookieManager.GetUserId())"/>
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>  
+                @Html.TextAreaFor(m => m.Text)
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" asp-action="UpdateComment" asp-controller="Comments" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

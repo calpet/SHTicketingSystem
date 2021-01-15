@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Shts_Entities.DTOs;
+using Shts_Factories;
 using Shts_Interfaces.BusinessLogic;
 
 namespace Shts_BusinessLogic.Models
@@ -15,12 +17,25 @@ namespace Shts_BusinessLogic.Models
         public DateTime LastEdited { get; set; }
         public void Edit(IComment comment)
         {
-            throw new NotImplementedException();
+            if (comment != null)
+            {
+                CommentDto dto = new CommentDto()
+                {
+                    Id = comment.Id,
+                    CreatedAt = comment.CreatedAt,
+                    CreatorId = comment.CreatorId,
+                    LastEdited = comment.LastEdited,
+                    Text = comment.Text,
+                    TicketId = comment.TicketId
+                };
+
+                DalFactory.CommentRepo.Edit(dto);
+            }
         }
 
-        public void Delete(IComment comment)
+        public void Delete(int commentId)
         {
-            throw new NotImplementedException();
+            DalFactory.CommentRepo.Delete(commentId);
         }
     }
 }

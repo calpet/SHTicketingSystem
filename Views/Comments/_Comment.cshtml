@@ -9,12 +9,13 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="~/js/comment.js"></script>
+    <script src="~/js/deleteComment.js"></script>
 </head>
 
 <div class="container">
     <div class="row comment mb-0 float-left">
         <div class="head">
-            <br /><small><strong class="user">@Model.Author</strong> @Model.CreatedAt</small><p>@Html.Raw(Model.Text) </p>
+            <br /><small><strong class="user">@Model.Author</strong> @Model.CreatedAt</small><p class="text-right"><a id="edit-btn" href="@Url.ActionLink(action: "Edit", "Comments", new {commentViewModel = Model})">Edit</a><a id="delete-btn" href="@Url.ActionLink("Delete", "Comments", new {id = Model.Id})">&nbsp; Delete</a></p><p id="comment-content">@Html.Raw(Model.Text)</p>
         </div>
     </div>
     <div class="mt-0"></div>

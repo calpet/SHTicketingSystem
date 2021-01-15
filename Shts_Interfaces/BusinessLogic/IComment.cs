@@ -15,6 +15,6 @@ namespace Shts_Interfaces.BusinessLogic
 
         void Edit(IComment comment);
 
-        void Delete(IComment comment);
+        void Delete(int commentId);
     }
 }

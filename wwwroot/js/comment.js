@@ -1,4 +1,5 @@
-﻿//Configure the visible toolbar options for the text-editor:
+﻿
+//Configure the visible toolbar options for the text-editor:
 var toolbarOptions = [
     ['bold', 'italic', 'underline'],                    //text markup like bold, italic.
     ['blockquote', 'code-block'],                       //markup for codesnippets or quotes.
@@ -23,17 +24,19 @@ var options = {
 
 var quill = new Quill('#editor', options);       //instantiate the text editor within the specified div container (#editor) and the options as defined in the above variable.
 
-var form = document.getElementById('commentform');      //get form from View.
-var editForm = document.querySelector('#editForm');
+var form = document.getElementById('comment-form');      //get form from View.
+var editComment = document.querySelector("#edit-comment-form");
 
-window.onload = function () {
-    if ($("#commentContent").length) {
 
-        let commentContent = document.getElementById("commentContent").value;
-        quill.root.innerHTML = commentContent;
-    }
 
-};
+//This function gets the content from an input field with the name content from the View, and then calls getQuillText in order to set the value for the hidden input field in the View.
+
+
+$('#comment-form').on("submit", function() {
+    var content = document.querySelector('input[id=content]');
+    content.setAttribute("value", getCommentText());
+    console.log("Submitted: " + content.value);
+});
 
 quill.on('text-change',
     function (delta, oldDelta, source) {
@@ -41,23 +44,9 @@ quill.on('text-change',
         content.setAttribute("value", quill.root.innerHTML);
     });
 
-//This function gets the content from an input field with the name content from the View, and then calls getQuillText in order to set the value for the hidden input field in the View.
-/*form.onsubmit = function () {
-    var content = document.querySelector('input[name=content]').value;
-    content = getQuillText();//content.setAttribute("value", getQuillText());
-    console.log("Submitted: " + content);
-}*/
-
-$('#commentform').on("submit", function() {
+editComment.onsubmit = function() {
     var content = document.querySelector('input[id=content]');
-    content.setAttribute("value", getCommentText());
-    console.log("Submitted: " + content.value);
-});
-
-editForm.onsubmit = function () {
-
-    var content = document.querySelector('input[name=content]');
-    content.setAttribute("value", getQuillText());
+    content.setAttribute("value", getCommentText);
 }
 
 
