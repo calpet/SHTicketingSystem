@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Shts_Entities.Enums;
+using Shts_Interfaces.BusinessLogic;
 
 namespace Shts_BusinessLogic.BusinessLogic_Interfaces
 {
@@ -18,6 +19,7 @@ namespace Shts_BusinessLogic.BusinessLogic_Interfaces
         Status Status { get; set; }
         DateTime CreatedAt { get; set; }
         DateTime LastEdited { get; set; }
+        List<IComment> Comments { get; set; }
         void Edit(ITicket ticket);
         void Delete(int ticketId);
     }

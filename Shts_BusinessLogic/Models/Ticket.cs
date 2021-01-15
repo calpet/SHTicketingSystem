@@ -4,6 +4,7 @@ using System.Text;
 using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_Entities.Enums;
 using Shts_Factories;
+using Shts_Interfaces.BusinessLogic;
 
 namespace Shts_BusinessLogic.Models
 {
@@ -20,6 +21,7 @@ namespace Shts_BusinessLogic.Models
         public Status Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastEdited { get; set; }
+        public List<IComment> Comments { get; set; }
 
         public void Edit(ITicket ticket)
         {

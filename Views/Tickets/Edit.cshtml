@@ -23,7 +23,8 @@
             </div>
             <div class="form-group">
                 <input name="ticketContent" id="ticketContent" hidden asp-for="Content" value="@Model.Content" />
-                <label asp-for="Content" class="control-label" name="content"></label>
+                <label asp-for="Content" class="control-label"></label>
+                <input hidden name="content" id="content" asp-for="Content" />
                 <div id="editor" name="editor">
                 </div>
                 <br />

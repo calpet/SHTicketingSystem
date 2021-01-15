@@ -7,6 +7,7 @@ namespace Shts_Factories
     {
         private static IUserRepository _userRepo;
         private static ITicketRepository _ticketRepo;
+        private static ICommentRepository _commentRepo;
 
         public static IUserRepository UserRepo
         {
@@ -31,6 +32,19 @@ namespace Shts_Factories
                 }
 
                 return _ticketRepo;
+            }
+        }
+
+        public static ICommentRepository CommentRepo
+        {
+            get
+            {
+                if (_commentRepo == null)
+                {
+                    _commentRepo = new CommentRepository(new DatabaseConnection());
+                }
+
+                return _commentRepo;
             }
         }
     }
