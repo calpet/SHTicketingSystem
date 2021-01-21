@@ -14,10 +14,10 @@ namespace SelfHelpTicketingSystem.Models
         public string Author { get; set; }
         public int AuthorId { get; set; }
         public int AgentId { get; set; }
+        public string Agent { get; set; }
         [Required]
         [MaxLength(50, ErrorMessage = "Your ticket subject has more than 50 characters.")]
         public string Subject { get; set; }
-
         [Required]
         [MaxLength(5000, ErrorMessage = "Your ticket body has more than 5000 characters.")]
         public string Content { get; set; }

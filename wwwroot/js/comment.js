@@ -32,11 +32,11 @@ var editComment = document.querySelector("#edit-comment-form");
 //This function gets the content from an input field with the name content from the View, and then calls getQuillText in order to set the value for the hidden input field in the View.
 
 
-$('#comment-form').on("submit", function() {
+form.onsubmit = function() {
     var content = document.querySelector('input[id=content]');
     content.setAttribute("value", getCommentText());
     console.log("Submitted: " + content.value);
-});
+};
 
 quill.on('text-change',
     function (delta, oldDelta, source) {

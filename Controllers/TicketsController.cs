@@ -69,9 +69,11 @@ namespace SelfHelpTicketingSystem.Controllers
             ViewData["TicketID"] = id;
             ticket.Content = HtmlMarkupManager.DecodeHtml(ticket.Content);
             TicketViewModel ticketViewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+            ticketViewModel.Author = _userColl.GetUserById(ticketViewModel.AuthorId).FullName;
+            ticketViewModel.Agent = _userColl.GetUserById(ticketViewModel.AgentId).FullName;
             var comments = _commentColl.GetCommentsByTicketId(ticketViewModel.Id);
             ticketViewModel.Comments = new List<CommentViewModel>();
-            if (ticketViewModel.Comments.Count == 0)
+            if (comments.Count != 0)
             {
                 foreach (var comment in comments)
                 {
@@ -103,6 +105,7 @@ namespace SelfHelpTicketingSystem.Controllers
 
         public IActionResult EditTicket(TicketViewModel ticket)
         {
+            _ticket.Content = HtmlMarkupManager.EncodeHtml(ticket.Content);
             _ticket.Edit(ViewModelConverter.ConvertViewModelToTicket(ticket));
             return RedirectToAction("Details", new { id = ticket.Id });
         }
