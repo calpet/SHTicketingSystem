@@ -68,7 +68,8 @@ namespace Shts_BusinessLogic
             {
                 _users = GetAll();
                 _user = _users.Find(x => x.Email == email);
-                _user.FullName = _user.FirstName + " " + _user.LastName;
+                if (_user != null) 
+                    _user.FullName = _user.FirstName + " " + _user.LastName;
             }
 
             return _user;

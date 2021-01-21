@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SelfHelpTicketingSystem.Classes;
 using SelfHelpTicketingSystem.Models;
+using Shts_BusinessLogic;
 using Shts_BusinessLogic.BusinessLogic_Interfaces;
 using Shts_BusinessLogic.Collection_Interfaces;
 
@@ -19,11 +20,13 @@ namespace SelfHelpTicketingSystem.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private ITicketCollection _ticketCollection;
+        private IUserCollection _userCollection;
 
-        public HomeController(ILogger<HomeController> logger, ITicketCollection ticketCollection)
+        public HomeController(ILogger<HomeController> logger, ITicketCollection ticketCollection, IUserCollection userCollection)
         {
             _logger = logger;
             _ticketCollection = ticketCollection;
+            _userCollection = userCollection;
         }
 
 
@@ -47,6 +50,7 @@ namespace SelfHelpTicketingSystem.Controllers
                 foreach (var ticket in unassignedTickets)
                 {
                     var viewModel = ViewModelConverter.ConvertTicketToViewModel(ticket);
+                    viewModel.Author = _userCollection.GetUserById(viewModel.AuthorId).FullName;
                     viewModels.Add(viewModel);
                 }
             }
